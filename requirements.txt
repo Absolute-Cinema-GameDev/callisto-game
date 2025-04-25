@@ -1,0 +1,2 @@
+gdtoolkit==4.3.*
+pre-commit==4.2.0
