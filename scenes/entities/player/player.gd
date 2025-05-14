@@ -1,0 +1,247 @@
+class_name Player
+
+extends CharacterBody2D
+
+signal movement_type_changed
+signal health_changed
+signal is_invincibile_changed
+signal main_oxygen_changed
+signal reserve_oxygen_changed
+signal is_in_airpocket_changed
+
+enum MovementType { WALK, SWIM }
+enum HealthStatus { HEALTHY, CRITICAL, DEAD }
+
+const WALK_ACCELERATION: float = 60.0
+const WALK_DECELERATION: float = 60.0
+const SWIM_ACCELERATION: float = 5.0
+const SWIM_DECELERATION: float = 3.0
+const GRAVITY: float = 1200.0
+const MAX_OXYGEN_MAIN: float = 100.0
+const MAX_OXYGEN_RESERVE: float = 50.0
+const OXYGEN_MAIN_GAIN_RATE: float = 10
+const OXYGEN_MAIN_DECAY_RATE: float = 1
+const OXYGEN_RESERVE_DECAY_RATE: float = 1
+
+@export var movement_speed = 120.0
+@export var movement_type: MovementType = MovementType.SWIM:
+	get:
+		return movement_type
+	set(value):
+		movement_type_changed.emit(value)
+		movement_type = value
+@export var health_status: HealthStatus = HealthStatus.HEALTHY:
+	get:
+		return health_status
+	set(value):
+		health_changed.emit(value)
+		health_status = value
+@export var main_tank_capacity: float = MAX_OXYGEN_MAIN:
+	get:
+		return main_tank_capacity
+	set(value):
+		main_oxygen_changed.emit(value)
+		main_tank_capacity = value
+@export var reserve_tank_capacity: float = MAX_OXYGEN_RESERVE:
+	get:
+		return reserve_tank_capacity
+	set(value):
+		if value > reserve_tank_capacity:
+			reserve_oxygen_changed.emit(value)
+			reserve_tank_capacity = value
+@export var is_in_airpocket: bool = false:
+	get:
+		return is_in_airpocket
+	set(value):
+		is_in_airpocket_changed.emit(value)
+		is_in_airpocket = value
+@export var is_invincible: bool = false:
+	get:
+		return is_invincible
+	set(value):
+		is_invincibile_changed.emit(value)
+		is_invincible = value
+
+@onready var animplayer = $Animate
+@onready var interact_ray = $InteractRay
+@onready var invincible_timer = $InvincibleTimer
+@onready var heal_timer = $HealTimer
+
+#-- GETTERS
+
+
+func get_health_status() -> HealthStatus:
+	return health_status
+
+
+func get_movement_type() -> MovementType:
+	return movement_type
+
+
+func get_main_tank_capacity() -> float:
+	return main_tank_capacity
+
+
+func get_reserve_tank_capacity() -> float:
+	return reserve_tank_capacity
+
+
+func get_is_in_airpocket() -> bool:
+	return is_in_airpocket
+
+
+func get_is_invincible() -> bool:
+	return is_invincible
+
+
+#-- MOVEMENT
+
+
+## Movement while UNDERWATER
+func _move_swim(input_vector: Vector2) -> void:
+	var is_moving: bool = false
+
+	# Update velocity.x
+	if input_vector.x != 0:
+		is_moving = true
+		velocity.x = lerp(
+			velocity.x, movement_speed * input_vector.x, SWIM_ACCELERATION / movement_speed
+		)
+		animplayer.flip_h = input_vector.x < 0
+	else:
+		velocity.x = lerp(velocity.x, 0.0, SWIM_DECELERATION / movement_speed)
+
+	# Update velocity.y
+	if input_vector.y != 0:
+		is_moving = true
+		velocity.y = lerp(
+			velocity.y, movement_speed * input_vector.y, SWIM_ACCELERATION / movement_speed
+		)
+	else:
+		velocity.y = lerp(velocity.y, 0.0, SWIM_DECELERATION / movement_speed)
+
+	_change_animation(is_moving)
+
+
+## Movement while ON LAND
+func _move_walk(input_vector: Vector2) -> void:
+	var is_moving: bool = false
+
+	# Update velocity.x
+	if input_vector.x != 0:
+		is_moving = true
+		velocity.x = lerp(
+			velocity.x, movement_speed * input_vector.x, WALK_ACCELERATION / movement_speed
+		)
+		animplayer.flip_h = input_vector.x < 0
+	else:
+		velocity.x = lerp(velocity.x, 0.0, WALK_DECELERATION / movement_speed)
+
+	_change_animation(is_moving)
+
+
+## Changing animations
+func _change_animation(is_moving: bool) -> void:
+	if movement_type == MovementType.SWIM:
+		if is_moving:
+			animplayer.play("swim_move")
+		else:
+			animplayer.play("swim_idle")
+	else:
+		if is_moving:
+			animplayer.play("walk_move")
+		else:
+			animplayer.play("walk_idle")
+
+
+## Every physics frame, process movement
+func _physics_process(_delta: float) -> void:
+	var input_vector = Vector2.ZERO
+	input_vector.x = (
+		Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	)
+	input_vector.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+	input_vector = input_vector.normalized()
+
+	if movement_type == MovementType.SWIM:
+		_move_swim(input_vector)
+	elif movement_type == MovementType.WALK:
+		_move_walk(input_vector)
+		velocity.y += _delta * GRAVITY
+
+	move_and_slide()
+
+
+#-- HEALTH
+
+
+## Health and Damage.
+## Always revert one step back (e.g: HEALTHY -> CRITICAL, CRITICAL -> DEAD)
+func take_damage():
+	if is_invincible:
+		return
+	if health_status == HealthStatus.HEALTHY:  # Reduce to critical state
+		health_status = HealthStatus.CRITICAL
+	else:  # Player is dead, restart level
+		health_status = HealthStatus.DEAD
+
+
+func _on_health_changed(new_health) -> void:
+	if new_health == HealthStatus.HEALTHY:
+		animplayer.set_self_modulate(Color(1, 1, 1, 1))
+	elif new_health == HealthStatus.CRITICAL:
+		animplayer.set_self_modulate(Color(1, 0, 0, 1))
+
+		# 1 second of invincibility
+		is_invincible = true
+		invincible_timer.start()
+		heal_timer.start()
+	elif new_health == HealthStatus.DEAD:
+		animplayer.set_self_modulate(Color(0.25, 0, 0, 1))
+
+
+func _on_invincible_timer_timeout() -> void:
+	is_invincible = false
+
+
+func _on_heal_timer_timeout() -> void:
+	if health_status == HealthStatus.CRITICAL:
+		health_status = HealthStatus.HEALTHY
+
+
+func _on_test_timer_timeout() -> void:
+	# TODO: ini testing buat damage aja
+	take_damage()
+
+
+#-- INTERACTION
+
+
+## Interact with world objects
+func _interact():
+	# TODO: interaction yang perlu input dari player
+	print("interact...")
+	var collider = interact_ray.get_collider()
+
+	if interact_ray.is_colliding():
+		collider.interact()
+
+
+## Handle gameplay input
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact"):
+		_interact()
+
+
+#-- OXYGEN
+func _on_oxygen_timer_timeout() -> void:
+	if is_in_airpocket or movement_type == MovementType.WALK:
+		main_tank_capacity += OXYGEN_MAIN_GAIN_RATE
+		return
+	if main_tank_capacity > 0:
+		main_tank_capacity -= OXYGEN_MAIN_DECAY_RATE
+	elif reserve_tank_capacity > 0:
+		reserve_tank_capacity -= OXYGEN_RESERVE_DECAY_RATE
+	else:
+		if health_status != HealthStatus.DEAD:
+			take_damage()

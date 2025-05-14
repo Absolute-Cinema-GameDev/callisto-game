@@ -1,0 +1,287 @@
+[gd_scene load_steps=27 format=3 uid="uid://blwqvvn3mh4u4"]
+
+[ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_liiov"]
+[ext_resource type="Texture2D" uid="uid://ythm0pc7jfiv" path="res://assets/entities/player/player_spritesheet.png" id="2_pi7ps"]
+[ext_resource type="Script" path="res://scenes/entities/player/player_debug_hud.gd" id="3_74f0n"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i0crb"]
+radius = 6.0
+height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8y3rq"]
+radius = 7.0
+height = 20.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4c8wy"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djd5y"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdcsm"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbx7m"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkave"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wahru"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnjqi"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sc57x"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4gag"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qs5kc"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1yte"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txump"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw7l3"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxc1r"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjvpl"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dfwq"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vgu1"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fq1y"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hchwv"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfy28"]
+atlas = ExtResource("2_pi7ps")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c4p3s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4c8wy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_djd5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vdcsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbx7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkave")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wahru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnjqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc57x")
+}],
+"loop": true,
+"name": &"swim_idle",
+"speed": 4.45
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4gag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qs5kc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1yte")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txump")
+}],
+"loop": true,
+"name": &"swim_move",
+"speed": 5.71
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qw7l3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxc1r")
+}],
+"loop": true,
+"name": &"walk_idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjvpl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dfwq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0vgu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fq1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hchwv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfy28")
+}],
+"loop": true,
+"name": &"walk_move",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_liiov")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -1)
+shape = SubResource("CapsuleShape2D_i0crb")
+debug_color = Color(0.971313, 0, 0.448807, 0.42)
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -1)
+shape = SubResource("CapsuleShape2D_8y3rq")
+
+[node name="InteractRay" type="RayCast2D" parent="."]
+target_position = Vector2(36, 0)
+
+[node name="Animate" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_c4p3s")
+animation = &"walk_move"
+frame = 2
+frame_progress = 0.139876
+
+[node name="InvincibleTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="HealTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="TestTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="OxygenTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[node name="DebugHUD" type="CanvasLayer" parent="."]
+
+[node name="HUDBase" type="Control" parent="DebugHUD"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+script = ExtResource("3_74f0n")
+
+[node name="Container" type="VBoxContainer" parent="DebugHUD/HUDBase"]
+layout_mode = 0
+offset_top = -135.0
+offset_right = 204.0
+theme_override_constants/separation = 8
+
+[node name="MovementGroup" type="VBoxContainer" parent="DebugHUD/HUDBase/Container"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MovementType" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Movement Type: SWIM"
+
+[node name="Velocity" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Velocity: 0, 0"
+
+[node name="HealthGroup" type="VBoxContainer" parent="DebugHUD/HUDBase/Container"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Health" type="Label" parent="DebugHUD/HUDBase/Container/HealthGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Health: HEALTHY"
+
+[node name="Invincible" type="Label" parent="DebugHUD/HUDBase/Container/HealthGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Is Invincible? FALSE"
+
+[node name="OxygenGroup" type="VBoxContainer" parent="DebugHUD/HUDBase/Container"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MainTank" type="Label" parent="DebugHUD/HUDBase/Container/OxygenGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Main Tank: 0"
+
+[node name="ReserveTank" type="Label" parent="DebugHUD/HUDBase/Container/OxygenGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Reserve Tank: 0"
+
+[node name="AirPocket" type="Label" parent="DebugHUD/HUDBase/Container/OxygenGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Is In Air Pocket? FALSE"
+
+[connection signal="health_changed" from="." to="." method="_on_health_changed"]
+[connection signal="health_changed" from="." to="DebugHUD/HUDBase" method="_on_player_health_changed"]
+[connection signal="is_in_airpocket_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_in_airpocket_changed"]
+[connection signal="is_invincibile_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_invincibile_changed"]
+[connection signal="main_oxygen_changed" from="." to="DebugHUD/HUDBase" method="_on_player_main_oxygen_changed"]
+[connection signal="movement_type_changed" from="." to="DebugHUD/HUDBase" method="_on_player_movement_type_changed"]
+[connection signal="reserve_oxygen_changed" from="." to="DebugHUD/HUDBase" method="_on_player_reserve_oxygen_changed"]
+[connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]
+[connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]
+[connection signal="timeout" from="TestTimer" to="." method="_on_test_timer_timeout"]
+[connection signal="timeout" from="OxygenTimer" to="." method="_on_oxygen_timer_timeout"]
