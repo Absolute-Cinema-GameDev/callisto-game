@@ -1,24 +1,23 @@
 extends CharacterBody2D
 
-@onready var area_detection = $AreaDetection
-@onready var collision_shape = $Collision
-@onready var anim = $Animate
-
 enum State { IDLE, ACTIVE, ATTACKING, HIT_PAUSE, RETURNING }
-var state: State = State.IDLE
 
+var state: State = State.IDLE
 var spawn_position: Vector2
 var target_position: Vector2
 var dash_speed: float = 50.0
 var dash_delay: float = 0.1
 var active_wait_time: float = 2.0
 var hit_pause_time: float = 0.5
-
-var is_stun: bool = false # For future stun rock mechanic
-
+var is_stun: bool = false  # For future stun rock mechanic
 var active_timer := Timer.new()
 var dash_timer := Timer.new()
 var hit_pause_timer := Timer.new()
+
+@onready var area_detection = $AreaDetection
+@onready var collision_shape = $Collision
+@onready var anim = $Animate
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,12 +41,13 @@ func _ready() -> void:
 	area_detection.body_entered.connect(_on_area_body_entered)
 	area_detection.body_exited.connect(_on_area_body_exited)
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if state == State.ATTACKING:
 		if anim.animation != "dash":
 			anim.play("dash")
-		 # Flip sprite to face dash direction
+		# Flip sprite to face dash direction
 		anim.flip_h = (target_position.x < global_position.x)
 		# Move towards target position
 		var direction = (target_position - global_position).normalized()
@@ -71,7 +71,7 @@ func _process(delta: float) -> void:
 	elif state == State.RETURNING:
 		if anim.animation != "active":
 			anim.play("active")
-		 # Flip sprite to face spawn direction
+		# Flip sprite to face spawn direction
 		anim.flip_h = (spawn_position.x < global_position.x)
 		# Move back to spawn
 		var direction = (spawn_position - global_position).normalized()
@@ -96,14 +96,17 @@ func _process(delta: float) -> void:
 			anim.play("idle")
 		velocity = Vector2.ZERO
 
+
 func _on_area_body_entered(body):
 	if state == State.IDLE and body is Player:
 		state = State.ACTIVE
 		active_timer.start()
 
-func _on_area_body_exited(body):
+
+func _on_area_body_exited(_body):
 	# Optional: if you want to reset if player leaves before attack
 	pass
+
 
 func _on_active_timer_timeout():
 	# Lock player position
@@ -115,10 +118,12 @@ func _on_active_timer_timeout():
 	else:
 		state = State.IDLE
 
+
 func _on_dash_timer_timeout():
 	# Start dashing to target
 	# (actual dash handled in _process)
 	pass
+
 
 func _get_player_in_area():
 	for body in area_detection.get_overlapping_bodies():
@@ -126,8 +131,10 @@ func _get_player_in_area():
 			return body
 	return null
 
+
 func _on_hit_pause_timer_timeout():
 	state = State.RETURNING
+
 
 # Call this to stun the ambush (for future stun rock, etc)
 func stun():
