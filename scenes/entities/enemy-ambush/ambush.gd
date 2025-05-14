@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var area_detection = $AreaDetection
 @onready var collision_shape = $Collision
+@onready var anim = $Animate
 
 enum State { IDLE, ACTIVE, ATTACKING, HIT_PAUSE, RETURNING }
 var state: State = State.IDLE
@@ -12,6 +13,8 @@ var dash_speed: float = 50.0
 var dash_delay: float = 0.1
 var active_wait_time: float = 2.0
 var hit_pause_time: float = 0.5
+
+var is_stun: bool = false # For future stun rock mechanic
 
 var active_timer := Timer.new()
 var dash_timer := Timer.new()
@@ -42,6 +45,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if state == State.ATTACKING:
+		if anim.animation != "dash":
+			anim.play("dash")
+		 # Flip sprite to face dash direction
+		anim.flip_h = (target_position.x < global_position.x)
 		# Move towards target position
 		var direction = (target_position - global_position).normalized()
 		velocity = direction * dash_speed
@@ -62,6 +69,10 @@ func _process(delta: float) -> void:
 	elif state == State.HIT_PAUSE:
 		velocity = Vector2.ZERO
 	elif state == State.RETURNING:
+		if anim.animation != "active":
+			anim.play("active")
+		 # Flip sprite to face spawn direction
+		anim.flip_h = (spawn_position.x < global_position.x)
 		# Move back to spawn
 		var direction = (spawn_position - global_position).normalized()
 		velocity = direction * dash_speed
@@ -73,7 +84,16 @@ func _process(delta: float) -> void:
 			if _get_player_in_area() != null:
 				state = State.ACTIVE
 				active_timer.start()
+	elif state == State.ACTIVE:
+		if anim.animation != "active":
+			anim.play("active")
+		# Flip sprite to face player
+		var player = _get_player_in_area()
+		if player:
+			anim.flip_h = (player.global_position.x < global_position.x)
 	else:
+		if anim.animation != "idle":
+			anim.play("idle")
 		velocity = Vector2.ZERO
 
 func _on_area_body_entered(body):
@@ -108,3 +128,9 @@ func _get_player_in_area():
 
 func _on_hit_pause_timer_timeout():
 	state = State.RETURNING
+
+# Call this to stun the ambush (for future stun rock, etc)
+func stun():
+	is_stun = true
+	# You can add stun logic/animation here later
+	# For now, just set the flag
