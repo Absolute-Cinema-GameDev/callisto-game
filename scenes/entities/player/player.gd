@@ -211,7 +211,8 @@ func _on_heal_timer_timeout() -> void:
 
 func _on_test_timer_timeout() -> void:
 	# TODO: ini testing buat damage aja
-	take_damage()
+	#take_damage()
+	pass
 
 
 #-- INTERACTION
