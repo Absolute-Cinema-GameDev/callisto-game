@@ -50,7 +50,7 @@ const OXYGEN_RESERVE_DECAY_RATE: float = 1
 	set = set_is_hidden_from_enemies
 @export var is_stunned: bool = false:
 	get = get_is_stunned,
-	set = set_is_stunned
+	set = _set_is_stunned
 @export var is_input_locked: bool = false:
 	get = get_is_input_locked,
 	set = set_is_input_locked
@@ -140,7 +140,7 @@ func set_is_hidden_from_enemies(value: bool):
 	is_hidden_from_enemies = value
 
 
-func set_is_stunned(value: bool):
+func _set_is_stunned(value: bool):
 	is_stunned_changed.emit(value)
 	is_stunned = value
 
