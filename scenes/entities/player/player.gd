@@ -47,7 +47,7 @@ const OXYGEN_RESERVE_DECAY_RATE: float = 1
 @onready var interact_ray: RayCast2D = $InteractRay
 @onready var invincible_timer: Timer = $InvincibleTimer
 @onready var heal_timer: Timer = $HealTimer
-@onready var hurtbox: CollisionShape2D = $Hurtbox ## Use this for damage calculation
+@onready var hurtbox: CollisionShape2D = $Hurtbox  ## Use this for damage calculation
 @onready var collision_box: CollisionShape2D = $CollisionBox
 
 #-- GETTERS
@@ -113,12 +113,13 @@ func _set_is_invincible(value: bool):
 
 #-- MOVEMENT
 
+
 ## Adjust sprite direction
 func _adjust_sprite_direction(is_flipped: bool) -> void:
 	animplayer.flip_h = is_flipped
 	hurtbox.position.x = 2 if is_flipped else -2
 	collision_box.position.x = 2 if is_flipped else -2
-	interact_ray.target_position.x = -36 if is_flipped else 36 
+	interact_ray.target_position.x = -36 if is_flipped else 36
 
 
 ## Movement while underwater (e.g: in Cave)
@@ -132,7 +133,7 @@ func _move_swim(input_vector: Vector2) -> void:
 			velocity.x, movement_speed * input_vector.x, SWIM_ACCELERATION / movement_speed
 		)
 		_adjust_sprite_direction(input_vector.x < 0)
-		
+
 	else:
 		velocity.x = lerp(velocity.x, 0.0, SWIM_DECELERATION / movement_speed)
 
