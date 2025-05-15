@@ -97,6 +97,7 @@ func get_is_hidden_from_enemies() -> bool:
 func get_is_stunned() -> bool:
 	return is_stunned
 
+
 func get_is_input_locked() -> bool:
 	return is_input_locked
 
@@ -278,7 +279,7 @@ func _on_heal_timer_timeout() -> void:
 
 
 func _on_test_timer_timeout() -> void:
-	# TODO: ini testing buat damage aja
+	# NOTE: ini testing buat damage aja
 	stun()
 
 
@@ -304,6 +305,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 #-- OXYGEN
+
+
 func _on_oxygen_timer_timeout() -> void:
 	if is_in_airpocket or movement_type == MovementType.WALK:
 		main_tank_capacity += OXYGEN_MAIN_GAIN_RATE
@@ -337,8 +340,12 @@ func _on_is_stunned_changed(new_stun_value) -> void:
 
 
 #-- SEAWEED BUSH
+
+
 func _on_is_hidden_from_enemies_changed(new_value) -> void:
 	if new_value:
 		animplayer.set_self_modulate(Color(0.7, 0.7, 0.7, 1))
 	else:
 		animplayer.set_self_modulate(Color(1, 1, 1, 1))
+
+#-- INPUT LOCK
