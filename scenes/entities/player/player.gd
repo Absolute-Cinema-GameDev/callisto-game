@@ -29,7 +29,7 @@ const OXYGEN_RESERVE_DECAY_RATE: float = 1
 @export var movement_speed: float = 120.0
 @export var movement_type: MovementType = MovementType.SWIM:
 	get = get_movement_type,
-	set = _set_movement_type
+	set = set_movement_type
 @export var health_status: HealthStatus = HealthStatus.HEALTHY:
 	get = get_health_status,
 	set = _set_health_status
@@ -110,7 +110,7 @@ func _set_health_status(value: HealthStatus):
 	health_changed.emit(value)
 
 
-func _set_movement_type(value: MovementType):
+func set_movement_type(value: MovementType):  ## Use for switching between swimming and walking
 	movement_type_changed.emit(value)
 	movement_type = value
 
@@ -126,7 +126,7 @@ func _set_reserve_tank_capacity(value: float):
 		reserve_tank_capacity = value
 
 
-func set_is_in_airpocket(value: bool):
+func set_is_in_airpocket(value: bool):  ## Use for Air Pocket functionality
 	is_in_airpocket_changed.emit(value)
 	is_in_airpocket = value
 
@@ -136,7 +136,7 @@ func _set_is_invincible(value: bool):
 	is_invincible = value
 
 
-func set_is_hidden_from_enemies(value: bool):
+func set_is_hidden_from_enemies(value: bool):  ## Use for Seaweed Bush functionality
 	is_hidden_from_enemies_changed.emit(value)
 	is_hidden_from_enemies = value
 
@@ -146,7 +146,7 @@ func _set_is_stunned(value: bool):
 	is_stunned = value
 
 
-func set_is_input_locked(value: bool):
+func set_is_input_locked(value: bool):  ## Use for Cutscene functionality
 	is_input_locked_changed.emit(value)
 	is_input_locked = value
 
@@ -244,6 +244,7 @@ func _physics_process(_delta: float) -> void:
 #-- HEALTH
 
 
+## Use for enemy attack or player damage.
 ## Reverts [member health_status] one step back.
 ## Example: HEALTHY -> CRITICAL, CRITICAL -> DEAD
 func take_damage():
@@ -323,6 +324,7 @@ func _on_oxygen_timer_timeout() -> void:
 #-- STUN ROCK
 
 
+## Use for Stun Rock functionality on player
 func stun() -> void:
 	is_stunned = true
 	stun_timer.start()
