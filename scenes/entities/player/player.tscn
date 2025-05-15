@@ -251,6 +251,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Is Stunned? FALSE"
 
+[node name="InputLock" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Is Input Locked? FALSE"
+
 [node name="HealthGroup" type="VBoxContainer" parent="DebugHUD/HUDBase/Container"]
 layout_mode = 2
 theme_override_constants/separation = 0
@@ -294,6 +299,7 @@ text = "Is In Air Pocket? FALSE"
 [connection signal="is_hidden_from_enemies_changed" from="." to="." method="_on_is_hidden_from_enemies_changed"]
 [connection signal="is_hidden_from_enemies_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_hidden_from_enemies_changed"]
 [connection signal="is_in_airpocket_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_in_airpocket_changed"]
+[connection signal="is_input_locked_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_input_locked_changed"]
 [connection signal="is_invincible_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_invincible_changed"]
 [connection signal="is_stunned_changed" from="." to="." method="_on_is_stunned_changed"]
 [connection signal="is_stunned_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_stunned_changed"]

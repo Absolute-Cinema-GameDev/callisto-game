@@ -9,6 +9,7 @@ extends Control
 @onready var airpocket_label = $Container/OxygenGroup/AirPocket
 @onready var hidden_label = $Container/HealthGroup/Hidden
 @onready var stunned_label = $Container/MovementGroup/Stunned
+@onready var inputlock_label = $Container/MovementGroup/InputLock
 
 
 func _ready() -> void:
@@ -20,6 +21,7 @@ func _ready() -> void:
 		"Velocity: " + str("%0.2f" % player.velocity.x) + ", " + str("%0.2f" % player.velocity.y)
 	)
 	stunned_label.text = "Is Stunned? " + str(player.is_stunned)
+	inputlock_label.text = "Is Input Locked? " + str(player.is_input_locked)
 
 	health_label.text = "Health: " + str(Player.HealthStatus.keys()[player.health_status])
 	invincible_label.text = "Is Invincible? " + str(player.is_invincible)
@@ -67,3 +69,7 @@ func _on_player_is_stunned_changed(value) -> void:
 
 func _on_player_is_hidden_from_enemies_changed(value) -> void:
 	hidden_label.text = "Is Hidden from Enemies? " + str(value)
+
+
+func _on_player_is_input_locked_changed(value) -> void:
+	inputlock_label.text = "Is Input Locked? " + str(value)
