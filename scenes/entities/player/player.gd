@@ -2,12 +2,12 @@ class_name Player
 
 extends CharacterBody2D
 
-signal movement_type_changed
-signal health_changed
-signal is_invincibile_changed
-signal main_oxygen_changed
-signal reserve_oxygen_changed
-signal is_in_airpocket_changed
+signal movement_type_changed  ## Fires when movement_type is changed
+signal health_changed  ## Fires when health_status is changed
+signal is_invincible_changed  ## Fires when is_invincible is changed
+signal main_oxygen_changed  ## Fires when main_tank_capacity is changed
+signal reserve_oxygen_changed  ## Fires when reserve_tank_capacity is changed
+signal is_in_airpocket_changed  ## Fires when player moves in/out of airpockets
 
 enum MovementType { WALK, SWIM }
 enum HealthStatus { HEALTHY, CRITICAL, DEAD }
@@ -97,7 +97,7 @@ func get_is_invincible() -> bool:
 #-- MOVEMENT
 
 
-## Movement while UNDERWATER
+## Movement while underwater (e.g: in Cave)
 func _move_swim(input_vector: Vector2) -> void:
 	var is_moving: bool = false
 
@@ -123,7 +123,7 @@ func _move_swim(input_vector: Vector2) -> void:
 	_change_animation(is_moving)
 
 
-## Movement while ON LAND
+## Movement while on land (e.g: Poseidon-1 Station Hub)
 func _move_walk(input_vector: Vector2) -> void:
 	var is_moving: bool = false
 
@@ -140,7 +140,7 @@ func _move_walk(input_vector: Vector2) -> void:
 	_change_animation(is_moving)
 
 
-## Changing animations
+## Change currently playing animation based on player moving state
 func _change_animation(is_moving: bool) -> void:
 	if movement_type == MovementType.SWIM:
 		if is_moving:
@@ -175,8 +175,8 @@ func _physics_process(_delta: float) -> void:
 #-- HEALTH
 
 
-## Health and Damage.
-## Always revert one step back (e.g: HEALTHY -> CRITICAL, CRITICAL -> DEAD)
+## Reverts [member health_status] one step back.
+## Example: HEALTHY -> CRITICAL, CRITICAL -> DEAD
 func take_damage():
 	if is_invincible:
 		return
