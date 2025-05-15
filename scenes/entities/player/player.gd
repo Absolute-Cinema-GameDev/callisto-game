@@ -10,6 +10,7 @@ signal reserve_oxygen_changed  ## Fires when reserve_tank_capacity is changed
 signal is_in_airpocket_changed  ## Fires when player moves in/out of airpockets
 signal is_hidden_from_enemies_changed  ## Fires when player moves in/out of seaweed bushes
 signal is_stunned_changed  ## Fires when player stun status is changed
+signal is_input_locked_changed  ## Fires when player input lock status is changed
 
 enum MovementType { WALK, SWIM }
 enum HealthStatus { HEALTHY, CRITICAL, DEAD }
@@ -50,6 +51,9 @@ const OXYGEN_RESERVE_DECAY_RATE: float = 1
 @export var is_stunned: bool = false:
 	get = get_is_stunned,
 	set = set_is_stunned
+@export var is_input_locked: bool = false:
+	get = get_is_input_locked,
+	set = set_is_input_locked
 
 @onready var animplayer: AnimatedSprite2D = $Animate
 @onready var interact_ray: RayCast2D = $InteractRay
@@ -92,6 +96,9 @@ func get_is_hidden_from_enemies() -> bool:
 
 func get_is_stunned() -> bool:
 	return is_stunned
+
+func get_is_input_locked() -> bool:
+	return is_input_locked
 
 
 #-- SETTERS
@@ -136,6 +143,11 @@ func set_is_hidden_from_enemies(value: bool):
 func set_is_stunned(value: bool):
 	is_stunned_changed.emit(value)
 	is_stunned = value
+
+
+func set_is_input_locked(value: bool):
+	is_input_locked_changed.emit(value)
+	is_input_locked = value
 
 
 #-- MOVEMENT
@@ -210,7 +222,7 @@ func _change_animation(is_moving: bool) -> void:
 ## Every physics frame, process movement
 func _physics_process(_delta: float) -> void:
 	var input_vector = Vector2.ZERO
-	if not is_stunned:  # Keep vector at ZERO when stunned
+	if not is_stunned and not is_input_locked:  # Keep vector at ZERO when stunned
 		input_vector.x = (
 			Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 		)
@@ -285,6 +297,8 @@ func _interact():
 
 ## Handle gameplay input
 func _unhandled_input(event: InputEvent) -> void:
+	if is_input_locked:
+		return
 	if event.is_action_pressed("interact"):
 		_interact()
 
