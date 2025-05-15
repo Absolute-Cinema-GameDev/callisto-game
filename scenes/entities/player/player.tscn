@@ -203,12 +203,17 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
-[node name="TestTimer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
-
 [node name="OxygenTimer" type="Timer" parent="."]
 wait_time = 1.5
+autostart = true
+
+[node name="StunTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="TestTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 autostart = true
 
 [node name="DebugHUD" type="CanvasLayer" parent="."]
@@ -241,6 +246,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Velocity: 0, 0"
 
+[node name="Stunned" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Is Stunned? FALSE"
+
 [node name="HealthGroup" type="VBoxContainer" parent="DebugHUD/HUDBase/Container"]
 layout_mode = 2
 theme_override_constants/separation = 0
@@ -254,6 +264,11 @@ text = "Health: HEALTHY"
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Is Invincible? FALSE"
+
+[node name="Hidden" type="Label" parent="DebugHUD/HUDBase/Container/HealthGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Is Hidden from Enemies? FALSE"
 
 [node name="OxygenGroup" type="VBoxContainer" parent="DebugHUD/HUDBase/Container"]
 layout_mode = 2
@@ -276,12 +291,15 @@ text = "Is In Air Pocket? FALSE"
 
 [connection signal="health_changed" from="." to="." method="_on_health_changed"]
 [connection signal="health_changed" from="." to="DebugHUD/HUDBase" method="_on_player_health_changed"]
+[connection signal="is_hidden_from_enemies_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_hidden_from_enemies_changed"]
 [connection signal="is_in_airpocket_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_in_airpocket_changed"]
 [connection signal="is_invincible_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_invincible_changed"]
+[connection signal="is_stunned_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_stunned_changed"]
 [connection signal="main_oxygen_changed" from="." to="DebugHUD/HUDBase" method="_on_player_main_oxygen_changed"]
 [connection signal="movement_type_changed" from="." to="DebugHUD/HUDBase" method="_on_player_movement_type_changed"]
 [connection signal="reserve_oxygen_changed" from="." to="DebugHUD/HUDBase" method="_on_player_reserve_oxygen_changed"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]
 [connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]
-[connection signal="timeout" from="TestTimer" to="." method="_on_test_timer_timeout"]
 [connection signal="timeout" from="OxygenTimer" to="." method="_on_oxygen_timer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
+[connection signal="timeout" from="TestTimer" to="." method="_on_test_timer_timeout"]

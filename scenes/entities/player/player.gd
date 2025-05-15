@@ -8,6 +8,8 @@ signal is_invincible_changed  ## Fires when is_invincible is changed
 signal main_oxygen_changed  ## Fires when main_tank_capacity is changed
 signal reserve_oxygen_changed  ## Fires when reserve_tank_capacity is changed
 signal is_in_airpocket_changed  ## Fires when player moves in/out of airpockets
+signal is_hidden_from_enemies_changed  ## Fires when player moves in/out of seaweed bushes
+signal is_stunned_changed  ## Fires when player stun status is changed
 
 enum MovementType { WALK, SWIM }
 enum HealthStatus { HEALTHY, CRITICAL, DEAD }
@@ -42,11 +44,18 @@ const OXYGEN_RESERVE_DECAY_RATE: float = 1
 @export var is_invincible: bool = false:
 	get = get_is_invincible,
 	set = _set_is_invincible
+@export var is_hidden_from_enemies: bool = false:
+	get = get_is_hidden_from_enemies,
+	set = set_is_hidden_from_enemies
+@export var is_stunned: bool = false:
+	get = get_is_stunned,
+	set = set_is_stunned
 
 @onready var animplayer: AnimatedSprite2D = $Animate
 @onready var interact_ray: RayCast2D = $InteractRay
 @onready var invincible_timer: Timer = $InvincibleTimer
 @onready var heal_timer: Timer = $HealTimer
+@onready var stun_timer: Timer = $StunTimer
 @onready var hurtbox: CollisionShape2D = $Hurtbox  ## Use this for damage calculation
 @onready var collision_box: CollisionShape2D = $CollisionBox
 
@@ -75,6 +84,14 @@ func get_is_in_airpocket() -> bool:
 
 func get_is_invincible() -> bool:
 	return is_invincible
+
+
+func get_is_hidden_from_enemies() -> bool:
+	return is_hidden_from_enemies
+
+
+func get_is_stunned() -> bool:
+	return is_stunned
 
 
 #-- SETTERS
@@ -109,6 +126,16 @@ func set_is_in_airpocket(value: bool):
 func _set_is_invincible(value: bool):
 	is_invincible_changed.emit(value)
 	is_invincible = value
+
+
+func set_is_hidden_from_enemies(value: bool):
+	is_hidden_from_enemies_changed.emit(value)
+	is_hidden_from_enemies = value
+
+
+func set_is_stunned(value: bool):
+	is_stunned_changed.emit(value)
+	is_stunned = value
 
 
 #-- MOVEMENT
@@ -183,11 +210,14 @@ func _change_animation(is_moving: bool) -> void:
 ## Every physics frame, process movement
 func _physics_process(_delta: float) -> void:
 	var input_vector = Vector2.ZERO
-	input_vector.x = (
-		Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	)
-	input_vector.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	input_vector = input_vector.normalized()
+	if not is_stunned:  # Keep vector at ZERO when stunned
+		input_vector.x = (
+			Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+		)
+		input_vector.y = (
+			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+		)
+		input_vector = input_vector.normalized()
 
 	if movement_type == MovementType.SWIM:
 		_move_swim(input_vector)
@@ -237,7 +267,7 @@ func _on_heal_timer_timeout() -> void:
 
 func _on_test_timer_timeout() -> void:
 	# TODO: ini testing buat damage aja
-	take_damage()
+	stun()
 
 
 #-- INTERACTION
@@ -271,3 +301,15 @@ func _on_oxygen_timer_timeout() -> void:
 	else:
 		if health_status != HealthStatus.DEAD:
 			take_damage()
+
+
+#-- STUN ROCK
+
+
+func stun() -> void:
+	is_stunned = true
+	stun_timer.start()
+
+
+func _on_stun_timer_timeout() -> void:
+	is_stunned = false
