@@ -310,7 +310,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_oxygen_timer_timeout() -> void:
 	if is_in_airpocket or movement_type == MovementType.WALK:
-		main_tank_capacity += OXYGEN_MAIN_GAIN_RATE
+		var fill_amount = main_tank_capacity + OXYGEN_MAIN_GAIN_RATE
+		if fill_amount < MAX_OXYGEN_MAIN:
+			main_tank_capacity = fill_amount
+		else:
+			main_tank_capacity = MAX_OXYGEN_MAIN
 		return
 	if main_tank_capacity > 0:
 		main_tank_capacity -= OXYGEN_MAIN_DECAY_RATE
