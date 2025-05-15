@@ -41,7 +41,7 @@ func _on_player_health_changed(value) -> void:
 	health_label.text = "Health: " + str(Player.HealthStatus.keys()[value])
 
 
-func _on_player_is_invincibile_changed(value) -> void:
+func _on_player_is_invincible_changed(value) -> void:
 	invincible_label.text = "Is Invincible? " + str(value)
 
 

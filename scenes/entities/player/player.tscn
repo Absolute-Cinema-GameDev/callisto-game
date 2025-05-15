@@ -277,7 +277,7 @@ text = "Is In Air Pocket? FALSE"
 [connection signal="health_changed" from="." to="." method="_on_health_changed"]
 [connection signal="health_changed" from="." to="DebugHUD/HUDBase" method="_on_player_health_changed"]
 [connection signal="is_in_airpocket_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_in_airpocket_changed"]
-[connection signal="is_invincibile_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_invincibile_changed"]
+[connection signal="is_invincible_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_invincible_changed"]
 [connection signal="main_oxygen_changed" from="." to="DebugHUD/HUDBase" method="_on_player_main_oxygen_changed"]
 [connection signal="movement_type_changed" from="." to="DebugHUD/HUDBase" method="_on_player_movement_type_changed"]
 [connection signal="reserve_oxygen_changed" from="." to="DebugHUD/HUDBase" method="_on_player_reserve_oxygen_changed"]
