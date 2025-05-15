@@ -313,3 +313,18 @@ func stun() -> void:
 
 func _on_stun_timer_timeout() -> void:
 	is_stunned = false
+
+
+func _on_is_stunned_changed(new_stun_value) -> void:
+	if new_stun_value:
+		animplayer.set_self_modulate(Color(1, 1, 0, 1))
+	else:
+		animplayer.set_self_modulate(Color(1, 1, 1, 1))
+
+
+#-- SEAWEED BUSH
+func _on_is_hidden_from_enemies_changed(new_value) -> void:
+	if new_value:
+		animplayer.set_self_modulate(Color(0.7, 0.7, 0.7, 1))
+	else:
+		animplayer.set_self_modulate(Color(1, 1, 1, 1))
