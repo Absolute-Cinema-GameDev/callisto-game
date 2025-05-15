@@ -23,7 +23,7 @@ const OXYGEN_MAIN_GAIN_RATE: float = 10
 const OXYGEN_MAIN_DECAY_RATE: float = 1
 const OXYGEN_RESERVE_DECAY_RATE: float = 1
 
-@export var movement_speed = 120.0
+@export var movement_speed: float = 120.0
 @export var movement_type: MovementType = MovementType.SWIM:
 	get = get_movement_type,
 	set = _set_movement_type
@@ -43,10 +43,10 @@ const OXYGEN_RESERVE_DECAY_RATE: float = 1
 	get = get_is_invincible,
 	set = _set_is_invincible
 
-@onready var animplayer = $Animate
-@onready var interact_ray = $InteractRay
-@onready var invincible_timer = $InvincibleTimer
-@onready var heal_timer = $HealTimer
+@onready var animplayer: AnimatedSprite2D = $Animate
+@onready var interact_ray: RayCast2D = $InteractRay
+@onready var invincible_timer: Timer = $InvincibleTimer
+@onready var heal_timer: Timer = $HealTimer
 
 #-- GETTERS
 
