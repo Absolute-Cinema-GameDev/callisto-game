@@ -25,42 +25,23 @@ const OXYGEN_RESERVE_DECAY_RATE: float = 1
 
 @export var movement_speed = 120.0
 @export var movement_type: MovementType = MovementType.SWIM:
-	get:
-		return movement_type
-	set(value):
-		movement_type_changed.emit(value)
-		movement_type = value
+	get = get_movement_type,
+	set = _set_movement_type
 @export var health_status: HealthStatus = HealthStatus.HEALTHY:
-	get:
-		return health_status
-	set(value):
-		health_changed.emit(value)
-		health_status = value
+	get = get_health_status,
+	set = _set_health_status
 @export var main_tank_capacity: float = MAX_OXYGEN_MAIN:
-	get:
-		return main_tank_capacity
-	set(value):
-		main_oxygen_changed.emit(value)
-		main_tank_capacity = value
+	get = get_main_tank_capacity,
+	set = _set_main_tank_capacity
 @export var reserve_tank_capacity: float = MAX_OXYGEN_RESERVE:
-	get:
-		return reserve_tank_capacity
-	set(value):
-		if value > reserve_tank_capacity:
-			reserve_oxygen_changed.emit(value)
-			reserve_tank_capacity = value
+	get = get_reserve_tank_capacity,
+	set = _set_reserve_tank_capacity
 @export var is_in_airpocket: bool = false:
-	get:
-		return is_in_airpocket
-	set(value):
-		is_in_airpocket_changed.emit(value)
-		is_in_airpocket = value
+	get = get_is_in_airpocket,
+	set = set_is_in_airpocket
 @export var is_invincible: bool = false:
-	get:
-		return is_invincible
-	set(value):
-		is_invincibile_changed.emit(value)
-		is_invincible = value
+	get = get_is_invincible,
+	set = _set_is_invincible
 
 @onready var animplayer = $Animate
 @onready var interact_ray = $InteractRay
@@ -92,6 +73,40 @@ func get_is_in_airpocket() -> bool:
 
 func get_is_invincible() -> bool:
 	return is_invincible
+
+
+#-- SETTERS
+
+
+func _set_health_status(value: HealthStatus):
+	health_status = value
+	health_changed.emit(value)
+
+
+func _set_movement_type(value: MovementType):
+	movement_type_changed.emit(value)
+	movement_type = value
+
+
+func _set_main_tank_capacity(value: float):
+	main_oxygen_changed.emit(value)
+	main_tank_capacity = value
+
+
+func _set_reserve_tank_capacity(value: float):
+	if value > reserve_tank_capacity:
+		reserve_oxygen_changed.emit(value)
+		reserve_tank_capacity = value
+
+
+func set_is_in_airpocket(value: bool):
+	is_in_airpocket_changed.emit(value)
+	is_in_airpocket = value
+
+
+func _set_is_invincible(value: bool):
+	is_invincible_changed.emit(value)
+	is_invincible = value
 
 
 #-- MOVEMENT
