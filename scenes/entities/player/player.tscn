@@ -228,8 +228,8 @@ script = ExtResource("3_74f0n")
 
 [node name="Container" type="VBoxContainer" parent="DebugHUD/HUDBase"]
 layout_mode = 0
-offset_top = -135.0
-offset_right = 204.0
+offset_top = -156.0
+offset_right = 151.0
 theme_override_constants/separation = 8
 
 [node name="MovementGroup" type="VBoxContainer" parent="DebugHUD/HUDBase/Container"]
@@ -238,17 +238,17 @@ theme_override_constants/separation = 0
 
 [node name="MovementType" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "Movement Type: SWIM"
 
 [node name="Velocity" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "Velocity: 0, 0"
 
 [node name="Stunned" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "Is Stunned? FALSE"
 
 [node name="InputLock" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
@@ -262,17 +262,17 @@ theme_override_constants/separation = 0
 
 [node name="Health" type="Label" parent="DebugHUD/HUDBase/Container/HealthGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "Health: HEALTHY"
 
 [node name="Invincible" type="Label" parent="DebugHUD/HUDBase/Container/HealthGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "Is Invincible? FALSE"
 
 [node name="Hidden" type="Label" parent="DebugHUD/HUDBase/Container/HealthGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "Is Hidden from Enemies? FALSE"
 
 [node name="OxygenGroup" type="VBoxContainer" parent="DebugHUD/HUDBase/Container"]
@@ -281,17 +281,17 @@ theme_override_constants/separation = 0
 
 [node name="MainTank" type="Label" parent="DebugHUD/HUDBase/Container/OxygenGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "Main Tank: 0"
 
 [node name="ReserveTank" type="Label" parent="DebugHUD/HUDBase/Container/OxygenGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "Reserve Tank: 0"
 
 [node name="AirPocket" type="Label" parent="DebugHUD/HUDBase/Container/OxygenGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "Is In Air Pocket? FALSE"
 
 [connection signal="health_changed" from="." to="." method="_on_health_changed"]
