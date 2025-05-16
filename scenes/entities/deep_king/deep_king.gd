@@ -6,15 +6,15 @@ enum AttackType { TOP, MIDDLE, BOTTOM, TOP_MIDDLE, MIDDLE_BOTTOM, TOP_BOTTOM }
 @export var attack_duration: float = 1.0
 @export var damage: int = 10
 
-# Attack areas
-@onready var attack_top = $AttackTopArea/AttackTop
-@onready var attack_middle = $AttackMiddleArea/AttackMiddle
-@onready var attack_bottom = $AttackBottomArea/AttackBottom
-
 # For tracking states
 var can_attack: bool = true
 var current_attack_areas = []
 var is_attacking: bool = false
+
+# Attack areas
+@onready var attack_top = $AttackTopArea/AttackTop
+@onready var attack_middle = $AttackMiddleArea/AttackMiddle
+@onready var attack_bottom = $AttackBottomArea/AttackBottom
 
 
 # Called when the node enters the scene tree for the first time.
@@ -31,7 +31,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if can_attack and not is_attacking:
 		perform_random_attack()
 
