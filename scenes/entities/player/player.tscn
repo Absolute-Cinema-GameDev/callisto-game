@@ -192,9 +192,7 @@ target_position = Vector2(36, 0)
 
 [node name="Animate" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c4p3s")
-animation = &"walk_move"
-frame = 2
-frame_progress = 0.139876
+animation = &"swim_idle"
 
 [node name="InvincibleTimer" type="Timer" parent="."]
 one_shot = true
