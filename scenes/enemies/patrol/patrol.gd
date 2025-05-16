@@ -12,16 +12,26 @@ extends CharacterBody2D
 @onready var vision_area: Area2D = $VisionArea
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var player: Player = $"../Player"
+@onready var attack_box: Area2D = $Sprite2D/AttackBox
 
 var direction: Vector2 = Vector2.RIGHT
 var state: String = "move"
 var state_time: float = 0.0
 var state_duration: float = 0.0
 
+var can_attack: bool = false
+var is_attacking: bool = false
+var attack_cooldown: float = 1.0
+var attack_timer: float = 0.0
+var attack_box_base_offset: float 
+
 func _ready() -> void:
+	attack_box_base_offset = attack_box.position.x
 	_enter_move_state()
 	vision_area.body_entered.connect(_on_vision_area_body_entered)
 	vision_area.body_exited.connect(_on_vision_area_body_exited)
+	attack_box.body_entered.connect(_on_attack_box_body_entered)
+	attack_box.body_exited.connect(_on_attack_box_body_exited)
 
 func _physics_process(delta: float) -> void:
 	state_time += delta
@@ -30,8 +40,6 @@ func _physics_process(delta: float) -> void:
 		velocity = direction * speed
 		if not anim_player.is_playing() or anim_player.current_animation != "swim":
 			anim_player.play("swim")
-		if abs(velocity.x) > 0.1:
-			sprite.flip_h = velocity.x < 0
 		if velocity.length() > 1:
 			vision_area.rotation = velocity.angle()
 		move_and_slide()
@@ -50,16 +58,40 @@ func _physics_process(delta: float) -> void:
 		if player and player.is_inside_tree():
 			var to_player = (player.global_position - global_position).normalized()
 			velocity = to_player * chase_speed
-			if not anim_player.is_playing() or anim_player.current_animation != "swim":
-				anim_player.play("swim")
-			if abs(velocity.x) > 0.1:
-				sprite.flip_h = velocity.x < 0
 			if velocity.length() > 1:
 				vision_area.rotation = velocity.angle()
 			move_and_slide()
 		else:
-			# Player lost, return to patrol
 			_enter_move_state()
+	elif state == "attack":
+		velocity = Vector2.ZERO
+		if not is_attacking:
+			is_attacking = true
+			anim_player.play("attack")
+			attack_timer = 0.0
+			# Damage player
+			if player and player.is_inside_tree():
+				player.take_damage()
+		else:
+			attack_timer += delta
+			if attack_timer >= attack_cooldown:
+				is_attacking = false
+				if can_attack:
+					_enter_attack_state()
+				else:
+					_enter_chase_state()
+
+	# --- Sprite and attack box flipping logic ---
+	var facing_left = false
+	if state in ["move", "chase"]:
+		if abs(velocity.x) > 0.1:
+			facing_left = velocity.x < 0
+	elif state == "attack":
+		if player and player.is_inside_tree():
+			facing_left = (player.global_position.x - global_position.x) < 0
+
+	sprite.flip_h = facing_left
+	attack_box.position.x = attack_box_base_offset * (-1 if facing_left else 1)
 
 func _enter_move_state():
 	state = "move"
@@ -76,6 +108,12 @@ func _enter_chase_state():
 	state = "chase"
 	state_time = 0.0
 
+func _enter_attack_state():
+	state = "attack"
+	state_time = 0.0
+	is_attacking = false
+	velocity = Vector2.ZERO
+
 func _set_random_direction():
 	direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 	if direction.length() < 0.1:
@@ -90,3 +128,16 @@ func _on_vision_area_body_exited(body):
 	if body == player:
 		player = null
 		_enter_move_state()
+
+
+func _on_attack_box_body_entered(body):
+	if body is Player:
+		can_attack = true
+		if state == "chase":
+			_enter_attack_state()
+
+func _on_attack_box_body_exited(body):
+	if body is Player:
+		can_attack = false
+		if state == "attack":
+			_enter_chase_state()
