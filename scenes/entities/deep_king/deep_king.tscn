@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dc1ivkp03prh0"]
+
+[ext_resource type="Script" path="res://scenes/entities/deep_king/deep_king.gd" id="1_5nd2r"]
+[ext_resource type="Texture2D" uid="uid://bokjnhwn8g47w" path="res://icon.svg" id="2_x47u0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35m4u"]
+size = Vector2(44, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_msdvx"]
+size = Vector2(119, 13)
+
+[node name="DeepKing" type="CharacterBody2D"]
+position = Vector2(69, 82)
+script = ExtResource("1_5nd2r")
+
+[node name="BodyCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_35m4u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.335938, 0.335938)
+texture = ExtResource("2_x47u0")
+
+[node name="AttackTopArea" type="Area2D" parent="."]
+position = Vector2(81.5, -15)
+
+[node name="AttackTop" type="CollisionShape2D" parent="AttackTopArea"]
+shape = SubResource("RectangleShape2D_msdvx")
+
+[node name="AttackMiddleArea" type="Area2D" parent="."]
+position = Vector2(81.5, -15)
+
+[node name="AttackMiddle" type="CollisionShape2D" parent="AttackMiddleArea"]
+position = Vector2(-0.5, 15)
+shape = SubResource("RectangleShape2D_msdvx")
+
+[node name="AttackBottomArea" type="Area2D" parent="."]
+
+[node name="AttackBottom" type="CollisionShape2D" parent="AttackBottomArea"]
+position = Vector2(81, 15)
+shape = SubResource("RectangleShape2D_msdvx")
