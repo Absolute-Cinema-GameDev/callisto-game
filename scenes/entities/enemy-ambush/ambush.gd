@@ -111,8 +111,9 @@ func _process(_delta: float) -> void:
 
 func _on_area_body_entered(body):
 	if state == State.IDLE and body is Player:
-		state = State.ACTIVE
-		active_timer.start()
+		if not body.get_is_hidden_from_enemies():
+			state = State.ACTIVE
+			active_timer.start()
 
 
 func _on_area_body_exited(_body):
