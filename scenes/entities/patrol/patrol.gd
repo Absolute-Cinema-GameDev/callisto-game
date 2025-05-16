@@ -56,6 +56,11 @@ func _physics_process(delta: float) -> void:
 			_enter_move_state()
 	elif state == "chase":
 		if player and player.is_inside_tree():
+			# If player hides, stop chasing
+			if player.is_hidden_from_enemies:
+				player = null
+				_enter_move_state()
+				return
 			var to_player = (player.global_position - global_position).normalized()
 			velocity = to_player * chase_speed
 			if velocity.length() > 1:
@@ -121,14 +126,14 @@ func _set_random_direction():
 
 func _on_vision_area_body_entered(body):
 	if body is Player:
-		player = body
-		_enter_chase_state()
+		if not body.is_hidden_from_enemies:
+			player = body
+			_enter_chase_state()
 
 func _on_vision_area_body_exited(body):
 	if body == player:
 		player = null
 		_enter_move_state()
-
 
 func _on_attack_box_body_entered(body):
 	if body is Player:
