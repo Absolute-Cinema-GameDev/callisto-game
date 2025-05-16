@@ -1,8 +1,9 @@
 extends Node2D
 
-@onready var area_detection = $AreaDetection
-var explode_timer := Timer.new()
 var has_triggered := false
+var explode_timer := Timer.new()
+@onready var area_detection = $AreaDetection
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,14 +13,17 @@ func _ready() -> void:
 	explode_timer.timeout.connect(_on_explode_timer_timeout)
 	add_child(explode_timer)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+
+# Called every frame.
+func _process(_delta: float) -> void:
 	pass
+
 
 func _on_area_body_entered(_body):
 	if not has_triggered:
 		has_triggered = true
 		explode_timer.start()
+
 
 func _on_explode_timer_timeout():
 	print("explode")
