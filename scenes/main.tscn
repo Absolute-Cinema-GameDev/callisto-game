@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bpeiputo77fh1"]
+[gd_scene load_steps=6 format=3 uid="uid://bpeiputo77fh1"]
 
 [ext_resource type="PackedScene" uid="uid://blwqvvn3mh4u4" path="res://scenes/entities/player/player.tscn" id="1_uknod"]
 [ext_resource type="PackedScene" uid="uid://d3w24fym0m4wj" path="res://scenes/entities/enemy-ambush/ambush.tscn" id="2_mpr4x"]
+[ext_resource type="PackedScene" uid="uid://clsb0flmwrkei" path="res://scenes/enemies/patrol/patrol.tscn" id="2_ssld4"]
 [ext_resource type="PackedScene" uid="uid://v2h7u6c0nqg7" path="res://scenes/levels/stunrock/stunrock.tscn" id="3_6cob6"]
 [ext_resource type="PackedScene" uid="uid://eum7ybrrepj" path="res://scenes/levels/seaweed_bush/seaweed_bush.tscn" id="4_opman"]
 
@@ -21,3 +22,5 @@ position = Vector2(214, 123)
 
 [node name="SeaweedBush2" parent="." instance=ExtResource("4_opman")]
 position = Vector2(369, 94)
+
+[node name="Patrol" parent="." instance=ExtResource("2_ssld4")]
