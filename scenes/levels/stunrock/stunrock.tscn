@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://v2h7u6c0nqg7"]
+
+[ext_resource type="Script" path="res://scenes/levels/stunrock/stunrock.gd" id="1_egapr"]
+[ext_resource type="Texture2D" uid="uid://bokjnhwn8g47w" path="res://icon.svg" id="2_2scoc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y32m8"]
+atlas = ExtResource("2_2scoc")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mgmqb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y32m8")
+}],
+"loop": true,
+"name": &"static",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"stun-explode",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8c3tq"]
+radius = 50.01
+
+[node name="Stunrock" type="Node2D"]
+scale = Vector2(0.25, 0.25)
+script = ExtResource("1_egapr")
+
+[node name="Animate" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mgmqb")
+animation = &"static"
+
+[node name="AreaDetection" type="Area2D" parent="."]
+
+[node name="CollisionDetection" type="CollisionShape2D" parent="AreaDetection"]
+shape = SubResource("CircleShape2D_8c3tq")

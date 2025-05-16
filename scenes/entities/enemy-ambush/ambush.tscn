@@ -375,8 +375,9 @@ script = ExtResource("1_d4n3y")
 [node name="Animate" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_ae7va")
-animation = &"idle"
-frame_progress = 0.237289
+animation = &"stun"
+frame = 11
+frame_progress = 1.0
 
 [node name="AreaDetection" type="Area2D" parent="."]
 

@@ -9,10 +9,12 @@ var dash_speed: float = 50.0
 var dash_delay: float = 0.1
 var active_wait_time: float = 2.0
 var hit_pause_time: float = 0.5
+var stun_duration: float = 2.0
 var is_stun: bool = false  # For future stun rock mechanic
 var active_timer := Timer.new()
 var dash_timer := Timer.new()
 var hit_pause_timer := Timer.new()
+var stun_timer := Timer.new()
 
 @onready var area_detection = $AreaDetection
 @onready var collision_shape = $Collision
@@ -38,12 +40,22 @@ func _ready() -> void:
 	add_child(hit_pause_timer)
 	hit_pause_timer.timeout.connect(_on_hit_pause_timer_timeout)
 
+	stun_timer.wait_time = stun_duration
+	stun_timer.one_shot = true
+	add_child(stun_timer)
+	stun_timer.timeout.connect(_on_stun_timer_timeout)
+
 	area_detection.body_entered.connect(_on_area_body_entered)
 	area_detection.body_exited.connect(_on_area_body_exited)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if is_stun:
+		if anim.animation != "stun":
+			anim.play("stun")
+			velocity = Vector2.ZERO
+		return
 	if state == State.ATTACKING:
 		if anim.animation != "dash":
 			anim.play("dash")
@@ -139,5 +151,10 @@ func _on_hit_pause_timer_timeout():
 # Call this to stun the ambush (for future stun rock, etc)
 func stun():
 	is_stun = true
-	# You can add stun logic/animation here later
-	# For now, just set the flag
+	velocity = Vector2.ZERO
+	stun_timer.start()
+
+
+func _on_stun_timer_timeout():
+	is_stun = false
+	state = State.RETURNING
