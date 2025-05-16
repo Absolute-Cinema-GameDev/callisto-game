@@ -17,7 +17,7 @@ scale = Vector2(0.3, 0.3)
 position = Vector2(318, 216)
 
 [node name="SeaweedBush" parent="." instance=ExtResource("4_opman")]
-position = Vector2(179, 127)
+position = Vector2(214, 123)
 
 [node name="SeaweedBush2" parent="." instance=ExtResource("4_opman")]
 position = Vector2(369, 94)
