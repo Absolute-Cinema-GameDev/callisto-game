@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://eum7ybrrepj"]
+
+[ext_resource type="Script" path="res://scenes/levels/seaweed_bush/seaweed_bush.gd" id="1_kc8n4"]
+[ext_resource type="Texture2D" uid="uid://cgae35qoyewpv" path="res://assets/levels/seaweed_bush-temp/seaweed_bush-968e.png" id="2_0lik1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lctq2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0lik1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.45
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gumuy"]
+size = Vector2(57.5, 47.8333)
+
+[node name="SeaweedBush" type="Node2D"]
+scale = Vector2(0.75, 0.75)
+script = ExtResource("1_kc8n4")
+
+[node name="Animate" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lctq2")
+animation = &"idle"
+frame_progress = 0.678097
+
+[node name="AreaDetection" type="Area2D" parent="."]
+
+[node name="CollisionDetection" type="CollisionShape2D" parent="AreaDetection"]
+position = Vector2(-2.91667, 8.08333)
+shape = SubResource("RectangleShape2D_gumuy")
+
+[connection signal="body_entered" from="AreaDetection" to="." method="_on_area_detection_body_entered"]
+[connection signal="body_exited" from="AreaDetection" to="." method="_on_area_detection_body_exited"]
