@@ -44,7 +44,6 @@ func _ready() -> void:
 	stun_timer.one_shot = true
 	add_child(stun_timer)
 	stun_timer.timeout.connect(_on_stun_timer_timeout)
-
 	area_detection.body_entered.connect(_on_area_body_entered)
 	area_detection.body_exited.connect(_on_area_body_exited)
 
@@ -93,9 +92,6 @@ func _process(_delta: float) -> void:
 			velocity = Vector2.ZERO
 			state = State.IDLE
 			# Immediately check if player is in area
-			if _get_player_in_area() != null:
-				state = State.ACTIVE
-				active_timer.start()
 	elif state == State.ACTIVE:
 		if anim.animation != "active":
 			anim.play("active")
@@ -104,6 +100,9 @@ func _process(_delta: float) -> void:
 		if player:
 			anim.flip_h = (player.global_position.x < global_position.x)
 	else:
+		if _get_player_in_area() != null:
+			state = State.ACTIVE
+			active_timer.start()
 		if anim.animation != "idle":
 			anim.play("idle")
 		velocity = Vector2.ZERO
@@ -141,7 +140,8 @@ func _on_dash_timer_timeout():
 func _get_player_in_area():
 	for body in area_detection.get_overlapping_bodies():
 		if body is Player:
-			return body
+			if not body.get_is_hidden_from_enemies():
+				return body
 	return null
 
 
