@@ -24,3 +24,5 @@ position = Vector2(214, 123)
 position = Vector2(369, 94)
 
 [node name="Patrol" parent="." instance=ExtResource("2_ssld4")]
+chase_speed = 25.0
+stun_duration = 2.0

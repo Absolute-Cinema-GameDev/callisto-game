@@ -12,7 +12,6 @@ extends CharacterBody2D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var vision_area: Area2D = $VisionArea
 @onready var sprite: Sprite2D = $Sprite2D
-@onready var player: Player = $"../Player"
 @onready var attack_box: Area2D = $Sprite2D/AttackBox
 
 
@@ -30,6 +29,9 @@ var attack_box_base_offset: float
 var is_stunned: bool = false
 var stun_timer: float = 0.0
 
+var players_in_vision := []
+var player = null
+
 func _ready() -> void:
 	attack_box_base_offset = attack_box.position.x
 	_enter_move_state()
@@ -37,6 +39,7 @@ func _ready() -> void:
 	vision_area.body_exited.connect(_on_vision_area_body_exited)
 	attack_box.body_entered.connect(_on_attack_box_body_entered)
 	attack_box.body_exited.connect(_on_attack_box_body_exited)
+
 
 func _physics_process(delta: float) -> void:
 	state_time += delta
@@ -49,9 +52,6 @@ func _physics_process(delta: float) -> void:
 		if stun_timer >= stun_duration:
 			is_stunned = false
 			_enter_move_state()
-		# Flipping logic (optional, usually not needed when stunned)
-		# sprite.flip_h = false
-		# attack_box.position.x = attack_box_base_offset
 		return
 
 	elif state == "move":
@@ -76,13 +76,16 @@ func _physics_process(delta: float) -> void:
 	
 	elif state == "chase":
 		if player and player.is_inside_tree():
-			# If player hides, stop chasing
 			if player.is_hidden_from_enemies:
-				player = null
+				# if player.is_hidden_from_enemies_changed.is_connected(_on_player_hidden_changed):
+				# 	player.is_hidden_from_enemies_changed.disconnect(_on_player_hidden_changed)
+				# player = null
 				_enter_move_state()
 				return
+
 			var to_player = (player.global_position - global_position).normalized()
 			velocity = to_player * chase_speed
+			
 			if velocity.length() > 1:
 				vision_area.rotation = velocity.angle()
 			move_and_slide()
@@ -95,7 +98,6 @@ func _physics_process(delta: float) -> void:
 			is_attacking = true
 			anim_player.play("attack")
 			attack_timer = 0.0
-			# Damage player
 			if player and player.is_inside_tree():
 				player.take_damage()
 		else:
@@ -155,14 +157,27 @@ func _set_random_direction():
 
 func _on_vision_area_body_entered(body):
 	if body is Player:
+		if not players_in_vision.has(body):
+			players_in_vision.append(body)
+
+		if not body.is_hidden_from_enemies_changed.is_connected(_on_player_hidden_changed):
+			body.is_hidden_from_enemies_changed.connect(_on_player_hidden_changed.bind(body))
+		
 		if not body.is_hidden_from_enemies:
 			player = body
 			_enter_chase_state()
 
 func _on_vision_area_body_exited(body):
-	if body == player:
-		player = null
-		_enter_move_state()
+	if body is Player:
+		if players_in_vision.has(body):
+			players_in_vision.erase(body)
+		
+		if body.is_hidden_from_enemies_changed.is_connected(_on_player_hidden_changed.bind(body)):
+			body.is_hidden_from_enemies_changed.disconnect(_on_player_hidden_changed.bind(body))
+		
+		if player == body:
+			player = null
+			_enter_move_state()
 
 func _on_attack_box_body_entered(body):
 	if body is Player:
@@ -175,3 +190,19 @@ func _on_attack_box_body_exited(body):
 		can_attack = false
 		if state == "attack":
 			_enter_chase_state()
+
+func _on_player_hidden_changed(is_hidden: bool, changed_player) -> void:
+	if not is_hidden and players_in_vision.has(changed_player):
+		player = changed_player
+		_enter_chase_state()
+		return
+	# If no visible players, stop chasing
+	for p in players_in_vision:
+		print(p)
+		if not p.is_hidden_from_enemies:
+			player = p
+			_enter_chase_state()
+			return
+	if player != null:
+		player = null
+		_enter_move_state()

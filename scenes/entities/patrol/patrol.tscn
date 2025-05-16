@@ -109,6 +109,7 @@ position = Vector2(197, 81)
 scale = Vector2(1, 0.981203)
 collision_layer = 3
 script = ExtResource("1_gaa75")
+chase_speed = 50.0
 stun_duration = 3.0
 
 [node name="CollisionArea" type="CollisionShape2D" parent="."]
