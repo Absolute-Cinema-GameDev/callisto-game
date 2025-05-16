@@ -2,12 +2,15 @@ class_name Player
 
 extends CharacterBody2D
 
-signal movement_type_changed
-signal health_changed
-signal is_invincibile_changed
-signal main_oxygen_changed
-signal reserve_oxygen_changed
-signal is_in_airpocket_changed
+signal movement_type_changed  ## Fires when movement_type is changed
+signal health_changed  ## Fires when health_status is changed
+signal is_invincible_changed  ## Fires when is_invincible is changed
+signal main_oxygen_changed  ## Fires when main_tank_capacity is changed
+signal reserve_oxygen_changed  ## Fires when reserve_tank_capacity is changed
+signal is_in_airpocket_changed  ## Fires when player moves in/out of airpockets
+signal is_hidden_from_enemies_changed  ## Fires when player moves in/out of seaweed bushes
+signal is_stunned_changed  ## Fires when player stun status is changed
+signal is_input_locked_changed  ## Fires when player input lock status is changed
 
 enum MovementType { WALK, SWIM }
 enum HealthStatus { HEALTHY, CRITICAL, DEAD }
@@ -23,49 +26,42 @@ const OXYGEN_MAIN_GAIN_RATE: float = 10
 const OXYGEN_MAIN_DECAY_RATE: float = 1
 const OXYGEN_RESERVE_DECAY_RATE: float = 1
 
-@export var movement_speed = 120.0
+@export var movement_speed: float = 120.0
 @export var movement_type: MovementType = MovementType.SWIM:
-	get:
-		return movement_type
-	set(value):
-		movement_type_changed.emit(value)
-		movement_type = value
+	get = get_movement_type,
+	set = set_movement_type
 @export var health_status: HealthStatus = HealthStatus.HEALTHY:
-	get:
-		return health_status
-	set(value):
-		health_changed.emit(value)
-		health_status = value
+	get = get_health_status,
+	set = _set_health_status
 @export var main_tank_capacity: float = MAX_OXYGEN_MAIN:
-	get:
-		return main_tank_capacity
-	set(value):
-		main_oxygen_changed.emit(value)
-		main_tank_capacity = value
+	get = get_main_tank_capacity,
+	set = _set_main_tank_capacity
 @export var reserve_tank_capacity: float = MAX_OXYGEN_RESERVE:
-	get:
-		return reserve_tank_capacity
-	set(value):
-		if value > reserve_tank_capacity:
-			reserve_oxygen_changed.emit(value)
-			reserve_tank_capacity = value
+	get = get_reserve_tank_capacity,
+	set = _set_reserve_tank_capacity
 @export var is_in_airpocket: bool = false:
-	get:
-		return is_in_airpocket
-	set(value):
-		is_in_airpocket_changed.emit(value)
-		is_in_airpocket = value
+	get = get_is_in_airpocket,
+	set = set_is_in_airpocket
 @export var is_invincible: bool = false:
-	get:
-		return is_invincible
-	set(value):
-		is_invincibile_changed.emit(value)
-		is_invincible = value
+	get = get_is_invincible,
+	set = _set_is_invincible
+@export var is_hidden_from_enemies: bool = false:
+	get = get_is_hidden_from_enemies,
+	set = set_is_hidden_from_enemies
+@export var is_stunned: bool = false:
+	get = get_is_stunned,
+	set = _set_is_stunned
+@export var is_input_locked: bool = false:
+	get = get_is_input_locked,
+	set = set_is_input_locked
 
-@onready var animplayer = $Animate
-@onready var interact_ray = $InteractRay
-@onready var invincible_timer = $InvincibleTimer
-@onready var heal_timer = $HealTimer
+@onready var animplayer: AnimatedSprite2D = $Animate
+@onready var interact_ray: RayCast2D = $InteractRay
+@onready var invincible_timer: Timer = $InvincibleTimer
+@onready var heal_timer: Timer = $HealTimer
+@onready var stun_timer: Timer = $StunTimer
+@onready var hurtbox: CollisionShape2D = $Hurtbox  ## Use this for damage calculation
+@onready var collision_box: CollisionShape2D = $CollisionBox
 
 #-- GETTERS
 
@@ -94,10 +90,79 @@ func get_is_invincible() -> bool:
 	return is_invincible
 
 
+func get_is_hidden_from_enemies() -> bool:
+	return is_hidden_from_enemies
+
+
+func get_is_stunned() -> bool:
+	return is_stunned
+
+
+func get_is_input_locked() -> bool:
+	return is_input_locked
+
+
+#-- SETTERS
+
+
+func _set_health_status(value: HealthStatus):
+	health_status = value
+	health_changed.emit(value)
+
+
+func set_movement_type(value: MovementType):  ## Use for switching between swimming and walking
+	movement_type_changed.emit(value)
+	movement_type = value
+
+
+func _set_main_tank_capacity(value: float):
+	main_oxygen_changed.emit(value)
+	main_tank_capacity = value
+
+
+func _set_reserve_tank_capacity(value: float):
+	if value > reserve_tank_capacity:
+		reserve_oxygen_changed.emit(value)
+		reserve_tank_capacity = value
+
+
+func set_is_in_airpocket(value: bool):  ## Use for Air Pocket functionality
+	is_in_airpocket_changed.emit(value)
+	is_in_airpocket = value
+
+
+func _set_is_invincible(value: bool):
+	is_invincible_changed.emit(value)
+	is_invincible = value
+
+
+func set_is_hidden_from_enemies(value: bool):  ## Use for Seaweed Bush functionality
+	is_hidden_from_enemies_changed.emit(value)
+	is_hidden_from_enemies = value
+
+
+func _set_is_stunned(value: bool):
+	is_stunned_changed.emit(value)
+	is_stunned = value
+
+
+func set_is_input_locked(value: bool):  ## Use for Cutscene functionality
+	is_input_locked_changed.emit(value)
+	is_input_locked = value
+
+
 #-- MOVEMENT
 
 
-## Movement while UNDERWATER
+## Adjust sprite direction
+func _adjust_sprite_direction(is_flipped: bool) -> void:
+	animplayer.flip_h = is_flipped
+	hurtbox.position.x = 2 if is_flipped else -2
+	collision_box.position.x = 2 if is_flipped else -2
+	interact_ray.target_position.x = -36 if is_flipped else 36
+
+
+## Movement while underwater (e.g: in Cave)
 func _move_swim(input_vector: Vector2) -> void:
 	var is_moving: bool = false
 
@@ -107,7 +172,8 @@ func _move_swim(input_vector: Vector2) -> void:
 		velocity.x = lerp(
 			velocity.x, movement_speed * input_vector.x, SWIM_ACCELERATION / movement_speed
 		)
-		animplayer.flip_h = input_vector.x < 0
+		_adjust_sprite_direction(input_vector.x < 0)
+
 	else:
 		velocity.x = lerp(velocity.x, 0.0, SWIM_DECELERATION / movement_speed)
 
@@ -123,7 +189,7 @@ func _move_swim(input_vector: Vector2) -> void:
 	_change_animation(is_moving)
 
 
-## Movement while ON LAND
+## Movement while on land (e.g: Poseidon-1 Station Hub)
 func _move_walk(input_vector: Vector2) -> void:
 	var is_moving: bool = false
 
@@ -133,14 +199,14 @@ func _move_walk(input_vector: Vector2) -> void:
 		velocity.x = lerp(
 			velocity.x, movement_speed * input_vector.x, WALK_ACCELERATION / movement_speed
 		)
-		animplayer.flip_h = input_vector.x < 0
+		_adjust_sprite_direction(input_vector.x < 0)
 	else:
 		velocity.x = lerp(velocity.x, 0.0, WALK_DECELERATION / movement_speed)
 
 	_change_animation(is_moving)
 
 
-## Changing animations
+## Change currently playing animation based on player moving state
 func _change_animation(is_moving: bool) -> void:
 	if movement_type == MovementType.SWIM:
 		if is_moving:
@@ -157,11 +223,14 @@ func _change_animation(is_moving: bool) -> void:
 ## Every physics frame, process movement
 func _physics_process(_delta: float) -> void:
 	var input_vector = Vector2.ZERO
-	input_vector.x = (
-		Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	)
-	input_vector.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	input_vector = input_vector.normalized()
+	if not is_stunned and not is_input_locked:  # Keep vector at ZERO when stunned
+		input_vector.x = (
+			Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+		)
+		input_vector.y = (
+			Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+		)
+		input_vector = input_vector.normalized()
 
 	if movement_type == MovementType.SWIM:
 		_move_swim(input_vector)
@@ -175,8 +244,9 @@ func _physics_process(_delta: float) -> void:
 #-- HEALTH
 
 
-## Health and Damage.
-## Always revert one step back (e.g: HEALTHY -> CRITICAL, CRITICAL -> DEAD)
+## Use for enemy attack or player damage.
+## Reverts [member health_status] one step back.
+## Example: HEALTHY -> CRITICAL, CRITICAL -> DEAD
 func take_damage():
 	if is_invincible:
 		return
@@ -210,9 +280,8 @@ func _on_heal_timer_timeout() -> void:
 
 
 func _on_test_timer_timeout() -> void:
-	# TODO: ini testing buat damage aja
-	#take_damage()
-	pass
+	# NOTE: ini testing buat damage aja
+	stun()
 
 
 #-- INTERACTION
@@ -230,11 +299,15 @@ func _interact():
 
 ## Handle gameplay input
 func _unhandled_input(event: InputEvent) -> void:
+	if is_input_locked:
+		return
 	if event.is_action_pressed("interact"):
 		_interact()
 
 
 #-- OXYGEN
+
+
 func _on_oxygen_timer_timeout() -> void:
 	if is_in_airpocket or movement_type == MovementType.WALK:
 		main_tank_capacity += OXYGEN_MAIN_GAIN_RATE
@@ -246,3 +319,35 @@ func _on_oxygen_timer_timeout() -> void:
 	else:
 		if health_status != HealthStatus.DEAD:
 			take_damage()
+
+
+#-- STUN ROCK
+
+
+## Use for Stun Rock functionality on player
+func stun() -> void:
+	is_stunned = true
+	stun_timer.start()
+
+
+func _on_stun_timer_timeout() -> void:
+	is_stunned = false
+
+
+func _on_is_stunned_changed(new_stun_value) -> void:
+	if new_stun_value:
+		animplayer.set_self_modulate(Color(1, 1, 0, 1))
+	else:
+		animplayer.set_self_modulate(Color(1, 1, 1, 1))
+
+
+#-- SEAWEED BUSH
+
+
+func _on_is_hidden_from_enemies_changed(new_value) -> void:
+	if new_value:
+		animplayer.set_self_modulate(Color(0.7, 0.7, 0.7, 1))
+	else:
+		animplayer.set_self_modulate(Color(1, 1, 1, 1))
+
+#-- INPUT LOCK
