@@ -13,6 +13,7 @@ extends CharacterBody2D
 @onready var vision_area: Area2D = $VisionArea
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var attack_box: Area2D = $Sprite2D/AttackBox
+@onready var attack_box_collision: CollisionShape2D = $Sprite2D/AttackBox/CollisionShape2D
 
 
 var direction: Vector2 = Vector2.RIGHT
@@ -24,7 +25,7 @@ var can_attack: bool = false
 var is_attacking: bool = false
 var attack_cooldown: float = 1.0
 var attack_timer: float = 0.0
-var attack_box_base_offset: float 
+var attack_box_collision_base_offset: float = 13.0
 
 var is_stunned: bool = false
 var stun_timer: float = 0.0
@@ -33,7 +34,7 @@ var players_in_vision := []
 var player = null
 
 func _ready() -> void:
-	attack_box_base_offset = attack_box.position.x
+	attack_box_collision_base_offset = abs(attack_box_collision.position.x)
 	_enter_move_state()
 	vision_area.body_entered.connect(_on_vision_area_body_entered)
 	vision_area.body_exited.connect(_on_vision_area_body_exited)
@@ -77,9 +78,6 @@ func _physics_process(delta: float) -> void:
 	elif state == "chase":
 		if player and player.is_inside_tree():
 			if player.is_hidden_from_enemies:
-				# if player.is_hidden_from_enemies_changed.is_connected(_on_player_hidden_changed):
-				# 	player.is_hidden_from_enemies_changed.disconnect(_on_player_hidden_changed)
-				# player = null
 				_enter_move_state()
 				return
 
@@ -118,7 +116,7 @@ func _physics_process(delta: float) -> void:
 			facing_left = (player.global_position.x - global_position.x) < 0
 
 	sprite.flip_h = facing_left
-	attack_box.position.x = attack_box_base_offset * (-1 if facing_left else 1)
+	attack_box_collision.position.x = attack_box_collision_base_offset * (-1 if facing_left else 1)
 
 func stun():
 	if is_stunned:
