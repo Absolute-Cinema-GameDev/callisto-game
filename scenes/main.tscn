@@ -9,10 +9,12 @@
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_uknod")]
+position = Vector2(250, 81)
 
 [node name="Ambush" parent="." instance=ExtResource("2_mpr4x")]
 position = Vector2(412, 182)
 scale = Vector2(0.3, 0.3)
+collision_layer = 4
 
 [node name="Stunrock" parent="." instance=ExtResource("3_6cob6")]
 position = Vector2(318, 216)

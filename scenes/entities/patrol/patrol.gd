@@ -23,7 +23,7 @@ var state_duration: float = 0.0
 
 var can_attack: bool = false
 var is_attacking: bool = false
-var attack_cooldown: float = 1.0
+var attack_cooldown: float = 0.5
 var attack_timer: float = 0.0
 var attack_box_collision_base_offset: float = 13.0
 
@@ -83,7 +83,11 @@ func _physics_process(delta: float) -> void:
 
 			var to_player = (player.global_position - global_position).normalized()
 			velocity = to_player * chase_speed
-			
+			if not anim_player.is_playing() or (anim_player.current_animation != "chase" and anim_player.has_animation("chase")):
+				if anim_player.has_animation("chase"):
+					anim_player.play("chase")
+				else:
+					anim_player.play("swim")
 			if velocity.length() > 1:
 				vision_area.rotation = velocity.angle()
 			move_and_slide()
@@ -92,6 +96,10 @@ func _physics_process(delta: float) -> void:
 	
 	elif state == "attack":
 		velocity = Vector2.ZERO
+		if not can_attack:
+			is_attacking = false
+			_enter_chase_state()
+			return
 		if not is_attacking:
 			is_attacking = true
 			anim_player.play("attack")
@@ -132,6 +140,8 @@ func _enter_move_state():
 	state_time = 0.0
 	state_duration = randf_range(min_move_time, max_move_time)
 	_set_random_direction()
+	if anim_player.has_animation("swim"):
+		anim_player.play("swim")
 
 func _enter_idle_state():
 	state = "idle"
@@ -141,6 +151,11 @@ func _enter_idle_state():
 func _enter_chase_state():
 	state = "chase"
 	state_time = 0.0
+	is_attacking = false
+	if anim_player.has_animation("chase"):
+		anim_player.play("chase")
+	else:
+		anim_player.play("swim")
 
 func _enter_attack_state():
 	state = "attack"
