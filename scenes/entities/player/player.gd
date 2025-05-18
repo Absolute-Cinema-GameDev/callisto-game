@@ -121,7 +121,7 @@ func _set_main_tank_capacity(value: float):
 
 
 func _set_reserve_tank_capacity(value: float):
-	if value > reserve_tank_capacity:
+	if value < reserve_tank_capacity:
 		reserve_oxygen_changed.emit(value)
 		reserve_tank_capacity = value
 
@@ -267,6 +267,7 @@ func _on_health_changed(new_health) -> void:
 		invincible_timer.start()
 		heal_timer.start()
 	elif new_health == HealthStatus.DEAD:
+		is_input_locked = true
 		animplayer.set_self_modulate(Color(0.25, 0, 0, 1))
 
 
