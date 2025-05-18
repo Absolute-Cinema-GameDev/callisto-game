@@ -1,6 +1,5 @@
-[gd_scene load_steps=27 format=3 uid="uid://blwqvvn3mh4u4"]
+[gd_scene load_steps=26 format=3 uid="uid://dvt61q25moddq"]
 
-[ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_liiov"]
 [ext_resource type="Texture2D" uid="uid://ythm0pc7jfiv" path="res://assets/entities/player/player_spritesheet.png" id="2_pi7ps"]
 [ext_resource type="Script" path="res://scenes/entities/player/player_debug_hud.gd" id="3_74f0n"]
 
@@ -176,8 +175,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 14
-script = ExtResource("1_liiov")
+collision_mask = 12
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
 position = Vector2(-2, -1)
@@ -292,18 +290,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "Is In Air Pocket? FALSE"
 
-[connection signal="health_changed" from="." to="." method="_on_health_changed"]
-[connection signal="health_changed" from="." to="DebugHUD/HUDBase" method="_on_player_health_changed"]
-[connection signal="is_hidden_from_enemies_changed" from="." to="." method="_on_is_hidden_from_enemies_changed"]
-[connection signal="is_hidden_from_enemies_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_hidden_from_enemies_changed"]
-[connection signal="is_in_airpocket_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_in_airpocket_changed"]
-[connection signal="is_input_locked_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_input_locked_changed"]
-[connection signal="is_invincible_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_invincible_changed"]
-[connection signal="is_stunned_changed" from="." to="." method="_on_is_stunned_changed"]
-[connection signal="is_stunned_changed" from="." to="DebugHUD/HUDBase" method="_on_player_is_stunned_changed"]
-[connection signal="main_oxygen_changed" from="." to="DebugHUD/HUDBase" method="_on_player_main_oxygen_changed"]
-[connection signal="movement_type_changed" from="." to="DebugHUD/HUDBase" method="_on_player_movement_type_changed"]
-[connection signal="reserve_oxygen_changed" from="." to="DebugHUD/HUDBase" method="_on_player_reserve_oxygen_changed"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]
 [connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]
 [connection signal="timeout" from="OxygenTimer" to="." method="_on_oxygen_timer_timeout"]
