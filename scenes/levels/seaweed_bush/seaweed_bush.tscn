@@ -25,7 +25,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.5
+"speed": 4.5
 }]
 
 [node name="SeaweedBush" type="Node2D"]
@@ -40,7 +40,7 @@ shape = SubResource("RectangleShape2D_gumuy")
 [node name="Animate" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_lctq2")
 animation = &"idle"
-frame_progress = 0.0244569
+frame_progress = 0.118244
 
 [connection signal="body_entered" from="AreaDetection" to="." method="_on_area_detection_body_entered"]
 [connection signal="body_exited" from="AreaDetection" to="." method="_on_area_detection_body_exited"]
