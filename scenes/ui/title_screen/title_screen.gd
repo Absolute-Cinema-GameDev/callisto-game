@@ -1,7 +1,8 @@
 extends Control
 
-const BG_FADE_OUT_TIME := 3.0
+const BG_FADE_OUT_TIME := 5.0
 const TITLE_FADE_IN_TIME := 1.0
+const MENU_ITEM_FADE_IN_TIME := 0.5
 const TITLE_FADE_OUT_TIME := 1.5
 const SHOWN_COLOR := Color(1, 1, 1, 1)
 const HIDDEN_COLOR := Color(1, 1, 1, 0)
@@ -16,9 +17,6 @@ var is_animation_done := false
 
 
 func start_animation() -> void:
-	game_title.self_modulate = HIDDEN_COLOR
-	menu_items.modulate = HIDDEN_COLOR
-
 	# 1. bg fade out
 	var bg_fadeout = create_tween()
 	bg_fadeout.stop()
@@ -30,7 +28,7 @@ func start_animation() -> void:
 		. set_ease(Tween.EASE_OUT)
 	)
 	bg_fadeout.play()
-	await get_tree().create_timer(BG_FADE_OUT_TIME / 2).timeout
+	await get_tree().create_timer(BG_FADE_OUT_TIME / 3).timeout
 
 	# 2. title fade in
 	var title_fadein = create_tween()
@@ -46,17 +44,19 @@ func start_animation() -> void:
 	await title_fadein.finished
 
 	# 3. menu fade in
-	var menuitems_fadein = create_tween()
-	menuitems_fadein.stop()
-	(
-		menuitems_fadein
-		. tween_property(menu_items, "modulate", Color(SHOWN_COLOR), TITLE_FADE_IN_TIME)
-		. from(HIDDEN_COLOR)
-		. set_trans(Tween.TRANS_CUBIC)
-		. set_ease(Tween.EASE_OUT)
-	)
-	menuitems_fadein.play()
-	await menuitems_fadein.finished
+	for child in menu_items.get_children():
+		child.modulate = HIDDEN_COLOR
+		var menuitem_fadein = create_tween()
+		menuitem_fadein.stop()
+		(
+			menuitem_fadein
+			. tween_property(child, "modulate", Color(SHOWN_COLOR), MENU_ITEM_FADE_IN_TIME)
+			. from(HIDDEN_COLOR)
+			. set_trans(Tween.TRANS_CUBIC)
+			. set_ease(Tween.EASE_OUT)
+		)
+		menuitem_fadein.play()
+		await get_tree().create_timer(MENU_ITEM_FADE_IN_TIME / 2).timeout
 	is_animation_done = true
 
 	_grab_focus_first_button()
@@ -68,6 +68,9 @@ func _grab_focus_first_button() -> void:
 
 
 func _ready() -> void:
+	game_title.self_modulate = HIDDEN_COLOR
+	for child in menu_items.get_children():
+		child.modulate = HIDDEN_COLOR
 	start_animation()
 
 
@@ -85,9 +88,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		_grab_focus_first_button()
 
 
-func _on_continue_pressed() -> void:
+func _on_continue_pressed() -> void:  # TODO
 	print("CONTINUE")
 
 
-func _on_newgame_pressed() -> void:
+func _on_newgame_pressed() -> void:  # TODO
 	print("NEW GAME")
