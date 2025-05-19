@@ -41,13 +41,19 @@ var player = null
 @onready var attack_box_collision: CollisionShape2D = $Sprite2D/AttackBox/CollisionShape2D
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 
+
 func _update_path_to_player():
 	if player:
 		var target = player.global_position
 		# Clamp target to patrol zone
-		target.x = clamp(target.x, patrol_zone.position.x, patrol_zone.position.x + patrol_zone.size.x)
-		target.y = clamp(target.y, patrol_zone.position.y, patrol_zone.position.y + patrol_zone.size.y)
+		target.x = clamp(
+			target.x, patrol_zone.position.x, patrol_zone.position.x + patrol_zone.size.x
+		)
+		target.y = clamp(
+			target.y, patrol_zone.position.y, patrol_zone.position.y + patrol_zone.size.y
+		)
 		nav_agent.target_position = target
+
 
 func _ready() -> void:
 	# Compute patrol_zone from 4 corners
@@ -64,6 +70,7 @@ func _ready() -> void:
 	vision_area.body_exited.connect(_on_vision_area_body_exited)
 	attack_box.body_entered.connect(_on_attack_box_body_entered)
 	attack_box.body_exited.connect(_on_attack_box_body_exited)
+
 
 func _physics_process(delta: float) -> void:
 	state_time += delta
@@ -155,8 +162,13 @@ func _physics_process(delta: float) -> void:
 	attack_box_collision.position.x = attack_box_collision_base_offset * (-1 if facing_left else 1)
 
 	# Clamp patrol position to patrol zone
-	global_position.x = clamp(global_position.x, patrol_zone.position.x, patrol_zone.position.x + patrol_zone.size.x)
-	global_position.y = clamp(global_position.y, patrol_zone.position.y, patrol_zone.position.y + patrol_zone.size.y)
+	global_position.x = clamp(
+		global_position.x, patrol_zone.position.x, patrol_zone.position.x + patrol_zone.size.x
+	)
+	global_position.y = clamp(
+		global_position.y, patrol_zone.position.y, patrol_zone.position.y + patrol_zone.size.y
+	)
+
 
 func stun():
 	if is_stunned:
@@ -167,6 +179,7 @@ func stun():
 	velocity = Vector2.ZERO
 	anim_player.play("stun")
 
+
 func _enter_move_state():
 	state = "move"
 	state_time = 0.0
@@ -175,10 +188,12 @@ func _enter_move_state():
 	if anim_player.has_animation("swim"):
 		anim_player.play("swim")
 
+
 func _enter_idle_state():
 	state = "idle"
 	state_time = 0.0
 	state_duration = randf_range(min_idle_time, max_idle_time)
+
 
 func _enter_chase_state():
 	state = "chase"
@@ -189,11 +204,13 @@ func _enter_chase_state():
 	else:
 		anim_player.play("swim")
 
+
 func _enter_attack_state():
 	state = "attack"
 	state_time = 0.0
 	is_attacking = false
 	velocity = Vector2.ZERO
+
 
 func _set_random_direction():
 	var tries = 0
@@ -208,6 +225,7 @@ func _set_random_direction():
 		tries += 1
 	direction = Vector2.RIGHT
 
+
 func _on_vision_area_body_entered(body):
 	if body is Player:
 		if not players_in_vision.has(body):
@@ -219,6 +237,7 @@ func _on_vision_area_body_entered(body):
 			_update_path_to_player()
 			_enter_chase_state()
 
+
 func _on_vision_area_body_exited(body):
 	if body is Player:
 		if players_in_vision.has(body):
@@ -229,17 +248,20 @@ func _on_vision_area_body_exited(body):
 			player = null
 			_enter_move_state()
 
+
 func _on_attack_box_body_entered(body):
 	if body is Player:
 		can_attack = true
 		if state == "chase":
 			_enter_attack_state()
 
+
 func _on_attack_box_body_exited(body):
 	if body is Player:
 		can_attack = false
 		if state == "attack":
 			_enter_chase_state()
+
 
 func _on_player_hidden_changed(is_hidden: bool, changed_player) -> void:
 	if not is_hidden and players_in_vision.has(changed_player):
