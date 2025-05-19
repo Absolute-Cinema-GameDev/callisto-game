@@ -253,8 +253,7 @@ target_position = Vector2(36, 0)
 
 [node name="Animate" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c4p3s")
-animation = &"stunned"
-frame_progress = 0.813217
+animation = &"walk_idle"
 
 [node name="InvincibleTimer" type="Timer" parent="."]
 one_shot = true
@@ -274,7 +273,6 @@ one_shot = true
 [node name="TestTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
-autostart = true
 
 [node name="DebugHUD" type="CanvasLayer" parent="."]
 
