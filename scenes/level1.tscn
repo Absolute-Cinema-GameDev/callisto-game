@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://bamsom22grcgb"]
+[gd_scene load_steps=6 format=4 uid="uid://bamsom22grcgb"]
 
 [ext_resource type="TileSet" uid="uid://df7qnwfom4ddq" path="res://assets/calisto_tileset.tres" id="1_u4lte"]
 [ext_resource type="PackedScene" uid="uid://blwqvvn3mh4u4" path="res://scenes/entities/player/player.tscn" id="2_ai7jf"]
 [ext_resource type="PackedScene" uid="uid://clsb0flmwrkei" path="res://scenes/entities/patrol/patrol.tscn" id="3_ieq7l"]
+[ext_resource type="PackedScene" uid="uid://eum7ybrrepj" path="res://scenes/levels/seaweed_bush/seaweed_bush.tscn" id="4_h86q7"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lrhw8"]
 vertices = PackedVector2Array(1748, 756, 1748, 652, 1804, 652, 1804, 756, 588, 300, 21, 300, 23.4766, 52, 588, 236, 692, 116, 692, 52, 1228, 52, 1228, 300, 1068, 300, 1068, 404, 1228, 404, 1228, 564, 844, 652, 1332, 564, 1332, 404, 1868, 404, 1868, 652, 1332, 620, 1332, 652, 1228, 620, 1228, 652, 1868, 756, 1868, 1004, 1332, 1004, 1332, 812, 844, 756, 1228, 812, 1228, 1004, 692, 1004, 788, 756, 692, 756, 788, 652, 692, 652, 692, 556, 588, 556, 588, 652, 52, 652, 52, 404, 588, 404, 588, 500, 692, 500, 692, 404, 852, 404, 852, 300, 692, 300, 692, 236, 588, 52, 588, 116)
@@ -55,3 +56,18 @@ patrol_corner_1 = Vector2(693, 299)
 patrol_corner_2 = Vector2(693, 52)
 patrol_corner_3 = Vector2(1228, 52)
 patrol_corner_4 = Vector2(1228, 299)
+
+[node name="SeaweedBush" parent="." instance=ExtResource("4_h86q7")]
+position = Vector2(743, 305)
+
+[node name="SeaweedBush2" parent="." instance=ExtResource("4_h86q7")]
+position = Vector2(988, 656)
+
+[node name="SeaweedBush3" parent="." instance=ExtResource("4_h86q7")]
+position = Vector2(1135, 1008)
+
+[node name="SeaweedBush4" parent="." instance=ExtResource("4_h86q7")]
+position = Vector2(1412, 656)
+
+[node name="SeaweedBush5" parent="." instance=ExtResource("4_h86q7")]
+position = Vector2(729, 1008)
