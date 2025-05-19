@@ -1,3 +1,17 @@
-[gd_scene format=3 uid="uid://bpeiputo77fh1"]
+[gd_scene load_steps=3 format=3 uid="uid://bpeiputo77fh1"]
 
-[node name="Main" type="Node2D"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_vy3m2"]
+[ext_resource type="PackedScene" uid="uid://blwqvvn3mh4u4" path="res://scenes/entities/player/player.tscn" id="2_i1inn"]
+
+[node name="GameController" type="Node"]
+script = ExtResource("1_vy3m2")
+
+[node name="World2D" type="Node2D" parent="."]
+
+[node name="Player" parent="World2D" instance=ExtResource("2_i1inn")]
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
