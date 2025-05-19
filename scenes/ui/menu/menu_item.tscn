@@ -1,20 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxwh83cimm7om"]
+[gd_scene load_steps=10 format=3 uid="uid://dxwh83cimm7om"]
 
-[ext_resource type="Texture2D" uid="uid://g1y5rqdmh64v" path="res://assets/ui/menu/selection arrow.png" id="1_hnvkc"]
-[ext_resource type="Script" path="res://assets/ui/menu/menu_item.gd" id="1_tp4g8"]
+[ext_resource type="Texture2D" uid="uid://g1y5rqdmh64v" path="res://assets/ui/menu/selection_indicator.png" id="1_hnvkc"]
+[ext_resource type="Script" path="res://scenes/ui/menu/menu_item.gd" id="1_tp4g8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qxraf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1jd6d"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6i4es"]
-bg_color = Color(0.215902, 0.215902, 0.215902, 0)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8sqsl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_522pq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pe0qx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hokwn"]
 
 [sub_resource type="Theme" id="Theme_h8dkp"]
 default_font_size = 18
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_disabled_color = Color(1, 1, 1, 0.5)
-Button/styles/disabled = null
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/styles/disabled = SubResource("StyleBoxEmpty_qxraf")
 Button/styles/focus = SubResource("StyleBoxEmpty_1jd6d")
-Button/styles/normal = SubResource("StyleBoxFlat_6i4es")
+Button/styles/hover = SubResource("StyleBoxEmpty_8sqsl")
+Button/styles/hover_pressed = SubResource("StyleBoxEmpty_522pq")
+Button/styles/normal = SubResource("StyleBoxEmpty_pe0qx")
+Button/styles/pressed = SubResource("StyleBoxEmpty_hokwn")
 
 [node name="MenuItem" type="MarginContainer"]
 script = ExtResource("1_tp4g8")
