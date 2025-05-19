@@ -54,3 +54,5 @@ flat = true
 
 [connection signal="focus_entered" from="Layout/Button" to="." method="_on_button_focus_entered"]
 [connection signal="focus_exited" from="Layout/Button" to="." method="_on_button_focus_exited"]
+[connection signal="mouse_entered" from="Layout/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Layout/Button" to="." method="_on_button_mouse_exited"]

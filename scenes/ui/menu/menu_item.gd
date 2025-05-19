@@ -15,7 +15,7 @@ const MARGIN_RIGHT_UNFOCUSED := 0
 
 
 func change_appearance(is_focused: bool) -> void:
-	if is_focused:
+	if is_focused and not button.disabled:
 		indicator.visible = true
 		add_theme_constant_override("margin_right", MARGIN_RIGHT_FOCUSED)
 	else:
@@ -33,3 +33,11 @@ func _on_button_focus_entered() -> void:
 
 func _on_button_focus_exited() -> void:
 	change_appearance(false)
+
+
+func _on_button_mouse_entered() -> void:
+	button.grab_focus()
+
+
+func _on_button_mouse_exited() -> void:
+	button.release_focus()
