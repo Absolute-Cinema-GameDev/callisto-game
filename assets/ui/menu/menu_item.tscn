@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxwh83cimm7om"]
+
+[ext_resource type="Texture2D" uid="uid://g1y5rqdmh64v" path="res://assets/ui/menu/selection arrow.png" id="1_hnvkc"]
+[ext_resource type="Script" path="res://assets/ui/menu/menu_item.gd" id="1_tp4g8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1jd6d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6i4es"]
+bg_color = Color(0.215902, 0.215902, 0.215902, 0)
+
+[sub_resource type="Theme" id="Theme_h8dkp"]
+default_font_size = 18
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(1, 1, 1, 0.5)
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxEmpty_1jd6d")
+Button/styles/normal = SubResource("StyleBoxFlat_6i4es")
+
+[node name="MenuItem" type="MarginContainer"]
+script = ExtResource("1_tp4g8")
+
+[node name="Layout" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Indicator" type="TextureRect" parent="Layout"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+localize_numeral_system = false
+texture = ExtResource("1_hnvkc")
+stretch_mode = 4
+
+[node name="Button" type="Button" parent="Layout"]
+layout_mode = 2
+theme = SubResource("Theme_h8dkp")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 18
+text = "Label"
+flat = true
+
+[connection signal="focus_entered" from="Layout/Button" to="." method="_on_button_focus_entered"]
+[connection signal="focus_exited" from="Layout/Button" to="." method="_on_button_focus_exited"]
