@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://74tblxdephpo"]
+
+[ext_resource type="Script" path="res://scenes/ui/title_screen/title_screen.gd" id="1_7wfvn"]
+[ext_resource type="Texture2D" uid="uid://bm0f5x5ldospc" path="res://assets/ui/callisto_logo_1x.png" id="1_vpujr"]
+[ext_resource type="PackedScene" uid="uid://dxwh83cimm7om" path="res://assets/ui/menu/menu_item.tscn" id="3_nb7di"]
+
+[sub_resource type="FontVariation" id="FontVariation_cqrui"]
+spacing_glyph = 18
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7wfvn")
+first_menu_item_focus = NodePath("Base/Items/Entry01/Layout/Button")
+metadata/_edit_vertical_guides_ = [320.0]
+metadata/_edit_horizontal_guides_ = [180.0]
+
+[node name="BGColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Base" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -56.0
+offset_right = 104.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="TextureRect" type="TextureRect" parent="Base"]
+visible = false
+layout_mode = 2
+texture = ExtResource("1_vpujr")
+
+[node name="GameTitle" type="Label" parent="Base"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_cqrui")
+theme_override_font_sizes/font_size = 28
+text = "CALLISTO"
+horizontal_alignment = 1
+
+[node name="Items" type="VBoxContainer" parent="Base"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Entry01" parent="Base/Items" instance=ExtResource("3_nb7di")]
+layout_mode = 2
+
+[node name="Button" parent="Base/Items/Entry01/Layout" index="1"]
+focus_neighbor_bottom = NodePath("../../../Entry02/Layout/Button")
+
+[node name="Entry02" parent="Base/Items" instance=ExtResource("3_nb7di")]
+layout_mode = 2
+
+[node name="Button" parent="Base/Items/Entry02/Layout" index="1"]
+focus_neighbor_top = NodePath("../../../Entry01/Layout/Button")
+
+[editable path="Base/Items/Entry01"]
+[editable path="Base/Items/Entry02"]
