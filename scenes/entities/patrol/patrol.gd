@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+# Exported variables
 @export var speed: float = 10.0
 @export var chase_speed: float = 25.0
 @export var min_idle_time: float = 1.0
@@ -9,13 +10,7 @@ extends CharacterBody2D
 @export var idle_chance: float = 0.3
 @export var stun_duration: float = 2.0
 
-@onready var anim_player: AnimationPlayer = $AnimationPlayer
-@onready var vision_area: Area2D = $VisionArea
-@onready var sprite: Sprite2D = $Sprite2D
-@onready var attack_box: Area2D = $Sprite2D/AttackBox
-@onready var attack_box_collision: CollisionShape2D = $Sprite2D/AttackBox/CollisionShape2D
-
-
+# State variables
 var direction: Vector2 = Vector2.RIGHT
 var state: String = "move"
 var state_time: float = 0.0
@@ -33,6 +28,13 @@ var stun_timer: float = 0.0
 var players_in_vision := []
 var player = null
 
+# Onready variables
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
+@onready var vision_area: Area2D = $VisionArea
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var attack_box: Area2D = $Sprite2D/AttackBox
+@onready var attack_box_collision: CollisionShape2D = $Sprite2D/AttackBox/CollisionShape2D
+
 func _ready() -> void:
 	attack_box_collision_base_offset = abs(attack_box_collision.position.x)
 	_enter_move_state()
@@ -40,7 +42,6 @@ func _ready() -> void:
 	vision_area.body_exited.connect(_on_vision_area_body_exited)
 	attack_box.body_entered.connect(_on_attack_box_body_entered)
 	attack_box.body_exited.connect(_on_attack_box_body_exited)
-
 
 func _physics_process(delta: float) -> void:
 	state_time += delta
@@ -55,7 +56,7 @@ func _physics_process(delta: float) -> void:
 			_enter_move_state()
 		return
 
-	elif state == "move":
+	if state == "move":
 		velocity = direction * speed
 		if not anim_player.is_playing() or anim_player.current_animation != "swim":
 			anim_player.play("swim")
@@ -67,23 +68,24 @@ func _physics_process(delta: float) -> void:
 				_enter_idle_state()
 			else:
 				_enter_move_state()
-	
+
 	elif state == "idle":
 		velocity = Vector2.ZERO
 		if not anim_player.is_playing() or anim_player.current_animation != "idle":
 			anim_player.play("idle")
 		if state_time >= state_duration:
 			_enter_move_state()
-	
+
 	elif state == "chase":
 		if player and player.is_inside_tree():
 			if player.is_hidden_from_enemies:
 				_enter_move_state()
 				return
-
 			var to_player = (player.global_position - global_position).normalized()
 			velocity = to_player * chase_speed
-			if not anim_player.is_playing() or (anim_player.current_animation != "chase" and anim_player.has_animation("chase")):
+			if not anim_player.is_playing() or (
+				anim_player.current_animation != "chase" and anim_player.has_animation("chase")
+			):
 				if anim_player.has_animation("chase"):
 					anim_player.play("chase")
 				else:
@@ -93,7 +95,7 @@ func _physics_process(delta: float) -> void:
 			move_and_slide()
 		else:
 			_enter_move_state()
-	
+
 	elif state == "attack":
 		velocity = Vector2.ZERO
 		if not can_attack:
@@ -115,6 +117,7 @@ func _physics_process(delta: float) -> void:
 				else:
 					_enter_chase_state()
 
+	# Sprite flipping
 	var facing_left = false
 	if state in ["move", "chase"]:
 		if abs(velocity.x) > 0.1:
@@ -172,10 +175,8 @@ func _on_vision_area_body_entered(body):
 	if body is Player:
 		if not players_in_vision.has(body):
 			players_in_vision.append(body)
-
 		if not body.is_hidden_from_enemies_changed.is_connected(_on_player_hidden_changed):
 			body.is_hidden_from_enemies_changed.connect(_on_player_hidden_changed.bind(body))
-		
 		if not body.is_hidden_from_enemies:
 			player = body
 			_enter_chase_state()
@@ -184,10 +185,8 @@ func _on_vision_area_body_exited(body):
 	if body is Player:
 		if players_in_vision.has(body):
 			players_in_vision.erase(body)
-		
 		if body.is_hidden_from_enemies_changed.is_connected(_on_player_hidden_changed.bind(body)):
 			body.is_hidden_from_enemies_changed.disconnect(_on_player_hidden_changed.bind(body))
-		
 		if player == body:
 			player = null
 			_enter_move_state()
