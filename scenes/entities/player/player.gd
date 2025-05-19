@@ -121,7 +121,7 @@ func _set_main_tank_capacity(value: float):
 
 
 func _set_reserve_tank_capacity(value: float):
-	if value > reserve_tank_capacity:
+	if value < reserve_tank_capacity:
 		reserve_oxygen_changed.emit(value)
 		reserve_tank_capacity = value
 
@@ -267,6 +267,7 @@ func _on_health_changed(new_health) -> void:
 		invincible_timer.start()
 		heal_timer.start()
 	elif new_health == HealthStatus.DEAD:
+		is_input_locked = true
 		animplayer.set_self_modulate(Color(0.25, 0, 0, 1))
 
 
@@ -310,7 +311,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_oxygen_timer_timeout() -> void:
 	if is_in_airpocket or movement_type == MovementType.WALK:
-		main_tank_capacity += OXYGEN_MAIN_GAIN_RATE
+		var fill_amount = main_tank_capacity + OXYGEN_MAIN_GAIN_RATE
+		if fill_amount < MAX_OXYGEN_MAIN:
+			main_tank_capacity = fill_amount
+		else:
+			main_tank_capacity = MAX_OXYGEN_MAIN
 		return
 	if main_tank_capacity > 0:
 		main_tank_capacity -= OXYGEN_MAIN_DECAY_RATE
