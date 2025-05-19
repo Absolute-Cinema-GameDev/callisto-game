@@ -35,6 +35,7 @@ var player = null
 @onready var attack_box: Area2D = $Sprite2D/AttackBox
 @onready var attack_box_collision: CollisionShape2D = $Sprite2D/AttackBox/CollisionShape2D
 
+
 func _ready() -> void:
 	attack_box_collision_base_offset = abs(attack_box_collision.position.x)
 	_enter_move_state()
@@ -42,6 +43,7 @@ func _ready() -> void:
 	vision_area.body_exited.connect(_on_vision_area_body_exited)
 	attack_box.body_entered.connect(_on_attack_box_body_entered)
 	attack_box.body_exited.connect(_on_attack_box_body_exited)
+
 
 func _physics_process(delta: float) -> void:
 	state_time += delta
@@ -83,8 +85,9 @@ func _physics_process(delta: float) -> void:
 				return
 			var to_player = (player.global_position - global_position).normalized()
 			velocity = to_player * chase_speed
-			if not anim_player.is_playing() or (
-				anim_player.current_animation != "chase" and anim_player.has_animation("chase")
+			if (
+				not anim_player.is_playing()
+				or (anim_player.current_animation != "chase" and anim_player.has_animation("chase"))
 			):
 				if anim_player.has_animation("chase"):
 					anim_player.play("chase")
@@ -129,6 +132,7 @@ func _physics_process(delta: float) -> void:
 	sprite.flip_h = facing_left
 	attack_box_collision.position.x = attack_box_collision_base_offset * (-1 if facing_left else 1)
 
+
 func stun():
 	if is_stunned:
 		return
@@ -138,6 +142,7 @@ func stun():
 	velocity = Vector2.ZERO
 	anim_player.play("stun")
 
+
 func _enter_move_state():
 	state = "move"
 	state_time = 0.0
@@ -146,10 +151,12 @@ func _enter_move_state():
 	if anim_player.has_animation("swim"):
 		anim_player.play("swim")
 
+
 func _enter_idle_state():
 	state = "idle"
 	state_time = 0.0
 	state_duration = randf_range(min_idle_time, max_idle_time)
+
 
 func _enter_chase_state():
 	state = "chase"
@@ -160,16 +167,19 @@ func _enter_chase_state():
 	else:
 		anim_player.play("swim")
 
+
 func _enter_attack_state():
 	state = "attack"
 	state_time = 0.0
 	is_attacking = false
 	velocity = Vector2.ZERO
 
+
 func _set_random_direction():
 	direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 	if direction.length() < 0.1:
 		direction = Vector2.RIGHT
+
 
 func _on_vision_area_body_entered(body):
 	if body is Player:
@@ -181,6 +191,7 @@ func _on_vision_area_body_entered(body):
 			player = body
 			_enter_chase_state()
 
+
 func _on_vision_area_body_exited(body):
 	if body is Player:
 		if players_in_vision.has(body):
@@ -191,17 +202,20 @@ func _on_vision_area_body_exited(body):
 			player = null
 			_enter_move_state()
 
+
 func _on_attack_box_body_entered(body):
 	if body is Player:
 		can_attack = true
 		if state == "chase":
 			_enter_attack_state()
 
+
 func _on_attack_box_body_exited(body):
 	if body is Player:
 		can_attack = false
 		if state == "attack":
 			_enter_chase_state()
+
 
 func _on_player_hidden_changed(is_hidden: bool, changed_player) -> void:
 	if not is_hidden and players_in_vision.has(changed_player):
