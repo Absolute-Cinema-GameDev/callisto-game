@@ -5,7 +5,7 @@ enum State { IDLE, ACTIVE, ATTACKING, HIT_PAUSE, RETURNING }
 var state: State = State.IDLE
 var spawn_position: Vector2
 var target_position: Vector2
-var dash_speed: float = 50.0
+var dash_speed: float = 60.0
 var dash_delay: float = 0.1
 var active_wait_time: float = 2.0
 var hit_pause_time: float = 0.5
@@ -15,6 +15,12 @@ var active_timer := Timer.new()
 var dash_timer := Timer.new()
 var hit_pause_timer := Timer.new()
 var stun_timer := Timer.new()
+
+var acceleration: float = 100.0
+var deceleration: float = 100.0
+
+var max_dash_time: float = 2.5
+var dash_time: float = 0.0
 
 @onready var area_detection = $AreaDetection
 @onready var collision_shape = $Collision
@@ -50,21 +56,26 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	# ambush stunned
 	if is_stun:
 		if anim.animation != "stun":
 			anim.play("stun")
-			velocity = Vector2.ZERO
+		velocity = Vector2.ZERO
+		collision_shape.disabled = false
+		dash_time = 0.0
 		return
+
+	# ambush dashing
 	if state == State.ATTACKING:
 		if anim.animation != "dash":
 			anim.play("dash")
-		# Flip sprite to face dash direction
 		anim.flip_h = (target_position.x < global_position.x)
-		# Move towards target position
 		var direction = (target_position - global_position).normalized()
-		velocity = direction * dash_speed
+		var target_velocity = direction * dash_speed
+		velocity = velocity.move_toward(target_velocity, acceleration * _delta)
 		move_and_slide()
-		# Check for collision with player after moving
+		collision_shape.disabled = false
+		dash_time += _delta
 		for i in range(get_slide_collision_count()):
 			var collision = get_slide_collision(i)
 			if collision.get_collider() is Player:
@@ -72,42 +83,61 @@ func _process(_delta: float) -> void:
 				velocity = Vector2.ZERO
 				state = State.HIT_PAUSE
 				hit_pause_timer.start()
+				dash_time = 0.0
 				break
 		# Check if reached or passed target
 		if global_position.distance_to(target_position) < 1 and state == State.ATTACKING:
 			velocity = Vector2.ZERO
 			state = State.RETURNING
+			dash_time = 0.0
+		# Check if dash time exceeded
+		elif dash_time >= max_dash_time:
+			velocity = Vector2.ZERO
+			state = State.RETURNING
+			dash_time = 0.0
+	# ambush dashing - hit player
 	elif state == State.HIT_PAUSE:
-		velocity = Vector2.ZERO
+		velocity = velocity.move_toward(Vector2.ZERO, deceleration * _delta)
+		# collision_shape.disabled = true
+		# Reset dash timer
+		dash_time = 0.0
+	# ambush dashing - finished and returning
 	elif state == State.RETURNING:
-		if anim.animation != "active":
-			anim.play("active")
-		# Flip sprite to face spawn direction
+		anim.play("dash")
 		anim.flip_h = (spawn_position.x < global_position.x)
-		# Move back to spawn
 		var direction = (spawn_position - global_position).normalized()
-		velocity = direction * dash_speed
+		var target_velocity = direction * dash_speed
+		velocity = velocity.move_toward(target_velocity, acceleration * _delta)
 		move_and_slide()
+		collision_shape.disabled = true
 		if global_position.distance_to(spawn_position) < 10:
 			velocity = Vector2.ZERO
 			state = State.IDLE
-			# Immediately check if player is in area
+			dash_time = 0.0
+	# ambush detect player - active
 	elif state == State.ACTIVE:
 		if anim.animation != "active":
 			anim.play("active")
-		# Flip sprite to face player
 		var player = _get_player_in_area()
 		if player:
 			anim.flip_h = (player.global_position.x < global_position.x)
+		velocity = velocity.move_toward(Vector2.ZERO, deceleration * _delta)
+		collision_shape.disabled = false
+		# Reset dash timer
+		dash_time = 0.0
+	# ambush idle
 	else:
 		if _get_player_in_area() != null:
 			state = State.ACTIVE
 			active_timer.start()
 		if anim.animation != "idle":
 			anim.play("idle")
-		velocity = Vector2.ZERO
+		velocity = velocity.move_toward(Vector2.ZERO, deceleration * _delta)
+		collision_shape.disabled = false
+		dash_time = 0.0
 
 
+# check if player get into detection area
 func _on_area_body_entered(body):
 	if state == State.IDLE and body is Player:
 		if not body.get_is_hidden_from_enemies():
@@ -120,6 +150,7 @@ func _on_area_body_exited(_body):
 	pass
 
 
+# player position locked after certain time
 func _on_active_timer_timeout():
 	# Lock player position
 	var player = _get_player_in_area()
@@ -127,8 +158,10 @@ func _on_active_timer_timeout():
 		target_position = player.global_position
 		state = State.ATTACKING
 		dash_timer.start()
+		dash_time = 0.0
 	else:
 		state = State.IDLE
+		dash_time = 0.0
 
 
 func _on_dash_timer_timeout():
@@ -137,6 +170,7 @@ func _on_dash_timer_timeout():
 	pass
 
 
+# detecting player in area
 func _get_player_in_area():
 	for body in area_detection.get_overlapping_bodies():
 		if body is Player:
@@ -145,6 +179,7 @@ func _get_player_in_area():
 	return null
 
 
+# timer after ambush hit player
 func _on_hit_pause_timer_timeout():
 	state = State.RETURNING
 

@@ -3,6 +3,10 @@
 [ext_resource type="Script" path="res://scenes/entities/enemy-ambush/ambush.gd" id="1_d4n3y"]
 [ext_resource type="Texture2D" uid="uid://c4jurdh2y6dbm" path="res://assets/entities/enemy-ambush/ambush_spritesheet.png" id="2_70k61"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gh4jg"]
+radius = 7.0
+height = 28.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ujjhy"]
 atlas = ExtResource("2_70k61")
 region = Rect2(0, 48, 48, 48)
@@ -228,12 +232,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0mh78")
 }, {
-"duration": 3.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_mkir5")
 }],
-"loop": true,
+"loop": false,
 "name": &"active",
-"speed": 10.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -290,7 +294,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qwtrg")
 }],
-"loop": true,
+"loop": false,
 "name": &"dash",
 "speed": 10.0
 }, {
@@ -365,27 +369,21 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_6ab0j"]
 radius = 416.043
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gh4jg"]
-radius = 7.0
-height = 28.0
-
 [node name="Ambush" type="CharacterBody2D"]
 script = ExtResource("1_d4n3y")
-
-[node name="Animate" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2.5, 2.5)
-sprite_frames = SubResource("SpriteFrames_ae7va")
-animation = &"active"
-frame = 10
-frame_progress = 0.663703
-
-[node name="AreaDetection" type="Area2D" parent="."]
-
-[node name="CollisionDetection" type="CollisionShape2D" parent="AreaDetection"]
-shape = SubResource("CircleShape2D_6ab0j")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(2, -1)
 rotation = 1.5708
 scale = Vector2(2.5, 2.5)
 shape = SubResource("CapsuleShape2D_gh4jg")
+
+[node name="Animate" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_ae7va")
+animation = &"stun"
+
+[node name="AreaDetection" type="Area2D" parent="."]
+
+[node name="CollisionDetection" type="CollisionShape2D" parent="AreaDetection"]
+shape = SubResource("CircleShape2D_6ab0j")
