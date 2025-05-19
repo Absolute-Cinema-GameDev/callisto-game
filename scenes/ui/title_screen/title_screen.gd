@@ -8,6 +8,8 @@ const HIDDEN_COLOR := Color(1, 1, 1, 0)
 
 @export var first_menu_item_focus: NodePath
 
+var is_animation_done := false
+
 @onready var bg_color := $BGColor
 @onready var game_title := $Base/GameTitle
 @onready var menu_items := $Base/Items
@@ -28,7 +30,7 @@ func start_animation() -> void:
 		. set_ease(Tween.EASE_OUT)
 	)
 	bg_fadeout.play()
-	await bg_fadeout.finished
+	await get_tree().create_timer(BG_FADE_OUT_TIME / 2).timeout
 
 	# 2. title fade in
 	var title_fadein = create_tween()
@@ -55,10 +57,37 @@ func start_animation() -> void:
 	)
 	menuitems_fadein.play()
 	await menuitems_fadein.finished
+	is_animation_done = true
 
+	_grab_focus_first_button()
+
+
+func _grab_focus_first_button() -> void:
 	var first_button: Button = get_node(first_menu_item_focus)
 	first_button.grab_focus()
 
 
 func _ready() -> void:
 	start_animation()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if (
+		get_viewport().gui_get_focus_owner() == null
+		and is_animation_done
+		and (
+			event.is_action("ui_up")
+			or event.is_action("ui_down")
+			or event.is_action("ui_left")
+			or event.is_action("ui_right")
+		)
+	):
+		_grab_focus_first_button()
+
+
+func _on_continue_pressed() -> void:
+	print("CONTINUE")
+
+
+func _on_newgame_pressed() -> void:
+	print("NEW GAME")

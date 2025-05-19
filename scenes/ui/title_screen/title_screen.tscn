@@ -15,7 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7wfvn")
-first_menu_item_focus = NodePath("Base/Items/Entry01/Layout/Button")
+first_menu_item_focus = NodePath("Base/Items/Continue/Layout/Button")
 metadata/_edit_vertical_guides_ = [320.0]
 metadata/_edit_horizontal_guides_ = [180.0]
 
@@ -59,20 +59,25 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Entry01" parent="Base/Items" instance=ExtResource("3_nb7di")]
+[node name="Continue" parent="Base/Items" instance=ExtResource("3_nb7di")]
 layout_mode = 2
 
-[node name="Button" parent="Base/Items/Entry01/Layout" index="1"]
-focus_neighbor_bottom = NodePath("../../../Entry02/Layout/Button")
+[node name="Button" parent="Base/Items/Continue/Layout" index="1"]
+focus_neighbor_top = NodePath("../../../NewGame/Layout/Button")
+focus_neighbor_bottom = NodePath("../../../NewGame/Layout/Button")
 text = "Continue"
 
-[node name="Entry02" parent="Base/Items" instance=ExtResource("3_nb7di")]
+[node name="NewGame" parent="Base/Items" instance=ExtResource("3_nb7di")]
 layout_mode = 2
 action = 1
 
-[node name="Button" parent="Base/Items/Entry02/Layout" index="1"]
-focus_neighbor_top = NodePath("../../../Entry01/Layout/Button")
+[node name="Button" parent="Base/Items/NewGame/Layout" index="1"]
+focus_neighbor_top = NodePath("../../../Continue/Layout/Button")
+focus_neighbor_bottom = NodePath("../../../Continue/Layout/Button")
 text = "New Game"
 
-[editable path="Base/Items/Entry01"]
-[editable path="Base/Items/Entry02"]
+[connection signal="pressed" from="Base/Items/Continue/Layout/Button" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Base/Items/NewGame/Layout/Button" to="." method="_on_newgame_pressed"]
+
+[editable path="Base/Items/Continue"]
+[editable path="Base/Items/NewGame"]
