@@ -12,10 +12,12 @@ enum Chapter { INTRO, SAVE001, SAVE002, SAVE003 }
 enum Checkpoint { START, DIVING, FOUND, SURFACED }
 
 const ROOT_LEVELS_PATH = "res://scenes/levels/"
+const POSEIDON_HUB = ROOT_LEVELS_PATH + "hub/poseidon_hub.tscn"  # TODO: adjust sesuai path
 const LEVEL_01 = ROOT_LEVELS_PATH + "level01/level01.tscn"  # TODO: adjust sesuai path
 const LEVEL_02 = ROOT_LEVELS_PATH + "level02/level02.tscn"
 const LEVEL_03 = ROOT_LEVELS_PATH + "level03/level03.tscn"
 const LEVEL_04 = ROOT_LEVELS_PATH + "level04/level04.tscn"
+const CAMERA_TEST = ROOT_LEVELS_PATH + "cameratest/camera_test.tscn"  # todo: REMOVE
 
 const BACKGROUNDS_PATH = ROOT_LEVELS_PATH + "backgrounds/"
 const MENU_BACKGROUND = BACKGROUNDS_PATH + "menu_bg.tscn"
@@ -69,6 +71,7 @@ func change_world_2d_scene(
 		or new_scene_path == LEVEL_02
 		or new_scene_path == LEVEL_03
 		or new_scene_path == LEVEL_04
+		or new_scene_path == CAMERA_TEST
 	):
 		is_gameplay = true
 	else:
@@ -101,6 +104,55 @@ func change_gui_scene(
 	current_gui_scene = new_scene
 
 	gui_scene_changed.emit(current_gui_scene)
+
+
+#-- LEVEL SELECT
+
+
+func _select_chapter1(checkpoint: Checkpoint) -> String:
+	match checkpoint:
+		Checkpoint.DIVING:
+			return LEVEL_01
+		Checkpoint.FOUND:
+			return LEVEL_01
+		_:
+			return POSEIDON_HUB
+
+
+func _select_chapter2(checkpoint: Checkpoint) -> String:
+	match checkpoint:
+		Checkpoint.DIVING:
+			return LEVEL_02
+		Checkpoint.FOUND:
+			return LEVEL_02
+		_:
+			return POSEIDON_HUB
+
+
+func _select_chapter3(checkpoint: Checkpoint) -> String:
+	match checkpoint:
+		Checkpoint.DIVING:
+			return LEVEL_03
+		Checkpoint.FOUND:
+			return LEVEL_03
+		Checkpoint.START:
+			return POSEIDON_HUB
+		_:
+			return LEVEL_04
+
+
+func level_select(
+	chapter: Chapter = current_chapter, checkpoint: Checkpoint = current_checkpoint
+) -> String:
+	match chapter:
+		Chapter.SAVE001:
+			return _select_chapter1(checkpoint)
+		Chapter.SAVE002:
+			return _select_chapter2(checkpoint)
+		Chapter.SAVE003:
+			return _select_chapter3(checkpoint)
+		_:
+			return CAMERA_TEST
 
 
 #-- PAUSING
