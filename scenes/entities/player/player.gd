@@ -208,6 +208,8 @@ func _move_walk(input_vector: Vector2) -> void:
 
 ## Change currently playing animation based on player moving state
 func _change_animation(is_moving: bool) -> void:
+	if is_stunned:
+		return
 	if movement_type == MovementType.SWIM:
 		if is_moving:
 			animplayer.play("swim_move")
@@ -341,9 +343,9 @@ func _on_stun_timer_timeout() -> void:
 
 func _on_is_stunned_changed(new_stun_value) -> void:
 	if new_stun_value:
-		animplayer.set_self_modulate(Color(1, 1, 0, 1))
+		animplayer.play("stunned")
 	else:
-		animplayer.set_self_modulate(Color(1, 1, 1, 1))
+		animplayer.play("swim_idle")
 
 
 #-- SEAWEED BUSH
