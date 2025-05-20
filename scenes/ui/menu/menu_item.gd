@@ -2,6 +2,8 @@ class_name MenuItem
 
 extends MarginContainer
 
+signal pressed_sfx_played
+
 enum MenuAction { CONTINUE, NEW_GAME, RETURN, QUIT }
 
 const MARGIN_RIGHT_FOCUSED := 22
@@ -48,3 +50,5 @@ func _on_button_mouse_exited() -> void:
 
 func _on_button_pressed() -> void:
 	pressed_sfx.play()
+	await get_tree().create_timer(0.1).timeout
+	pressed_sfx_played.emit()

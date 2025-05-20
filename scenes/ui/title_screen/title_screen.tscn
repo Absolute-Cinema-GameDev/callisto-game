@@ -76,8 +76,8 @@ focus_neighbor_top = NodePath("../../../Continue/Layout/Button")
 focus_neighbor_bottom = NodePath("../../../Continue/Layout/Button")
 text = "New Game"
 
-[connection signal="pressed" from="Base/Items/Continue/Layout/Button" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="Base/Items/NewGame/Layout/Button" to="." method="_on_newgame_pressed"]
+[connection signal="pressed_sfx_played" from="Base/Items/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed_sfx_played" from="Base/Items/NewGame" to="." method="_on_newgame_pressed"]
 
 [editable path="Base/Items/Continue"]
 [editable path="Base/Items/NewGame"]

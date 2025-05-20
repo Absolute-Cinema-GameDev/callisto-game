@@ -108,8 +108,21 @@ func _ready() -> void:
 
 
 func _on_continue_pressed() -> void:  # TODO
-	print("CONTINUE")
+	await disappear_animation()
+	## 2D: load level that's saved
+	game_controller.change_world_2d_scene(game_controller.level_select(-1, -1))
+
+	## GUI: load HUD
+	game_controller.change_gui_scene(GameController.HUD)
 
 
 func _on_newgame_pressed() -> void:  # TODO
-	print("NEW GAME")
+	await disappear_animation()
+	if game_controller.check_save_file_exists():
+		game_controller.change_gui_scene(GameController.NEW_GAME_WARNING)
+	else:
+		## 2D: load level that's saved
+		game_controller.change_world_2d_scene(game_controller.level_select(-1, -1))
+
+		## GUI: load HUD
+		game_controller.change_gui_scene(GameController.HUD)
