@@ -3,11 +3,14 @@
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vy3m2"]
 
 [node name="GameController" type="Node"]
+process_mode = 3
 script = ExtResource("1_vy3m2")
 
 [node name="World2D" type="Node2D" parent="."]
+process_mode = 1
 
 [node name="GUI" type="Control" parent="."]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
