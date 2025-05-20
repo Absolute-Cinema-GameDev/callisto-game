@@ -26,9 +26,9 @@ const SAVE_FILE_PATH = "user://savegame.save"
 
 var current_2d_scene: Node2D
 var current_gui_scene: Control
-
 var current_chapter: Chapter = Chapter.INTRO
 var current_checkpoint: Checkpoint = Checkpoint.START
+var is_gameplay: bool = false
 
 
 ## Start the game controller
@@ -53,6 +53,16 @@ func change_world_2d_scene(
 			world_2d.remove_child(current_2d_scene)
 
 	# Load the new scene
+	if (
+		new_scene_path == LEVEL_01
+		or new_scene_path == LEVEL_02
+		or new_scene_path == LEVEL_03
+		or new_scene_path == LEVEL_04
+	):
+		is_gameplay = true
+	else:
+		is_gameplay = false
+
 	var new_scene: Node2D = load(new_scene_path).instantiate()
 	world_2d.add_child(new_scene)
 	current_2d_scene = new_scene
@@ -78,12 +88,24 @@ func change_gui_scene(
 	gui.add_child(new_scene)
 	current_gui_scene = new_scene
 
-	gui_scene_changed.emit(new_scene_path)
+
+
+#-- PAUSING
 
 
 func set_paused(is_paused: bool):
 	get_tree().paused = is_paused
 	pause_state_changed.emit(is_paused)
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("toggle_pause") and is_gameplay:
+		set_paused(not get_tree().paused)
+
+
+func _on_pause_state_changed() -> void:
+	# TODO: change scene to pause_menu
+	return
 
 
 #-- SAVE LOAD
