@@ -1,0 +1,239 @@
+[gd_scene load_steps=5 format=3 uid="uid://cf1a1bgeiotel"]
+
+[ext_resource type="Script" path="res://scenes/ui/hud/hud.gd" id="1_a4ipg"]
+[ext_resource type="Texture2D" uid="uid://eujccpal0x81" path="res://assets/ui/hud/checkbox_empty.png" id="1_l3wct"]
+[ext_resource type="Texture2D" uid="uid://caqxwltkj0l8o" path="res://assets/ui/hud/oxygen_main_full.png" id="2_p6we4"]
+[ext_resource type="Texture2D" uid="uid://jbbp40fpx2vd" path="res://assets/ui/hud/oxygen_reserve_full.png" id="3_885v4"]
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a4ipg")
+
+[node name="Layout" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 26
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 26
+theme_override_constants/margin_bottom = 16
+
+[node name="TopLeft" type="VBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(110, 12)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="QuestLog" type="HBoxContainer" parent="Layout/TopLeft"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Icon" type="TextureRect" parent="Layout/TopLeft/QuestLog"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_l3wct")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Layout/TopLeft/QuestLog"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Current Objective"
+
+[node name="TopRight" type="VBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(110, 12)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+alignment = 2
+
+[node name="MainTank" type="HBoxContainer" parent="Layout/TopRight"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="Label" type="Label" parent="Layout/TopRight/MainTank"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Main Tank"
+
+[node name="Oxygen" type="HBoxContainer" parent="Layout/TopRight/MainTank"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="0" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_p6we4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="1" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_p6we4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="2" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_p6we4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="3" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_p6we4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="4" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_p6we4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="5" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_p6we4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="6" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_p6we4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="7" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_p6we4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="8" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_p6we4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="9" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_p6we4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ReserveTank" type="HBoxContainer" parent="Layout/TopRight"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="Label" type="Label" parent="Layout/TopRight/ReserveTank"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Reserve Tank"
+
+[node name="Oxygen" type="HBoxContainer" parent="Layout/TopRight/ReserveTank"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="0" type="TextureRect" parent="Layout/TopRight/ReserveTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_885v4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="1" type="TextureRect" parent="Layout/TopRight/ReserveTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_885v4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="2" type="TextureRect" parent="Layout/TopRight/ReserveTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_885v4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="3" type="TextureRect" parent="Layout/TopRight/ReserveTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_885v4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="4" type="TextureRect" parent="Layout/TopRight/ReserveTank/Oxygen"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_885v4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="BottomRight" type="VBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(110, 12)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="SaveStatusLabel" type="Label" parent="Layout/BottomRight"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 12
+text = "Saving..."
+horizontal_alignment = 2
+vertical_alignment = 2
