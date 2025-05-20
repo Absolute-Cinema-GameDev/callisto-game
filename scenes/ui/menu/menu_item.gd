@@ -12,6 +12,8 @@ const MARGIN_RIGHT_UNFOCUSED := 0
 @onready var layout := $Layout
 @onready var indicator := $Layout/Indicator
 @onready var button := $Layout/Button
+@onready var focus_sfx := $FocusSFX
+@onready var pressed_sfx := $PressedSFX
 
 
 func change_appearance(is_focused: bool) -> void:
@@ -28,6 +30,7 @@ func _ready() -> void:
 
 
 func _on_button_focus_entered() -> void:
+	focus_sfx.play()
 	change_appearance(true)
 
 
@@ -41,3 +44,7 @@ func _on_button_mouse_entered() -> void:
 
 func _on_button_mouse_exited() -> void:
 	button.release_focus()
+
+
+func _on_button_pressed() -> void:
+	pressed_sfx.play()
