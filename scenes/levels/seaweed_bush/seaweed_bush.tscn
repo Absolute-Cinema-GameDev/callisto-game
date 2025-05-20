@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://eum7ybrrepj"]
+
+[ext_resource type="Script" path="res://scenes/levels/seaweed_bush/seaweed_bush.gd" id="1_kc8n4"]
+[ext_resource type="Texture2D" uid="uid://b1dyhyl5ib0t3" path="res://assets/levels/TileSea.png" id="2_2kwu6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gumuy"]
+size = Vector2(21, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nr7oc"]
+atlas = ExtResource("2_2kwu6")
+region = Rect2(512, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtqtv"]
+atlas = ExtResource("2_2kwu6")
+region = Rect2(576, 512, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lctq2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nr7oc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtqtv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.5
+}]
+
+[node name="SeaweedBush" type="Node2D"]
+script = ExtResource("1_kc8n4")
+
+[node name="AreaDetection" type="Area2D" parent="."]
+collision_layer = 8
+monitorable = false
+
+[node name="CollisionDetection" type="CollisionShape2D" parent="AreaDetection"]
+position = Vector2(-0.5, 4.5)
+shape = SubResource("RectangleShape2D_gumuy")
+
+[node name="Animate" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lctq2")
+animation = &"idle"
+frame_progress = 0.0244569
+
+[connection signal="body_entered" from="AreaDetection" to="." method="_on_area_detection_body_entered"]
+[connection signal="body_exited" from="AreaDetection" to="." method="_on_area_detection_body_exited"]
