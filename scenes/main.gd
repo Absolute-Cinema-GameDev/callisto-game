@@ -19,6 +19,13 @@ const LEVEL_04 = ROOT_LEVELS_PATH + "level04.tscn"
 const BACKGROUNDS_PATH = ROOT_LEVELS_PATH + "backgrounds/"
 const MENU_BACKGROUND = BACKGROUNDS_PATH + "menu_bg.tscn"
 const CREDITS_BACKGROUND = BACKGROUNDS_PATH + "credits_bg.tscn"
+const ROOT_UI_PATH = "res://scenes/ui/"
+const SPLASH_SCREEN = ROOT_UI_PATH + "splash_screen/splash_screen.tscn"  # TODO: adjust sesuai path
+const TITLE_SCREEN = ROOT_UI_PATH + "title_screen/title_screen.tscn"
+const PAUSE_MENU = ROOT_UI_PATH + "pause_menu/pause_menu.tscn"
+const HUD = ROOT_UI_PATH + "hud/hud.tscn"
+const NEW_GAME_WARNING = ROOT_UI_PATH + "new_game_warning/new_game_warning.tscn"
+const CREDITS_SCREEN = ROOT_UI_PATH + "credits_screen/scredits_screen.tscn"
 const SAVE_FILE_PATH = "user://savegame.save"
 
 @export var world_2d: Node2D
