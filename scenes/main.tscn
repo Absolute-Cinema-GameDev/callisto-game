@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bpeiputo77fh1"]
+[gd_scene load_steps=6 format=3 uid="uid://bpeiputo77fh1"]
 
 [ext_resource type="PackedScene" uid="uid://blwqvvn3mh4u4" path="res://scenes/entities/player/player.tscn" id="1_uknod"]
 [ext_resource type="PackedScene" uid="uid://d3w24fym0m4wj" path="res://scenes/entities/enemy-ambush/ambush.tscn" id="2_mpr4x"]
 [ext_resource type="PackedScene" uid="uid://v2h7u6c0nqg7" path="res://scenes/levels/stunrock/stunrock.tscn" id="3_6cob6"]
 [ext_resource type="PackedScene" uid="uid://eum7ybrrepj" path="res://scenes/levels/seaweed_bush/seaweed_bush.tscn" id="4_opman"]
+[ext_resource type="PackedScene" uid="uid://ctq1yt2qkx6cb" path="res://scenes/levels/deepking-stunrock_attack/stunrock_spawner.tscn" id="5_lwsq3"]
 
 [node name="Main" type="Node2D"]
 
@@ -17,7 +18,10 @@ position = Vector2(412, 182)
 scale = Vector2(0.3, 0.3)
 
 [node name="SeaweedBush" parent="." instance=ExtResource("4_opman")]
-position = Vector2(214, 123)
+position = Vector2(12, -1)
 
 [node name="SeaweedBush2" parent="." instance=ExtResource("4_opman")]
 position = Vector2(369, 94)
+
+[node name="StunrockSpawner" parent="." instance=ExtResource("5_lwsq3")]
+position = Vector2(116, 159)
