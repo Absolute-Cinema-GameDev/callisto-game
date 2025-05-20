@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://rg3jig5eflv3"]
+
+[ext_resource type="Script" path="res://scenes/entities/deep_king/tentacle.gd" id="1_r73mt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ueyjc"]
+size = Vector2(208, 20)
+
+[node name="Tentacle" type="Area2D"]
+script = ExtResource("1_r73mt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ueyjc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
