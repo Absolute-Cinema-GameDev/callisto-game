@@ -287,8 +287,8 @@ script = ExtResource("3_74f0n")
 
 [node name="Container" type="VBoxContainer" parent="DebugHUD/HUDBase"]
 layout_mode = 0
-offset_top = -146.0
-offset_right = 140.0
+offset_top = -137.0
+offset_right = 69.0
 theme_override_constants/separation = 8
 
 [node name="MovementGroup" type="VBoxContainer" parent="DebugHUD/HUDBase/Container"]
@@ -297,7 +297,7 @@ theme_override_constants/separation = 0
 
 [node name="MovementType" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "mv_type:"
 
 [node name="Position" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
@@ -307,17 +307,17 @@ text = "pos:"
 
 [node name="Velocity" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "vel:"
 
 [node name="Stunned" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "stunned?"
 
 [node name="InputLock" type="Label" parent="DebugHUD/HUDBase/Container/MovementGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "input_locked?"
 
 [node name="HealthGroup" type="VBoxContainer" parent="DebugHUD/HUDBase/Container"]
@@ -326,17 +326,17 @@ theme_override_constants/separation = 0
 
 [node name="Health" type="Label" parent="DebugHUD/HUDBase/Container/HealthGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "health_status:"
 
 [node name="Invincible" type="Label" parent="DebugHUD/HUDBase/Container/HealthGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "invincible?"
 
 [node name="Hidden" type="Label" parent="DebugHUD/HUDBase/Container/HealthGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "hidden_enemies?"
 
 [node name="OxygenGroup" type="VBoxContainer" parent="DebugHUD/HUDBase/Container"]
@@ -345,17 +345,17 @@ theme_override_constants/separation = 0
 
 [node name="MainTank" type="Label" parent="DebugHUD/HUDBase/Container/OxygenGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "main_tank_cap: "
 
 [node name="ReserveTank" type="Label" parent="DebugHUD/HUDBase/Container/OxygenGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "reserve_tank_cap:"
 
 [node name="AirPocket" type="Label" parent="DebugHUD/HUDBase/Container/OxygenGroup"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "air_pocket?"
 
 [connection signal="health_changed" from="." to="." method="_on_health_changed"]
