@@ -1,4 +1,4 @@
-extends Control
+extends MenuScreen
 
 const LOGO_FADE_IN_TIME := 1.0
 const LOGO_FADE_OUT_TIME := 1.5
