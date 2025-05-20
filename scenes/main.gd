@@ -55,7 +55,7 @@ func change_world_2d_scene(
 			world_2d.remove_child(current_2d_scene)
 
 	# Load the new scene
-	var new_scene = load(new_scene_path).instantiate()
+	var new_scene: Node2D = load(new_scene_path).instantiate()
 	world_2d.add_child(new_scene)
 	current_2d_scene = new_scene
 
@@ -76,7 +76,7 @@ func change_gui_scene(
 			gui.remove_child(current_gui_scene)
 
 	# Load the new scene
-	var new_scene = load(new_scene_path).instantiate()
+	var new_scene: Control = load(new_scene_path).instantiate()
 	gui.add_child(new_scene)
 	current_gui_scene = new_scene
 
@@ -91,7 +91,7 @@ func set_paused(is_paused: bool):
 #-- SAVE LOAD
 
 
-func _check_save_file_exists():
+func check_save_file_exists():
 	return FileAccess.file_exists(save_file_path + save_file_name)
 
 
@@ -108,7 +108,7 @@ func save_game():
 
 
 func load_game():
-	if not _check_save_file_exists():
+	if not check_save_file_exists():
 		return
 
 	var save_file = FileAccess.open("user://savegame.save", FileAccess.READ)
