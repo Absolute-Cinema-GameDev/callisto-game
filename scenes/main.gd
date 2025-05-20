@@ -2,6 +2,12 @@ class_name GameController
 
 extends Node
 
+signal world_2d_scene_changed
+signal gui_scene_changed
+signal pause_state_changed
+signal game_saved
+signal game_loaded
+
 enum Chapter { INTRO, SAVE001, SAVE002, SAVE003 }
 enum Checkpoint { START, DIVING, FOUND, SURFACED }
 
@@ -51,6 +57,8 @@ func change_world_2d_scene(
 	world_2d.add_child(new_scene)
 	current_2d_scene = new_scene
 
+	world_2d_scene_changed.emit(new_scene_path)
+
 
 ## Change GUI scene. Use it for changing menus
 func change_gui_scene(
@@ -70,6 +78,8 @@ func change_gui_scene(
 	gui.add_child(new_scene)
 	current_gui_scene = new_scene
 
+	gui_scene_changed.emit(new_scene_path)
+
 
 #-- SAVE LOAD
 
@@ -87,6 +97,7 @@ func save_game():
 	var serialized_data = _serialize_data()
 	var json_string = JSON.stringify(serialized_data)
 	save_file.store_line(json_string)
+	game_saved.emit(serialized_data)
 
 
 func load_game():
@@ -112,3 +123,4 @@ func load_game():
 	var serialized_data = json.data
 	current_checkpoint = serialized_data["checkpoint"]
 	current_chapter = serialized_data["chapter"]
+	game_loaded.emit(serialized_data)
