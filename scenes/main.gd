@@ -19,6 +19,7 @@ const LEVEL_04 = ROOT_LEVELS_PATH + "level04.tscn"
 const BACKGROUNDS_PATH = ROOT_LEVELS_PATH + "backgrounds/"
 const MENU_BACKGROUND = BACKGROUNDS_PATH + "menu_bg.tscn"
 const CREDITS_BACKGROUND = BACKGROUNDS_PATH + "credits_bg.tscn"
+const SAVE_FILE_PATH = "user://savegame.save"
 
 @export var world_2d: Node2D
 @export var gui: Control
@@ -28,8 +29,6 @@ var current_gui_scene: Control
 
 var current_chapter: Chapter = Chapter.INTRO
 var current_checkpoint: Checkpoint = Checkpoint.START
-var save_file_path = "user://save"
-var save_file_name = "004.save"
 
 
 ## Start the game controller
@@ -91,7 +90,7 @@ func set_paused(is_paused: bool):
 
 
 func check_save_file_exists():
-	return FileAccess.file_exists(save_file_path + save_file_name)
+	return FileAccess.file_exists(SAVE_FILE_PATH)
 
 
 func _serialize_data():
@@ -99,7 +98,7 @@ func _serialize_data():
 
 
 func save_game():
-	var save_file = FileAccess.open(save_file_path + save_file_name, FileAccess.WRITE)
+	var save_file = FileAccess.open(SAVE_FILE_PATH, FileAccess.WRITE)
 	var serialized_data = _serialize_data()
 	var json_string = JSON.stringify(serialized_data)
 	save_file.store_line(json_string)
@@ -110,7 +109,7 @@ func load_game():
 	if not check_save_file_exists():
 		return
 
-	var save_file = FileAccess.open("user://savegame.save", FileAccess.READ)
+	var save_file = FileAccess.open(SAVE_FILE_PATH, FileAccess.READ)
 	var json = JSON.new()
 
 	# Check if there is any error while parsing the JSON string, skip in case of failure.
