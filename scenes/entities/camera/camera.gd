@@ -41,7 +41,13 @@ func set_camera_zoom(new_zoom: Vector2):
 
 ## Set Camera Focus
 func set_camera_focus(new_focus_position: Vector2i):
-	position = new_focus_position
+	if new_focus_position == Vector2i(0, 0):
+		var center_of_screen = Vector2i(
+			(limit_right - limit_left) / 2, (limit_bottom - limit_top) / 2
+		)
+		position = center_of_screen
+	else:
+		position = new_focus_position
 
 
 #-- CAMERA MODES

@@ -12,7 +12,7 @@ metadata/_edit_vertical_guides_ = [640.0, 320.0]
 position = Vector2(586, 180)
 
 [node name="Camera" parent="." instance=ExtResource("2_81n2n")]
-position = Vector2(640, 0)
+position = Vector2(320, 180)
 
 [node name="Area2_Trigger" parent="." instance=ExtResource("3_cherg")]
 position = Vector2(656, 180)
@@ -32,7 +32,7 @@ enter_limit_top = 360
 enter_limit_bottom = 720
 
 [node name="CutsceneTest" parent="." instance=ExtResource("3_cherg")]
-position = Vector2(320, 181)
+position = Vector2(320, 180)
 scale = Vector2(4.801, 0.105)
 enter_enabled = true
 enter_mode = 1
