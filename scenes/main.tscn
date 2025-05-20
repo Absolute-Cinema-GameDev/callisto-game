@@ -1,3 +1,21 @@
-[gd_scene format=3 uid="uid://bpeiputo77fh1"]
+[gd_scene load_steps=2 format=3 uid="uid://bpeiputo77fh1"]
 
-[node name="Main" type="Node2D"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_vy3m2"]
+
+[node name="GameController" type="Node"]
+process_mode = 3
+script = ExtResource("1_vy3m2")
+
+[node name="World2D" type="Node2D" parent="."]
+process_mode = 1
+
+[node name="GUI" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pause_state_changed" from="." to="." method="_on_pause_state_changed"]
