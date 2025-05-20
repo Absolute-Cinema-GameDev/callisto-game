@@ -30,4 +30,5 @@ func _ready() -> void:
 	await get_tree().create_timer(SPLASH_SCREEN_HANG_TIME).timeout
 	var tween2 = create_tween()
 	tween2.tween_property(teamlogo, "self_modulate", Color(LOGO_HIDDEN_COLOR), LOGO_FADE_OUT_TIME)
+	await tween2.finished
 	splash_screen_done()
