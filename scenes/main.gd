@@ -12,10 +12,10 @@ enum Chapter { INTRO, SAVE001, SAVE002, SAVE003 }
 enum Checkpoint { START, DIVING, FOUND, SURFACED }
 
 const ROOT_LEVELS_PATH = "res://scenes/levels/"
-const LEVEL_01 = ROOT_LEVELS_PATH + "level01.tscn"  # TODO: adjust sesuai path
-const LEVEL_02 = ROOT_LEVELS_PATH + "level02.tscn"
-const LEVEL_03 = ROOT_LEVELS_PATH + "level03.tscn"
-const LEVEL_04 = ROOT_LEVELS_PATH + "level04.tscn"
+const LEVEL_01 = ROOT_LEVELS_PATH + "level01/level01.tscn"  # TODO: adjust sesuai path
+const LEVEL_02 = ROOT_LEVELS_PATH + "level02/level02.tscn"
+const LEVEL_03 = ROOT_LEVELS_PATH + "level03/level03.tscn"
+const LEVEL_04 = ROOT_LEVELS_PATH + "level04/level04.tscn"
 const BACKGROUNDS_PATH = ROOT_LEVELS_PATH + "backgrounds/"
 const MENU_BACKGROUND = BACKGROUNDS_PATH + "menu_bg.tscn"
 const CREDITS_BACKGROUND = BACKGROUNDS_PATH + "credits_bg.tscn"
@@ -74,7 +74,7 @@ func change_world_2d_scene(
 	world_2d.add_child(new_scene)
 	current_2d_scene = new_scene
 
-	world_2d_scene_changed.emit(new_scene_path)
+	world_2d_scene_changed.emit(current_2d_scene)
 
 
 ## Change GUI scene. Use it for changing menus
@@ -95,6 +95,7 @@ func change_gui_scene(
 	gui.add_child(new_scene)
 	current_gui_scene = new_scene
 
+	gui_scene_changed.emit(current_gui_scene)
 
 
 #-- PAUSING
