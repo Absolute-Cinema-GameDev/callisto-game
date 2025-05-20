@@ -48,6 +48,9 @@ func _ready() -> void:
 	Globals.game_controller = self
 	change_gui_scene(SPLASH_SCREEN)
 
+	save_game()  # just make a dummy save file first
+	load_game()
+
 
 #-- SCENE MANAGER
 
