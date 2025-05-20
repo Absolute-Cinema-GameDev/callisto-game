@@ -6,18 +6,20 @@ const SPLASH_SCREEN_HANG_TIME := 2.0
 const LOGO_SHOWN_COLOR := Color(1, 1, 1, 1)
 const LOGO_HIDDEN_COLOR := Color(1, 1, 1, 0)
 
+var game_controller: GameController
+
 
 func splash_screen_done() -> void:
-	# TODO: change scene when done
-	print("A game by Absolute Cinema")
+	game_controller.change_gui_scene(GameController.TITLE_SCREEN)
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event.is_pressed():
 		splash_screen_done()
 
 
 func _ready() -> void:
+	game_controller = Globals.game_controller
 	var teamlogo = $TeamLogo
 	var tween = create_tween()
 	(
