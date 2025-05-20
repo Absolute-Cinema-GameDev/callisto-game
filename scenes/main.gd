@@ -44,6 +44,7 @@ var is_gameplay: bool = false
 ## Start the game controller
 func _ready() -> void:
 	Globals.game_controller = self
+	change_gui_scene(SPLASH_SCREEN)
 
 
 #-- SCENE MANAGER
@@ -94,6 +95,7 @@ func change_gui_scene(
 			gui.remove_child(current_gui_scene)
 
 	# Load the new scene
+	print(new_scene_path)
 	var new_scene: Control = load(new_scene_path).instantiate()
 	gui.add_child(new_scene)
 	current_gui_scene = new_scene

@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vy3m2"]
 
-[node name="GameController" type="Node"]
+[node name="GameController" type="Node" node_paths=PackedStringArray("world_2d", "gui")]
 process_mode = 3
 script = ExtResource("1_vy3m2")
+world_2d = NodePath("World2D")
+gui = NodePath("GUI")
 
 [node name="World2D" type="Node2D" parent="."]
 process_mode = 1
