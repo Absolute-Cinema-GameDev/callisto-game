@@ -81,6 +81,11 @@ func change_gui_scene(
 	gui_scene_changed.emit(new_scene_path)
 
 
+func set_paused(is_paused: bool):
+	get_tree().paused = is_paused
+	pause_state_changed.emit(is_paused)
+
+
 #-- SAVE LOAD
 
 
