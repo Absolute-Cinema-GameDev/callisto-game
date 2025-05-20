@@ -3,7 +3,7 @@ class_name GameController
 extends Node
 
 enum Chapter { INTRO, SAVE001, SAVE002, SAVE003 }
-enum Checkpoint { START, DIVING, SURFACE }
+enum Checkpoint { START, DIVING, FOUND, SURFACED }
 
 const LEVELS_PATH = "res://scenes/levels/"
 const BACKGROUNDS_PATH = "backgrounds/"
