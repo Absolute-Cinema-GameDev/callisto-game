@@ -11,12 +11,14 @@ signal game_loaded
 enum Chapter { INTRO, SAVE001, SAVE002, SAVE003 }
 enum Checkpoint { START, DIVING, FOUND, SURFACED }
 
-const LEVELS_PATH = "res://scenes/levels/"
-const BACKGROUNDS_PATH = "backgrounds/"
-const LEVEL_001 = ""
-const LEVEL_002 = ""
-const LEVEL_003 = ""
-const LEVEL_004 = ""
+const ROOT_LEVELS_PATH = "res://scenes/levels/"
+const LEVEL_01 = ROOT_LEVELS_PATH + "level01.tscn"  # TODO: adjust sesuai path
+const LEVEL_02 = ROOT_LEVELS_PATH + "level02.tscn"
+const LEVEL_03 = ROOT_LEVELS_PATH + "level03.tscn"
+const LEVEL_04 = ROOT_LEVELS_PATH + "level04.tscn"
+const BACKGROUNDS_PATH = ROOT_LEVELS_PATH + "backgrounds/"
+const MENU_BACKGROUND = BACKGROUNDS_PATH + "menu_bg.tscn"
+const CREDITS_BACKGROUND = BACKGROUNDS_PATH + "credits_bg.tscn"
 
 @export var world_2d: Node2D
 @export var gui: Control
