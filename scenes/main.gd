@@ -28,7 +28,7 @@ const SPLASH_SCREEN = ROOT_UI_PATH + "splash_screen/splash_screen.tscn"  # TODO:
 const TITLE_SCREEN = ROOT_UI_PATH + "title_screen/title_screen.tscn"
 const PAUSE_MENU = ROOT_UI_PATH + "pause_menu/pause_menu.tscn"
 const HUD = ROOT_UI_PATH + "hud/hud.tscn"
-const NEW_GAME_WARNING = ROOT_UI_PATH + "new_game_warning/new_game_warning.tscn"
+const NEW_GAME_WARNING = ROOT_UI_PATH + "new_game_warning_screen/new_game_warning_screen.tscn"
 const CREDITS_SCREEN = ROOT_UI_PATH + "credits_screen/scredits_screen.tscn"
 
 const SAVE_FILE_PATH = "user://savegame.save"
@@ -101,7 +101,6 @@ func change_gui_scene(
 			gui.remove_child(current_gui_scene)
 
 	# Load the new scene
-	print(new_scene_path)
 	var new_scene: Control = load(new_scene_path).instantiate()
 	gui.add_child(new_scene)
 	current_gui_scene = new_scene
