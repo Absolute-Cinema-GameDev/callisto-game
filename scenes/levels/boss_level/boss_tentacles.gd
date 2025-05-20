@@ -26,9 +26,11 @@ func _ready():
 	# Start the attack cycle
 	_schedule_next_attack()
 
+
 func _schedule_next_attack():
 	var wait_time = randf_range(min_attack_interval, max_attack_interval)
 	_timer.start(wait_time)
+
 
 func _on_attack_timer_timeout():
 	# Decide on attack pattern (1 or 2 tentacles)
@@ -55,6 +57,7 @@ func _on_attack_timer_timeout():
 	# Schedule next attack
 	_schedule_next_attack()
 
+
 func telegraph_tentacle(tentacle):
 	# Hide the actual tentacle sprite
 	if tentacle.has_node("Sprite2D"):
@@ -70,6 +73,7 @@ func telegraph_tentacle(tentacle):
 		tween.tween_property(tentacle.get_node("WarningBox"), "color:a", 0.7, 0.4)
 		# Store tween for later cancellation
 		tentacle.set_meta("telegraph_tween", tween)
+
 
 func enable_tentacle(tentacle):
 	# Hide warning box
@@ -91,6 +95,7 @@ func enable_tentacle(tentacle):
 	# Enable any attack animations
 	if tentacle.has_method("attack"):
 		tentacle.attack()
+
 
 func disable_tentacle(tentacle):
 	# Disable collision shape to prevent damage
