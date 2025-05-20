@@ -23,7 +23,6 @@ const CREDITS_BACKGROUND = BACKGROUNDS_PATH + "credits_bg.tscn"
 @export var world_2d: Node2D
 @export var gui: Control
 
-var game_controller: GameController
 var current_2d_scene: Node2D
 var current_gui_scene: Control
 
@@ -35,7 +34,7 @@ var save_file_name = "004.save"
 
 ## Start the game controller
 func _ready() -> void:
-	Game.game_controller = self
+	Globals.game_controller = self
 
 
 #-- SCENE MANAGER
