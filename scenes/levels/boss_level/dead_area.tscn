@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bchlvg8dmio1v"]
+
+[ext_resource type="Script" path="res://scenes/levels/boss_level/dead_area.gd" id="1_xsw1y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bevj3"]
+size = Vector2(20, 53.4444)
+
+[node name="DeadArea" type="Area2D"]
+script = ExtResource("1_xsw1y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 13.8568)
+scale = Vector2(0.394486, -0.828646)
+shape = SubResource("RectangleShape2D_bevj3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
