@@ -1,22 +1,16 @@
-extends Control
+extends MenuScreen
 
 const BG_FADE_OUT_TIME := 5.0
 const TITLE_FADE_IN_TIME := 1.0
 const MENU_ITEM_FADE_IN_TIME := 0.5
-const TITLE_FADE_OUT_TIME := 1.5
-const SHOWN_COLOR := Color(1, 1, 1, 1)
-const HIDDEN_COLOR := Color(1, 1, 1, 0)
-
-@export var first_menu_item_focus: NodePath
-
-var is_animation_done := false
+const TITLE_FADE_OUT_TIME := 0.2
 
 @onready var bg_color := $BGColor
 @onready var game_title := $Base/GameTitle
 @onready var menu_items := $Base/Items
 
 
-func start_animation() -> void:
+func appear_animation() -> void:
 	# 1. bg fade out
 	var bg_fadeout = create_tween()
 	bg_fadeout.stop()
@@ -59,33 +53,58 @@ func start_animation() -> void:
 		await get_tree().create_timer(MENU_ITEM_FADE_IN_TIME / 2).timeout
 	is_animation_done = true
 
-	_grab_focus_first_button()
 
+func disappear_animation() -> void:
+	# 1. bg fade in
+	var bg_fadein = create_tween()
+	bg_fadein.stop()
+	(
+		bg_fadein
+		. tween_property(bg_color, "self_modulate", Color(SHOWN_COLOR), TITLE_FADE_OUT_TIME)
+		. from(HIDDEN_COLOR)
+		. set_trans(Tween.TRANS_CUBIC)
+		. set_ease(Tween.EASE_OUT)
+	)
+	bg_fadein.play()
 
-func _grab_focus_first_button() -> void:
-	var first_button: Button = get_node(first_menu_item_focus)
-	first_button.grab_focus()
+	# 2. title fade in
+	var title_fadeout = create_tween()
+	title_fadeout.stop()
+	(
+		title_fadeout
+		. tween_property(game_title, "self_modulate", Color(HIDDEN_COLOR), TITLE_FADE_OUT_TIME)
+		. from(SHOWN_COLOR)
+		. set_trans(Tween.TRANS_CUBIC)
+		. set_ease(Tween.EASE_OUT)
+	)
+	title_fadeout.play()
+
+	# 3. menu fade in
+	var menuitems_fadeout = create_tween()
+	menuitems_fadeout.stop()
+	(
+		menuitems_fadeout
+		. tween_property(menu_items, "modulate", Color(HIDDEN_COLOR), TITLE_FADE_OUT_TIME)
+		. from(SHOWN_COLOR)
+		. set_trans(Tween.TRANS_CUBIC)
+		. set_ease(Tween.EASE_OUT)
+	)
+	menuitems_fadeout.play()
+	await get_tree().create_timer(TITLE_FADE_OUT_TIME).timeout
 
 
 func _ready() -> void:
+	game_controller = Globals.game_controller
 	game_title.self_modulate = HIDDEN_COLOR
 	for child in menu_items.get_children():
 		child.modulate = HIDDEN_COLOR
-	start_animation()
 
-
-func _unhandled_input(event: InputEvent) -> void:
-	if (
-		get_viewport().gui_get_focus_owner() == null
-		and is_animation_done
-		and (
-			event.is_action("ui_up")
-			or event.is_action("ui_down")
-			or event.is_action("ui_left")
-			or event.is_action("ui_right")
-		)
-	):
-		_grab_focus_first_button()
+	# Hide and disable Continue button if no save file detected
+	if not self.game_controller.check_save_file_exists():
+		first_menu_item_focus = "./Base/Items/NewGame/Layout/Button"
+		$Base/Items/Continue.visible = false
+		$Base/Items/Continue.queue_free()
+	appear_animation()
 
 
 func _on_continue_pressed() -> void:  # TODO

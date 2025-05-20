@@ -6,8 +6,6 @@ const SPLASH_SCREEN_HANG_TIME := 2.0
 const LOGO_SHOWN_COLOR := Color(1, 1, 1, 1)
 const LOGO_HIDDEN_COLOR := Color(1, 1, 1, 0)
 
-var game_controller: GameController
-
 
 func splash_screen_done() -> void:
 	game_controller.change_gui_scene(GameController.TITLE_SCREEN)
