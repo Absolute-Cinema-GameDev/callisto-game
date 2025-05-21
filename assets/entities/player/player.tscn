@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://blwqvvn3mh4u4"]
+[gd_scene load_steps=37 format=3 uid="uid://blwqvvn3mh4u4"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_liiov"]
 [ext_resource type="Texture2D" uid="uid://ythm0pc7jfiv" path="res://assets/entities/player/player_spritesheet.png" id="2_pi7ps"]
@@ -236,6 +236,18 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_unpka"]
+offsets = PackedFloat32Array(0, 0.737013)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7m7wd"]
+gradient = SubResource("Gradient_unpka")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 14
 script = ExtResource("1_liiov")
@@ -357,6 +369,9 @@ text = "reserve_tank_cap:"
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "air_pocket?"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_7m7wd")
 
 [connection signal="health_changed" from="." to="." method="_on_health_changed"]
 [connection signal="health_changed" from="." to="DebugHUD/HUDBase" method="_on_player_health_changed"]
