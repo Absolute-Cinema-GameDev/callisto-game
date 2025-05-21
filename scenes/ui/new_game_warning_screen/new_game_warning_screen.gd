@@ -99,12 +99,8 @@ func _ready() -> void:
 	for child in menu_items.get_children():
 		child.modulate = HIDDEN_COLOR
 
-	# Hide and disable Continue button if no save file detected
-	if not self.game_controller.check_save_file_exists():
-		first_menu_item_focus = "./Base/Items/NewGame/Layout/Button"
-		$Base/Items/Continue.visible = false
-		$Base/Items/Continue.queue_free()
-	appear_animation()
+	await appear_animation()
+	_grab_focus_first_button()
 
 
 func _on_proceed_pressed() -> void:
@@ -120,5 +116,4 @@ func _on_proceed_pressed() -> void:
 
 func _on_return_pressed() -> void:
 	await disappear_animation()
-	game_controller.change_world_2d_scene(GameController.MENU_BACKGROUND)
 	game_controller.change_gui_scene(GameController.TITLE_SCREEN)
