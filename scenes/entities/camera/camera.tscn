@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmvays1aut270"]
+
+[ext_resource type="Texture2D" uid="uid://tg5hcmrx3vnw" path="res://assets/ui/hud/cutscene_letterbox.png" id="1_av4ua"]
+[ext_resource type="Script" path="res://scenes/entities/camera/camera.gd" id="1_llx34"]
+
+[node name="Camera" type="Camera2D"]
+limit_left = 0
+limit_top = 0
+limit_right = 640
+limit_bottom = 360
+limit_smoothed = true
+position_smoothing_enabled = true
+script = ExtResource("1_llx34")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BlackBars" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopLetterbox" type="TextureRect" parent="CanvasLayer/BlackBars"]
+visible = false
+layout_mode = 0
+offset_top = -44.0
+offset_right = 640.0
+texture = ExtResource("1_av4ua")
+
+[node name="BottomLetterbox" type="TextureRect" parent="CanvasLayer/BlackBars"]
+visible = false
+layout_mode = 0
+offset_top = 360.0
+offset_right = 640.0
+offset_bottom = 404.0
+texture = ExtResource("1_av4ua")
