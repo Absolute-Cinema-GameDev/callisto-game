@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3qeorrhprg2f"]
+[gd_scene load_steps=5 format=3 uid="uid://b3qeorrhprg2f"]
 
 [ext_resource type="Script" path="res://scenes/ui/new_game_warning_screen/new_game_warning_screen.gd" id="1_dnp75"]
+[ext_resource type="Texture2D" uid="uid://bj5jy4jourpm" path="res://assets/ui/menu/menu_bg.png" id="2_kyp61"]
 [ext_resource type="PackedScene" uid="uid://dxwh83cimm7om" path="res://scenes/ui/menu/menu_item.tscn" id="3_o2s7x"]
 
 [sub_resource type="FontVariation" id="FontVariation_vbk0v"]
@@ -17,6 +18,15 @@ script = ExtResource("1_dnp75")
 first_menu_item_focus = NodePath("Base/Items/Proceed/Layout/Button")
 metadata/_edit_vertical_guides_ = [320.0]
 metadata/_edit_horizontal_guides_ = [180.0]
+
+[node name="BGImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_kyp61")
 
 [node name="BGColor" type="ColorRect" parent="."]
 layout_mode = 1

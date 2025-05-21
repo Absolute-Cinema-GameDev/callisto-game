@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://74tblxdephpo"]
+[gd_scene load_steps=6 format=3 uid="uid://74tblxdephpo"]
 
 [ext_resource type="Script" path="res://scenes/ui/title_screen/title_screen.gd" id="1_7wfvn"]
 [ext_resource type="Texture2D" uid="uid://bm0f5x5ldospc" path="res://assets/ui/callisto_logo_1x.png" id="1_vpujr"]
+[ext_resource type="Texture2D" uid="uid://bj5jy4jourpm" path="res://assets/ui/menu/menu_bg.png" id="2_nbc8i"]
 [ext_resource type="PackedScene" uid="uid://dxwh83cimm7om" path="res://scenes/ui/menu/menu_item.tscn" id="3_nb7di"]
 
 [sub_resource type="FontVariation" id="FontVariation_cqrui"]
@@ -18,6 +19,15 @@ script = ExtResource("1_7wfvn")
 first_menu_item_focus = NodePath("Base/Items/Continue/Layout/Button")
 metadata/_edit_vertical_guides_ = [320.0]
 metadata/_edit_horizontal_guides_ = [180.0]
+
+[node name="BGImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_nbc8i")
 
 [node name="BGColor" type="ColorRect" parent="."]
 layout_mode = 1
