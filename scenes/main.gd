@@ -69,7 +69,8 @@ func change_world_2d_scene(
 
 	# Load the new scene
 	if (
-		new_scene_path == LEVEL_01
+		new_scene_path == POSEIDON_HUB
+		or new_scene_path == LEVEL_01
 		or new_scene_path == LEVEL_02
 		or new_scene_path == LEVEL_03
 		or new_scene_path == LEVEL_04
@@ -168,9 +169,12 @@ func _input(event: InputEvent) -> void:
 		set_paused(not get_tree().paused)
 
 
-func _on_pause_state_changed() -> void:
-	# TODO: change scene to pause_menu
-	return
+func _on_pause_state_changed(is_paused: bool) -> void:
+	if is_gameplay:
+		if is_paused:
+			change_gui_scene(PAUSE_MENU)
+		else:
+			change_gui_scene(HUD)
 
 
 #-- CHAPTERS AND CHECKPOINT
