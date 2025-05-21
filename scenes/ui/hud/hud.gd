@@ -67,6 +67,7 @@ func _ready() -> void:
 	if Globals.current_player != null:
 		Globals.current_player.main_oxygen_changed.connect(update_main_tank)
 		Globals.current_player.reserve_oxygen_changed.connect(update_reserve_tank)
+		Globals.current_player.movement_type_changed.connect(_on_movement_type_changed)
 	else:
 		Globals.player_changed.connect(_hook_player_events)
 
@@ -77,12 +78,15 @@ func _ready() -> void:
 func _hook_player_events(player: Player) -> void:
 	player.main_oxygen_changed.connect(update_main_tank)
 	player.reserve_oxygen_changed.connect(update_reserve_tank)
+	player.movement_type_changed.connect(_on_movement_type_changed)
 	update_main_tank(int(player.main_tank_capacity))
 	update_reserve_tank(int(player.reserve_tank_capacity))
+	_on_movement_type_changed(player.get_movement_type())
 
 
 func _update_all_hud_item() -> void:
 	if Globals.current_player != null:
+		_on_movement_type_changed(Globals.current_player.get_movement_type())
 		# 1. main_tank
 		update_main_tank(int(Globals.current_player.main_tank_capacity))
 		# 2. reserve_tank
@@ -279,6 +283,15 @@ func _update_oxygen_bar(bar: Control, bar_data: Dictionary, new_capacity: int) -
 		full_bubbles += 1  # skip last half bubble if exists
 	for i in range(full_bubbles, max_bubbles):
 		bar.get_child(i).texture = oxygen_empty_texture
+
+
+func _on_movement_type_changed(new_movement_type: Player.MovementType):
+	if new_movement_type == Player.MovementType.WALK:
+		main_tank.hide()
+		reserve_tank.hide()
+	elif new_movement_type == Player.MovementType.SWIM:
+		main_tank.show()
+		reserve_tank.show()
 
 
 func update_main_tank(new_capacity: int) -> void:
