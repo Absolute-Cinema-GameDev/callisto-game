@@ -100,6 +100,11 @@ func change_gui_scene(
 			gui.remove_child(current_gui_scene)
 
 	# Load the new scene
+	if new_scene_path == HUD:
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
 	var new_scene: Control = load(new_scene_path).instantiate()
 	gui.add_child(new_scene)
 	current_gui_scene = new_scene
