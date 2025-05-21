@@ -45,36 +45,45 @@ func _process(_delta: float) -> void:
 
 
 func _on_player_movement_type_changed(value) -> void:
-	movementtype_label.text = "mv_type: " + str(Player.MovementType.keys()[value])
+	if movementtype_label != null:
+		movementtype_label.text = "mv_type: " + str(Player.MovementType.keys()[value])
 
 
 func _on_player_health_changed(value) -> void:
-	health_label.text = "health_status: " + str(Player.HealthStatus.keys()[value])
+	if health_label != null:
+		health_label.text = "health_status: " + str(Player.HealthStatus.keys()[value])
 
 
 func _on_player_is_invincible_changed(value) -> void:
-	invincible_label.text = "invincible? " + str(value)
+	if invincible_label != null:
+		invincible_label.text = "invincible? " + str(value)
 
 
 func _on_player_main_oxygen_changed(value) -> void:
-	maintank_label.text = "main_tank_cap: " + str(value)
+	if maintank_label != null:
+		maintank_label.text = "main_tank_cap: " + str(value)
 
 
 func _on_player_reserve_oxygen_changed(value) -> void:
-	reservetank_label.text = "reserve_tank_cap: " + str(value)
+	if reservetank_label != null:
+		reservetank_label.text = "reserve_tank_cap: " + str(value)
 
 
 func _on_player_is_in_airpocket_changed(value) -> void:
-	airpocket_label.text = "air_pocket? " + str(value)
+	if airpocket_label != null:
+		airpocket_label.text = "air_pocket? " + str(value)
 
 
 func _on_player_is_stunned_changed(value) -> void:
-	stunned_label.text = "stunned? " + str(value)
+	if stunned_label != null:
+		stunned_label.text = "stunned? " + str(value)
 
 
 func _on_player_is_hidden_from_enemies_changed(value) -> void:
-	hidden_label.text = "hidden_enemies? " + str(value)
+	if hidden_label != null:
+		hidden_label.text = "hidden_enemies? " + str(value)
 
 
 func _on_player_is_input_locked_changed(value) -> void:
-	inputlock_label.text = "input_locked? " + str(value)
+	if inputlock_label != null:
+		inputlock_label.text = "input_locked? " + str(value)
