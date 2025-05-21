@@ -27,14 +27,8 @@ Globals="*res://scenes/globals.gd"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/mode=4
 window/size/resizable=false
 window/stretch/mode="canvas_items"
-
-[gui]
-
-theme/custom_font="res://assets/ui/VT323-Regular.ttf"
-theme/default_font_antialiasing=0
 
 [gui]
 
