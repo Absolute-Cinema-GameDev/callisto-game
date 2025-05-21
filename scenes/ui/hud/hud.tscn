@@ -33,6 +33,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="QuestLog" type="HBoxContainer" parent="Layout/TopLeft"]
+custom_minimum_size = Vector2(10, 13)
 layout_mode = 2
 theme_override_constants/separation = 4
 
@@ -69,11 +70,11 @@ size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 12
 text = "Main Tank"
 
-[node name="Oxygen" type="HBoxContainer" parent="Layout/TopRight/MainTank"]
+[node name="Bar" type="HBoxContainer" parent="Layout/TopRight/MainTank"]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="0" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+[node name="0" type="TextureRect" parent="Layout/TopRight/MainTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -82,7 +83,7 @@ texture = ExtResource("2_p6we4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="1" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+[node name="1" type="TextureRect" parent="Layout/TopRight/MainTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -91,7 +92,7 @@ texture = ExtResource("2_p6we4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="2" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+[node name="2" type="TextureRect" parent="Layout/TopRight/MainTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -100,7 +101,7 @@ texture = ExtResource("2_p6we4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="3" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+[node name="3" type="TextureRect" parent="Layout/TopRight/MainTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -109,7 +110,7 @@ texture = ExtResource("2_p6we4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="4" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+[node name="4" type="TextureRect" parent="Layout/TopRight/MainTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -118,7 +119,7 @@ texture = ExtResource("2_p6we4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="5" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+[node name="5" type="TextureRect" parent="Layout/TopRight/MainTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -127,7 +128,7 @@ texture = ExtResource("2_p6we4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="6" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+[node name="6" type="TextureRect" parent="Layout/TopRight/MainTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -136,7 +137,7 @@ texture = ExtResource("2_p6we4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="7" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+[node name="7" type="TextureRect" parent="Layout/TopRight/MainTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -145,7 +146,7 @@ texture = ExtResource("2_p6we4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="8" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+[node name="8" type="TextureRect" parent="Layout/TopRight/MainTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -154,7 +155,7 @@ texture = ExtResource("2_p6we4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="9" type="TextureRect" parent="Layout/TopRight/MainTank/Oxygen"]
+[node name="9" type="TextureRect" parent="Layout/TopRight/MainTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -174,11 +175,11 @@ size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 12
 text = "Reserve Tank"
 
-[node name="Oxygen" type="HBoxContainer" parent="Layout/TopRight/ReserveTank"]
+[node name="Bar" type="HBoxContainer" parent="Layout/TopRight/ReserveTank"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="0" type="TextureRect" parent="Layout/TopRight/ReserveTank/Oxygen"]
+[node name="0" type="TextureRect" parent="Layout/TopRight/ReserveTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -187,7 +188,7 @@ texture = ExtResource("3_885v4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="1" type="TextureRect" parent="Layout/TopRight/ReserveTank/Oxygen"]
+[node name="1" type="TextureRect" parent="Layout/TopRight/ReserveTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -196,7 +197,7 @@ texture = ExtResource("3_885v4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="2" type="TextureRect" parent="Layout/TopRight/ReserveTank/Oxygen"]
+[node name="2" type="TextureRect" parent="Layout/TopRight/ReserveTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -205,7 +206,7 @@ texture = ExtResource("3_885v4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="3" type="TextureRect" parent="Layout/TopRight/ReserveTank/Oxygen"]
+[node name="3" type="TextureRect" parent="Layout/TopRight/ReserveTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -214,7 +215,7 @@ texture = ExtResource("3_885v4")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="4" type="TextureRect" parent="Layout/TopRight/ReserveTank/Oxygen"]
+[node name="4" type="TextureRect" parent="Layout/TopRight/ReserveTank/Bar"]
 custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
 size_flags_horizontal = 4
