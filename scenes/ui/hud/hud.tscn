@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cf1a1bgeiotel"]
+[gd_scene load_steps=6 format=3 uid="uid://cf1a1bgeiotel"]
 
 [ext_resource type="Script" path="res://scenes/ui/hud/hud.gd" id="1_a4ipg"]
 [ext_resource type="Texture2D" uid="uid://eujccpal0x81" path="res://assets/ui/hud/checkbox_empty.png" id="1_l3wct"]
+[ext_resource type="Texture2D" uid="uid://ttnhr5d1ne8l" path="res://assets/ui/hud/hud_vignette.png" id="2_04j4l"]
 [ext_resource type="Texture2D" uid="uid://caqxwltkj0l8o" path="res://assets/ui/hud/oxygen_main_full.png" id="2_p6we4"]
 [ext_resource type="Texture2D" uid="uid://jbbp40fpx2vd" path="res://assets/ui/hud/oxygen_reserve_full.png" id="3_885v4"]
 
@@ -13,6 +14,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_a4ipg")
+
+[node name="BGImage" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.309804)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_04j4l")
 
 [node name="Layout" type="MarginContainer" parent="."]
 layout_mode = 1

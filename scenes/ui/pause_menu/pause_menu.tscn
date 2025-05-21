@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dynv650lflc2u"]
+[gd_scene load_steps=5 format=3 uid="uid://dynv650lflc2u"]
 
 [ext_resource type="Script" path="res://scenes/ui/pause_menu/pause_menu.gd" id="1_cxutd"]
 [ext_resource type="PackedScene" uid="uid://dxwh83cimm7om" path="res://scenes/ui/menu/menu_item.tscn" id="1_limca"]
+[ext_resource type="Texture2D" uid="uid://cm8yxgcspaj7h" path="res://assets/ui/menu/menu_vignette.png" id="2_f2hy0"]
 
 [sub_resource type="FontVariation" id="FontVariation_vbk0v"]
 spacing_glyph = 4
@@ -17,6 +18,15 @@ script = ExtResource("1_cxutd")
 first_menu_item_focus = NodePath("Base/Items/Resume/Layout/Button")
 metadata/_edit_vertical_guides_ = [320.0]
 metadata/_edit_horizontal_guides_ = [180.0]
+
+[node name="BGImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_f2hy0")
 
 [node name="BGColor" type="ColorRect" parent="."]
 layout_mode = 1
