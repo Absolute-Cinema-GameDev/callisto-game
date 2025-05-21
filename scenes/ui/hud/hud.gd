@@ -242,7 +242,7 @@ func _calculate_oxygen_bar(new_capacity: int, max_capacity: int) -> Dictionary:
 
 	@warning_ignore("integer_division")
 	var max_bubbles: int = max_capacity / 10
-	var has_half_bubble: bool = new_capacity % 10 < 5
+	var has_half_bubble: bool = new_capacity % 10 <= 5
 	var last_oxygen_filled: bool = new_capacity % 10 > 0
 	return {
 		"full_bubbles": full_bubbles,
@@ -252,50 +252,43 @@ func _calculate_oxygen_bar(new_capacity: int, max_capacity: int) -> Dictionary:
 	}
 
 
-func update_main_tank(new_capacity: int) -> void:
-	var bar_data = _calculate_oxygen_bar(int(new_capacity), int(Player.MAX_OXYGEN_MAIN))
+func _update_oxygen_bar(bar: Control, bar_data: Dictionary, new_capacity: int) -> void:
 	var full_bubbles = bar_data["full_bubbles"]
 	var max_bubbles = bar_data["max_bubbles"]
 	var has_half_bubble = bar_data["has_half_bubble"]
 	var last_oxygen_filled = bar_data["last_oxygen_filled"]
 
+	var oxygen_full_texture = PRELOADED_ASSETS["oxygen_main_full"]
+	var oxygen_half_texture = PRELOADED_ASSETS["oxygen_main_half"]
+	if bar == reserve_tank_bar:
+		oxygen_full_texture = PRELOADED_ASSETS["oxygen_reserve_full"]
+		oxygen_half_texture = PRELOADED_ASSETS["oxygen_reserve_half"]
+	var oxygen_empty_texture = PRELOADED_ASSETS["oxygen_empty"]
+
 	if new_capacity > 0:
 		# set these as full bubbles
 		for i in range(0, full_bubbles):
-			main_tank_bar.get_child(i).texture = PRELOADED_ASSETS["oxygen_main_full"]
+			bar.get_child(i).texture = oxygen_full_texture
 		if last_oxygen_filled:
 			if has_half_bubble:
-				main_tank_bar.get_child(full_bubbles).texture = PRELOADED_ASSETS["oxygen_main_half"]
+				bar.get_child(full_bubbles).texture = oxygen_half_texture
 			else:
-				main_tank_bar.get_child(full_bubbles).texture = PRELOADED_ASSETS["oxygen_main_full"]
+				bar.get_child(full_bubbles).texture = oxygen_full_texture
 	# set the rest as fully unhealed bubbles
 	if last_oxygen_filled:
 		full_bubbles += 1  # skip last half bubble if exists
 	for i in range(full_bubbles, max_bubbles):
-		main_tank_bar.get_child(i).texture = PRELOADED_ASSETS["oxygen_empty"]
+		bar.get_child(i).texture = oxygen_empty_texture
+
+
+func update_main_tank(new_capacity: int) -> void:
+	var bar_data = _calculate_oxygen_bar(int(new_capacity), int(Player.MAX_OXYGEN_MAIN))
+	_update_oxygen_bar(main_tank_bar, bar_data, new_capacity)
 
 
 func update_reserve_tank(new_capacity: int) -> void:
 	var bar_data = _calculate_oxygen_bar(int(new_capacity), int(Player.MAX_OXYGEN_RESERVE))
-	var full_bubbles = bar_data["full_bubbles"]
-	var max_bubbles = bar_data["max_bubbles"]
-	var has_half_bubble = bar_data["has_half_bubble"]
-	var last_oxygen_filled = bar_data["last_oxygen_filled"]
-
-	if new_capacity > 0:
-		# set these as full bubbles
-		for i in range(0, full_bubbles):
-			reserve_tank_bar.get_child(i).texture = PRELOADED_ASSETS["oxygen_reserve_full"]
-		if last_oxygen_filled:
-			if has_half_bubble:
-				reserve_tank_bar.get_child(full_bubbles).texture = PRELOADED_ASSETS["oxygen_reserve_half"]
-			else:
-				reserve_tank_bar.get_child(full_bubbles).texture = PRELOADED_ASSETS["oxygen_reserve_full"]
-	# set the rest as fully unhealed bubbles
-	if last_oxygen_filled:
-		full_bubbles += 1  # skip last half bubble if exists
-	for i in range(full_bubbles, max_bubbles):
-		reserve_tank_bar.get_child(i).texture = PRELOADED_ASSETS["oxygen_empty"]
+	_update_oxygen_bar(reserve_tank_bar, bar_data, new_capacity)
 
 
 func update_quest_log(new_quest: String, prev_complete: bool = true) -> void:
