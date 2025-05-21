@@ -54,6 +54,8 @@ const OXYGEN_RESERVE_DECAY_RATE: float = 1
 @export var is_input_locked: bool = false:
 	get = get_is_input_locked,
 	set = set_is_input_locked
+@export var knockback: Vector2 = Vector2.ZERO
+@export var knockback_timer: float = 0.0
 
 @onready var animplayer: AnimatedSprite2D = $Animate
 @onready var interact_ray: RayCast2D = $InteractRay
@@ -208,6 +210,8 @@ func _move_walk(input_vector: Vector2) -> void:
 
 ## Change currently playing animation based on player moving state
 func _change_animation(is_moving: bool) -> void:
+	if is_stunned:
+		return
 	if movement_type == MovementType.SWIM:
 		if is_moving:
 			animplayer.play("swim_move")
@@ -223,6 +227,11 @@ func _change_animation(is_moving: bool) -> void:
 ## Every physics frame, process movement
 func _physics_process(_delta: float) -> void:
 	var input_vector = Vector2.ZERO
+	if knockback_timer > 0.0:
+		velocity = knockback
+		knockback_timer -= _delta
+		if knockback_timer <= 0.0:
+			knockback = Vector2.ZERO
 	if not is_stunned and not is_input_locked:  # Keep vector at ZERO when stunned
 		input_vector.x = (
 			Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -341,9 +350,9 @@ func _on_stun_timer_timeout() -> void:
 
 func _on_is_stunned_changed(new_stun_value) -> void:
 	if new_stun_value:
-		animplayer.set_self_modulate(Color(1, 1, 0, 1))
+		animplayer.play("stunned")
 	else:
-		animplayer.set_self_modulate(Color(1, 1, 1, 1))
+		animplayer.play("swim_idle")
 
 
 #-- SEAWEED BUSH
@@ -355,4 +364,11 @@ func _on_is_hidden_from_enemies_changed(new_value) -> void:
 	else:
 		animplayer.set_self_modulate(Color(1, 1, 1, 1))
 
+
 #-- INPUT LOCK
+
+
+#-- KNOCKBACK
+func apply_knockback(direction: Vector2, force: float, knockback_duration: float) -> void:
+	knockback = direction * force
+	knockback_timer = knockback_duration
