@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=4 uid="uid://chln4pbamouie"]
 
-[ext_resource type="TileSet" uid="uid://be2scx7ig27qu" path="res://assets/calisto_tileset.tres" id="1_to5ht"]
-[ext_resource type="PackedScene" uid="uid://blwqvvn3mh4u4" path="res://scenes/entities/player/player.tscn" id="2_qu6lk"]
+[ext_resource type="TileSet" path="res://assets/calisto_tileset.tres" id="1_to5ht"]
+[ext_resource type="PackedScene" uid="uid://b1ly5qti2o5ag" path="res://scenes/entities/player/player.tscn" id="2_qu6lk"]
 [ext_resource type="PackedScene" uid="uid://clsb0flmwrkei" path="res://scenes/entities/patrol/patrol.tscn" id="3_61wiq"]
 [ext_resource type="PackedScene" uid="uid://eum7ybrrepj" path="res://scenes/levels/seaweed_bush/seaweed_bush.tscn" id="4_wl2ii"]
 [ext_resource type="PackedScene" uid="uid://7g1e4nr8io8c" path="res://scenes/levels/air_pocket/air_pocket.tscn" id="5_rsr67"]
@@ -37,21 +37,21 @@ position = Vector2(89, 157)
 [node name="Patrol" type="Node2D" parent="."]
 
 [node name="Patrol1" parent="Patrol" instance=ExtResource("3_61wiq")]
-position = Vector2(-373, 320)
+position = Vector2(1587, -58)
 patrol_corner_1 = Vector2(693, 1004)
 patrol_corner_2 = Vector2(693, 756)
 patrol_corner_3 = Vector2(1228, 756)
 patrol_corner_4 = Vector2(1228, 1004)
 
 [node name="Patrol2" parent="Patrol" instance=ExtResource("3_61wiq")]
-position = Vector2(-297, 257)
+position = Vector2(1278, -67)
 patrol_corner_1 = Vector2(52, 404)
 patrol_corner_2 = Vector2(52, 652)
 patrol_corner_3 = Vector2(588, 652)
 patrol_corner_4 = Vector2(588, 404)
 
 [node name="Patrol3" parent="Patrol" instance=ExtResource("3_61wiq")]
-position = Vector2(907, -132)
+position = Vector2(966, 205)
 patrol_corner_1 = Vector2(693, 299)
 patrol_corner_2 = Vector2(693, 52)
 patrol_corner_3 = Vector2(1228, 52)
@@ -69,13 +69,13 @@ position = Vector2(208, 208)
 position = Vector2(240, 208)
 
 [node name="SeaweedBush3" parent="SeaweedBush" instance=ExtResource("4_wl2ii")]
-position = Vector2(564, 1253)
+position = Vector2(836, 305)
 
 [node name="SeaweedBush4" parent="SeaweedBush" instance=ExtResource("4_wl2ii")]
-position = Vector2(637, 1305)
+position = Vector2(855, 305)
 
 [node name="SeaweedBush5" parent="SeaweedBush" instance=ExtResource("4_wl2ii")]
-position = Vector2(379, 1260)
+position = Vector2(816, 305)
 
 [node name="AirPocket" type="Node2D" parent="."]
 
@@ -91,4 +91,7 @@ position = Vector2(708, 637)
 [node name="StunRock" type="Node2D" parent="."]
 
 [node name="Stunrock" parent="StunRock" instance=ExtResource("6_x83iy")]
-position = Vector2(776, 193)
+position = Vector2(743, 185)
+
+[node name="Stunrock2" parent="StunRock" instance=ExtResource("6_x83iy")]
+position = Vector2(1045, 162)
