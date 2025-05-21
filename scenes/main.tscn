@@ -23,3 +23,4 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [connection signal="pause_state_changed" from="." to="." method="_on_pause_state_changed"]
+[connection signal="story_progressed" from="." to="." method="_on_story_progressed"]

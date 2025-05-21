@@ -5,6 +5,8 @@ extends Node
 signal world_2d_scene_changed
 signal gui_scene_changed
 signal pause_state_changed
+signal story_progressed
+signal game_saving
 signal game_saved
 signal game_loaded
 
@@ -47,8 +49,6 @@ var is_gameplay: bool = false
 func _ready() -> void:
 	Globals.game_controller = self
 	change_gui_scene(SPLASH_SCREEN)
-
-	save_game()  # just make a dummy save file first
 	load_game()
 
 
@@ -175,6 +175,37 @@ func _on_pause_state_changed() -> void:
 	return
 
 
+#-- CHAPTERS AND CHECKPOINT
+
+
+## Move story forward by one checkpoint
+## Can only go forward, not backwards
+func progress_story():
+	print("Progressing story")
+	if current_chapter == Chapter.SAVE003 and current_checkpoint == Checkpoint.FOUND:
+		print("sadly")
+		return  # end of story
+
+	if current_chapter == Chapter.INTRO and current_checkpoint == Checkpoint.START:
+		current_chapter = Chapter.SAVE001
+		current_checkpoint = Checkpoint.START
+	elif current_checkpoint == Checkpoint.SURFACED:
+		if current_chapter == Chapter.SAVE001:
+			current_chapter = Chapter.SAVE002
+		elif current_chapter == Chapter.SAVE002:
+			current_chapter = Chapter.SAVE003
+		current_checkpoint = Checkpoint.START
+	else:
+		if current_checkpoint == Checkpoint.START:
+			current_checkpoint = Checkpoint.DIVING
+		elif current_checkpoint == Checkpoint.DIVING:
+			current_checkpoint = Checkpoint.FOUND
+		elif current_checkpoint == Checkpoint.FOUND:
+			current_checkpoint = Checkpoint.SURFACED
+	print(current_chapter, current_checkpoint)
+	story_progressed.emit(current_chapter, current_checkpoint)
+
+
 #-- SAVE LOAD
 
 
@@ -187,6 +218,7 @@ func _serialize_data():
 
 
 func save_game():
+	game_saving.emit()
 	var save_file = FileAccess.open(SAVE_FILE_PATH, FileAccess.WRITE)
 	var serialized_data = _serialize_data()
 	var json_string = JSON.stringify(serialized_data)
@@ -218,3 +250,7 @@ func load_game():
 	current_checkpoint = serialized_data["checkpoint"]
 	current_chapter = serialized_data["chapter"]
 	game_loaded.emit(serialized_data)
+
+
+func _on_story_progressed() -> void:
+	save_game()
