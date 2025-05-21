@@ -7,9 +7,6 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="Stunrock" parent="." instance=ExtResource("3_6cob6")]
-position = Vector2(318, 216)
-
 [node name="Player" parent="." instance=ExtResource("1_uknod")]
 
 [node name="Ambush" parent="." instance=ExtResource("2_mpr4x")]
@@ -21,3 +18,6 @@ position = Vector2(214, 123)
 
 [node name="SeaweedBush2" parent="." instance=ExtResource("4_opman")]
 position = Vector2(369, 94)
+
+[node name="Stunrock" parent="." instance=ExtResource("3_6cob6")]
+position = Vector2(323, 194)
