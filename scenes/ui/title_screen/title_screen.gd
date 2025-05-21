@@ -127,3 +127,8 @@ func _on_newgame_pressed() -> void:
 
 		## GUI: load HUD
 		game_controller.change_gui_scene(GameController.HUD)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action("exit_game"):
+		get_tree().quit()
