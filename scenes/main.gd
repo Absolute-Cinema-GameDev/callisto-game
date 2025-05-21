@@ -19,7 +19,6 @@ const LEVEL_01 = ROOT_LEVELS_PATH + "level01/level01.tscn"  # TODO: adjust sesua
 const LEVEL_02 = ROOT_LEVELS_PATH + "level02/level02.tscn"
 const LEVEL_03 = ROOT_LEVELS_PATH + "level03/level03.tscn"
 const LEVEL_04 = ROOT_LEVELS_PATH + "level04/level04.tscn"
-const CAMERA_TEST = ROOT_LEVELS_PATH + "cameratest/camera_test.tscn"  # todo: REMOVE
 
 const BACKGROUNDS_PATH = ROOT_LEVELS_PATH + "backgrounds/"
 const MENU_BACKGROUND = BACKGROUNDS_PATH + "menu_bg.tscn"
@@ -74,7 +73,6 @@ func change_world_2d_scene(
 		or new_scene_path == LEVEL_02
 		or new_scene_path == LEVEL_03
 		or new_scene_path == LEVEL_04
-		or new_scene_path == CAMERA_TEST
 	):
 		is_gameplay = true
 	else:
@@ -154,7 +152,7 @@ func level_select(
 		Chapter.SAVE003:
 			return _select_chapter3(checkpoint)
 		_:
-			return CAMERA_TEST
+			return POSEIDON_HUB
 
 
 #-- PAUSING

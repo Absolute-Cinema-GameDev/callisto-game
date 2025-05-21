@@ -8,6 +8,7 @@ const LOGO_HIDDEN_COLOR := Color(1, 1, 1, 0)
 
 
 func splash_screen_done() -> void:
+	game_controller.change_world_2d_scene(GameController.MENU_BACKGROUND)
 	game_controller.change_gui_scene(GameController.TITLE_SCREEN)
 
 
