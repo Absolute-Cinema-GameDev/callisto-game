@@ -37,6 +37,8 @@ animation = &"idle"
 frame_progress = 0.840935
 
 [node name="AreaDetection" type="Area2D" parent="."]
+collision_layer = 8
+monitorable = false
 
 [node name="CollisionDetection" type="CollisionShape2D" parent="AreaDetection"]
 position = Vector2(0.5, 4.5)
