@@ -380,3 +380,8 @@ func _on_is_hidden_from_enemies_changed(new_value) -> void:
 func apply_knockback(direction: Vector2, force: float, knockback_duration: float) -> void:
 	knockback = direction * force
 	knockback_timer = knockback_duration
+
+
+#-- SET_CURRENT_PLAYER
+func _ready() -> void:
+	Globals.change_current_player(self)

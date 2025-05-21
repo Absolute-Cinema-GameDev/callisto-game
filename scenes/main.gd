@@ -5,6 +5,8 @@ extends Node
 signal world_2d_scene_changed
 signal gui_scene_changed
 signal pause_state_changed
+signal story_progressed
+signal game_saving
 signal game_saved
 signal game_loaded
 
@@ -12,9 +14,10 @@ enum Chapter { INTRO, SAVE001, SAVE002, SAVE003 }
 enum Checkpoint { START, DIVING, FOUND, SURFACED }
 
 const ROOT_LEVELS_PATH = "res://scenes/levels/"
-const LEVEL_01 = ROOT_LEVELS_PATH + "level01/level01.tscn"  # TODO: adjust sesuai path
-const LEVEL_02 = ROOT_LEVELS_PATH + "level02/level02.tscn"
-const LEVEL_03 = ROOT_LEVELS_PATH + "level03/level03.tscn"
+const POSEIDON_HUB = ROOT_LEVELS_PATH + "hub/poseidon_hub.tscn"  # TODO: adjust sesuai path
+const LEVEL_01 = ROOT_LEVELS_PATH + "cave00/level1.tscn"  # TODO: adjust sesuai path
+const LEVEL_02 = ROOT_LEVELS_PATH + "cave01/level2.tscn"
+const LEVEL_03 = ROOT_LEVELS_PATH + "cave02/level3.tscn"
 const LEVEL_04 = ROOT_LEVELS_PATH + "level04/level04.tscn"
 
 const BACKGROUNDS_PATH = ROOT_LEVELS_PATH + "backgrounds/"
@@ -26,7 +29,7 @@ const SPLASH_SCREEN = ROOT_UI_PATH + "splash_screen/splash_screen.tscn"  # TODO:
 const TITLE_SCREEN = ROOT_UI_PATH + "title_screen/title_screen.tscn"
 const PAUSE_MENU = ROOT_UI_PATH + "pause_menu/pause_menu.tscn"
 const HUD = ROOT_UI_PATH + "hud/hud.tscn"
-const NEW_GAME_WARNING = ROOT_UI_PATH + "new_game_warning/new_game_warning.tscn"
+const NEW_GAME_WARNING = ROOT_UI_PATH + "new_game_warning_screen/new_game_warning_screen.tscn"
 const CREDITS_SCREEN = ROOT_UI_PATH + "credits_screen/scredits_screen.tscn"
 
 const SAVE_FILE_PATH = "user://savegame.save"
@@ -44,6 +47,8 @@ var is_gameplay: bool = false
 ## Start the game controller
 func _ready() -> void:
 	Globals.game_controller = self
+	change_gui_scene(SPLASH_SCREEN)
+	load_game()
 
 
 #-- SCENE MANAGER
@@ -64,7 +69,8 @@ func change_world_2d_scene(
 
 	# Load the new scene
 	if (
-		new_scene_path == LEVEL_01
+		new_scene_path == POSEIDON_HUB
+		or new_scene_path == LEVEL_01
 		or new_scene_path == LEVEL_02
 		or new_scene_path == LEVEL_03
 		or new_scene_path == LEVEL_04
@@ -94,11 +100,65 @@ func change_gui_scene(
 			gui.remove_child(current_gui_scene)
 
 	# Load the new scene
+	if new_scene_path == HUD:
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
 	var new_scene: Control = load(new_scene_path).instantiate()
 	gui.add_child(new_scene)
 	current_gui_scene = new_scene
 
 	gui_scene_changed.emit(current_gui_scene)
+
+
+#-- LEVEL SELECT
+
+
+func _select_chapter1(checkpoint: Checkpoint) -> String:
+	match checkpoint:
+		Checkpoint.DIVING:
+			return LEVEL_01
+		Checkpoint.FOUND:
+			return LEVEL_01
+		_:
+			return POSEIDON_HUB
+
+
+func _select_chapter2(checkpoint: Checkpoint) -> String:
+	match checkpoint:
+		Checkpoint.DIVING:
+			return LEVEL_02
+		Checkpoint.FOUND:
+			return LEVEL_02
+		_:
+			return POSEIDON_HUB
+
+
+func _select_chapter3(checkpoint: Checkpoint) -> String:
+	match checkpoint:
+		Checkpoint.DIVING:
+			return LEVEL_03
+		Checkpoint.FOUND:
+			return LEVEL_04
+		Checkpoint.START:
+			return POSEIDON_HUB
+		_:
+			return LEVEL_03
+
+
+func level_select(
+	chapter: Chapter = current_chapter, checkpoint: Checkpoint = current_checkpoint
+) -> String:
+	match chapter:
+		Chapter.SAVE001:
+			return _select_chapter1(checkpoint)
+		Chapter.SAVE002:
+			return _select_chapter2(checkpoint)
+		Chapter.SAVE003:
+			return _select_chapter3(checkpoint)
+		_:
+			return POSEIDON_HUB
 
 
 #-- PAUSING
@@ -114,9 +174,43 @@ func _input(event: InputEvent) -> void:
 		set_paused(not get_tree().paused)
 
 
-func _on_pause_state_changed() -> void:
-	# TODO: change scene to pause_menu
-	return
+func _on_pause_state_changed(is_paused: bool) -> void:
+	if is_gameplay:
+		if is_paused:
+			change_gui_scene(PAUSE_MENU)
+		else:
+			change_gui_scene(HUD)
+
+
+#-- CHAPTERS AND CHECKPOINT
+
+
+## Move story forward by one checkpoint
+## Can only go forward, not backwards
+func progress_story():
+	print("Progressing story")
+	if current_chapter == Chapter.SAVE003 and current_checkpoint == Checkpoint.FOUND:
+		print("sadly")
+		return  # end of story
+
+	if current_chapter == Chapter.INTRO and current_checkpoint == Checkpoint.START:
+		current_chapter = Chapter.SAVE001
+		current_checkpoint = Checkpoint.START
+	elif current_checkpoint == Checkpoint.SURFACED:
+		if current_chapter == Chapter.SAVE001:
+			current_chapter = Chapter.SAVE002
+		elif current_chapter == Chapter.SAVE002:
+			current_chapter = Chapter.SAVE003
+		current_checkpoint = Checkpoint.START
+	else:
+		if current_checkpoint == Checkpoint.START:
+			current_checkpoint = Checkpoint.DIVING
+		elif current_checkpoint == Checkpoint.DIVING:
+			current_checkpoint = Checkpoint.FOUND
+		elif current_checkpoint == Checkpoint.FOUND:
+			current_checkpoint = Checkpoint.SURFACED
+	print(current_chapter, current_checkpoint)
+	story_progressed.emit(current_chapter, current_checkpoint)
 
 
 #-- SAVE LOAD
@@ -131,6 +225,7 @@ func _serialize_data():
 
 
 func save_game():
+	game_saving.emit()
 	var save_file = FileAccess.open(SAVE_FILE_PATH, FileAccess.WRITE)
 	var serialized_data = _serialize_data()
 	var json_string = JSON.stringify(serialized_data)
@@ -162,3 +257,7 @@ func load_game():
 	current_checkpoint = serialized_data["checkpoint"]
 	current_chapter = serialized_data["chapter"]
 	game_loaded.emit(serialized_data)
+
+
+func _on_story_progressed() -> void:
+	save_game()
