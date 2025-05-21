@@ -8,6 +8,7 @@ const TITLE_FADE_OUT_TIME := 0.2
 @onready var bg_color := $BGColor
 @onready var game_title := $Base/GameTitle
 @onready var menu_items := $Base/Items
+@onready var version_label := $VersionLabel
 
 
 func appear_animation() -> void:
@@ -98,6 +99,9 @@ func _ready() -> void:
 	game_title.self_modulate = HIDDEN_COLOR
 	for child in menu_items.get_children():
 		child.modulate = HIDDEN_COLOR
+
+	version_label.show()
+	version_label.text = ProjectSettings.get_setting("application/config/version")
 
 	# Hide and disable Continue button if no save file detected
 	if not self.game_controller.check_save_file_exists():
