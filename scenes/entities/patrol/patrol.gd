@@ -82,7 +82,11 @@ func _physics_process(delta: float) -> void:
 			anim_player.play("stun")
 		if stun_timer >= stun_duration:
 			is_stunned = false
-			_enter_move_state()
+			# Check if player is still in vision and not hidden
+			if player and player.is_inside_tree() and not player.is_hidden_from_enemies:
+				_enter_chase_state()
+			else:
+				_enter_move_state()
 		return
 
 	if state == "move":
