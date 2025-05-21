@@ -39,8 +39,8 @@ const SAVE_FILE_PATH = "user://savegame.save"
 
 var current_2d_scene: Node2D
 var current_gui_scene: Control
-var current_chapter: Chapter = Chapter.INTRO
-var current_checkpoint: Checkpoint = Checkpoint.START
+var current_chapter: Chapter = Chapter.SAVE001
+var current_checkpoint: Checkpoint = Checkpoint.FOUND
 var is_gameplay: bool = false
 
 
@@ -48,7 +48,7 @@ var is_gameplay: bool = false
 func _ready() -> void:
 	Globals.game_controller = self
 	change_gui_scene(SPLASH_SCREEN)
-	load_game()
+	# load_game()
 
 
 #-- SCENE MANAGER
@@ -259,5 +259,5 @@ func load_game():
 	game_loaded.emit(serialized_data)
 
 
-func _on_story_progressed() -> void:
+func _on_story_progressed(_current_chapter, _current_checkpoint) -> void:
 	save_game()
