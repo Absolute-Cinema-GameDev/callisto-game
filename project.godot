@@ -36,11 +36,6 @@ window/stretch/mode="canvas_items"
 theme/custom_font="res://assets/ui/VT323-Regular.ttf"
 theme/default_font_antialiasing=0
 
-[gui]
-
-theme/custom_font="res://assets/ui/VT323-Regular.ttf"
-theme/default_font_antialiasing=0
-
 [input]
 
 ui_accept={
