@@ -105,3 +105,4 @@ exit_game={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.00971358, 0.0274462, 0.107613, 1)
