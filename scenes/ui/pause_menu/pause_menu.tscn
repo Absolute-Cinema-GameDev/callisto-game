@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dynv650lflc2u"]
+[gd_scene load_steps=4 format=3 uid="uid://dynv650lflc2u"]
 
+[ext_resource type="Script" path="res://scenes/ui/pause_menu/pause_menu.gd" id="1_cxutd"]
 [ext_resource type="PackedScene" uid="uid://dxwh83cimm7om" path="res://scenes/ui/menu/menu_item.tscn" id="1_limca"]
 
 [sub_resource type="FontVariation" id="FontVariation_vbk0v"]
@@ -12,6 +13,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_cxutd")
+first_menu_item_focus = NodePath("Base/Items/Resume/Layout/Button")
 metadata/_edit_vertical_guides_ = [320.0]
 metadata/_edit_horizontal_guides_ = [180.0]
 
@@ -22,7 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0, 0, 0, 0.4)
 
 [node name="Base" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -77,7 +80,7 @@ focus_neighbor_bottom = NodePath("../../../Resume/Layout/Button")
 text = "Quit to Title"
 
 [connection signal="pressed" from="Base/Items/Resume/Layout/Button" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="Base/Items/Quit/Layout/Button" to="." method="_on_newgame_pressed"]
+[connection signal="pressed" from="Base/Items/Quit/Layout/Button" to="." method="_on_quit_pressed"]
 
 [editable path="Base/Items/Resume"]
 [editable path="Base/Items/Quit"]
