@@ -2,14 +2,18 @@
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vy3m2"]
 
-[node name="GameController" type="Node"]
+[node name="GameController" type="Node" node_paths=PackedStringArray("world_2d", "gui")]
 process_mode = 3
 script = ExtResource("1_vy3m2")
+world_2d = NodePath("World2D")
+gui = NodePath("GUILayer/GUI")
 
 [node name="World2D" type="Node2D" parent="."]
 process_mode = 1
 
-[node name="GUI" type="Control" parent="."]
+[node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="GUILayer"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -19,3 +23,4 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [connection signal="pause_state_changed" from="." to="." method="_on_pause_state_changed"]
+[connection signal="story_progressed" from="." to="." method="_on_story_progressed"]

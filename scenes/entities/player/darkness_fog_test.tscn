@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=4 uid="uid://deavbgsaxqtod"]
+[gd_scene load_steps=10 format=4 uid="uid://deavbgsaxqtod"]
 
 [ext_resource type="PackedScene" uid="uid://b1ly5qti2o5ag" path="res://scenes/entities/player/player.tscn" id="1_cnmu3"]
 [ext_resource type="Texture2D" uid="uid://b1dyhyl5ib0t3" path="res://assets/levels/TileSea.png" id="2_2rusv"]
 [ext_resource type="PackedScene" uid="uid://d3w24fym0m4wj" path="res://scenes/entities/enemy-ambush/ambush.tscn" id="2_l8rps"]
 [ext_resource type="PackedScene" uid="uid://clsb0flmwrkei" path="res://scenes/entities/patrol/patrol.tscn" id="3_ly54m"]
+[ext_resource type="PackedScene" uid="uid://cng851s6pw0mw" path="res://scenes/entities/crewmate/crew_mate_1.tscn" id="5_ui2lb"]
+[ext_resource type="PackedScene" uid="uid://go1gobjeo68c" path="res://scenes/entities/crewmate/crew_mate_2.tscn" id="6_4y3cc"]
+[ext_resource type="PackedScene" uid="uid://c3ojet4klflcl" path="res://scenes/entities/crewmate/crew_mate_3.tscn" id="7_qb4po"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xjmft"]
 texture = ExtResource("2_2rusv")
@@ -788,3 +791,12 @@ scale = Vector2(0.3, 0.3)
 color = Color(0, 0, 0.27451, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_cnmu3")]
+
+[node name="CrewMate1" parent="." instance=ExtResource("5_ui2lb")]
+position = Vector2(568, 256)
+
+[node name="CrewMate2" parent="." instance=ExtResource("6_4y3cc")]
+position = Vector2(508, 100)
+
+[node name="CrewMate3" parent="." instance=ExtResource("7_qb4po")]
+position = Vector2(466, 207)
