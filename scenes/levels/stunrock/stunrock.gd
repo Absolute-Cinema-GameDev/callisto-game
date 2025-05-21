@@ -36,6 +36,7 @@ func _on_explode_timer_timeout():
 	anim.play("explode")
 	anim.animation_finished.connect(_on_explode_anim_finished)
 
+
 func _on_explode_anim_finished():
 	if anim.animation == "explode":
 		queue_free()
