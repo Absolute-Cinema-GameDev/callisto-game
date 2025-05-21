@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://go1gobjeo68c"]
+[gd_scene load_steps=8 format=3 uid="uid://go1gobjeo68c"]
 
 [ext_resource type="Texture2D" uid="uid://beg2ucl573opf" path="res://assets/entities/crewmate/Crewmate-3.png" id="1_4g6fm"]
 
@@ -18,6 +18,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [2]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_u8g1u"]
 resource_name = "animation"
@@ -35,12 +47,36 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 0.8, 0.4, 0.2]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_avvh4"]
 _data = {
 "RESET": SubResource("Animation_njquf"),
 "animation": SubResource("Animation_u8g1u")
 }
+
+[sub_resource type="Gradient" id="Gradient_try8w"]
+offsets = PackedFloat32Array(0, 0.714286)
+colors = PackedColorArray(1, 1, 1, 0.788235, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jun42"]
+gradient = SubResource("Gradient_try8w")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
 
 [node name="CrewMate2" type="CharacterBody2D"]
 
@@ -59,3 +95,8 @@ libraries = {
 }
 autoplay = "animation"
 speed_scale = 0.2
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0, 0.913725, 0, 0.556863)
+energy = 0.0
+texture = SubResource("GradientTexture2D_jun42")
