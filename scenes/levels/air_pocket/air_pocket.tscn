@@ -1,47 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://7g1e4nr8io8c"]
+[gd_scene load_steps=4 format=3 uid="uid://7g1e4nr8io8c"]
 
 [ext_resource type="Script" path="res://scenes/levels/air_pocket/air_pocket.gd" id="1_0u1jo"]
 [ext_resource type="Texture2D" uid="uid://dohiab0ttijq0" path="res://assets/levels/air-pocket/bubble_sheet.png" id="2_x2lf7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ru7v"]
-
-[sub_resource type="Animation" id="Animation_sg4ks"]
-resource_name = "animation"
-length = 0.66
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4, 0.433333, 0.466667, 0.5, 0.533333, 0.566667, 0.6, 0.633333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
-}
-
-[sub_resource type="Animation" id="Animation_pwhx8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [12]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_35gst"]
-_data = {
-"RESET": SubResource("Animation_pwhx8"),
-"animation": SubResource("Animation_sg4ks")
-}
 
 [node name="AirPocket" type="Area2D"]
 script = ExtResource("1_0u1jo")
@@ -50,16 +12,10 @@ script = ExtResource("1_0u1jo")
 shape = SubResource("CircleShape2D_4ru7v")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(0, 3)
 texture = ExtResource("2_x2lf7")
 hframes = 20
-frame = 12
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_35gst")
-}
-speed_scale = 0.5
+frame = 13
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
