@@ -215,7 +215,6 @@ wait_time = 2.0
 one_shot = true
 
 [node name="DebugHUD" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="HUDBase" type="Control" parent="DebugHUD"]
 layout_mode = 3
