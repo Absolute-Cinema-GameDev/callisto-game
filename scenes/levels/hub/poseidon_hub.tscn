@@ -4004,7 +4004,7 @@ required_chapter = 2
 [node name="Level3Start" parent="." instance=ExtResource("4_cgptr")]
 position = Vector2(253, 274)
 scale = Vector2(1.48979, 3.39503)
-required_chapter = 1
+required_chapter = 2
 required_checkpoint = 3
 
 [node name="Level3Dive" parent="." instance=ExtResource("4_cgptr")]
