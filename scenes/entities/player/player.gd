@@ -204,7 +204,7 @@ func _move_walk(input_vector: Vector2) -> void:
 		_adjust_sprite_direction(input_vector.x < 0)
 	else:
 		velocity.x = lerp(velocity.x, 0.0, WALK_DECELERATION / movement_speed)
-	
+
 	# Update velocity.y
 	if input_vector.y != 0:
 		is_moving = true
