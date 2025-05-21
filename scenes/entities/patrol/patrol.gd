@@ -110,6 +110,9 @@ func _physics_process(delta: float) -> void:
 			anim_player.play("attack")
 			attack_timer = 0.0
 			if player and player.is_inside_tree():
+				var knockback_direction = (player.global_position - global_position).normalized()
+				await get_tree().create_timer(0.3).timeout
+				player.apply_knockback(knockback_direction, 70.0, 0.12)
 				player.take_damage()
 		else:
 			attack_timer += delta
@@ -205,6 +208,7 @@ func _on_vision_area_body_exited(body):
 
 func _on_attack_box_body_entered(body):
 	if body is Player:
+		print("in")
 		can_attack = true
 		if state == "chase":
 			_enter_attack_state()
@@ -212,6 +216,8 @@ func _on_attack_box_body_entered(body):
 
 func _on_attack_box_body_exited(body):
 	if body is Player:
+		await get_tree().create_timer(0.3).timeout
+		print("out")
 		can_attack = false
 		if state == "attack":
 			_enter_chase_state()
