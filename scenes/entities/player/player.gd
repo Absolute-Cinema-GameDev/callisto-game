@@ -204,6 +204,15 @@ func _move_walk(input_vector: Vector2) -> void:
 		_adjust_sprite_direction(input_vector.x < 0)
 	else:
 		velocity.x = lerp(velocity.x, 0.0, WALK_DECELERATION / movement_speed)
+	
+	# Update velocity.y
+	if input_vector.y != 0:
+		is_moving = true
+		velocity.y = lerp(
+			velocity.y, movement_speed * input_vector.y, WALK_ACCELERATION / movement_speed
+		)
+	else:
+		velocity.y = lerp(velocity.y, 0.0, WALK_DECELERATION / movement_speed)
 
 	_change_animation(is_moving)
 
@@ -245,7 +254,6 @@ func _physics_process(_delta: float) -> void:
 		_move_swim(input_vector)
 	elif movement_type == MovementType.WALK:
 		_move_walk(input_vector)
-		velocity.y += _delta * GRAVITY
 
 	move_and_slide()
 
