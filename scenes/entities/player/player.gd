@@ -54,6 +54,8 @@ const OXYGEN_RESERVE_DECAY_RATE: float = 1
 @export var is_input_locked: bool = false:
 	get = get_is_input_locked,
 	set = set_is_input_locked
+@export var knockback: Vector2 = Vector2.ZERO
+@export var knockback_timer: float = 0.0
 
 @onready var animplayer: AnimatedSprite2D = $Animate
 @onready var interact_ray: RayCast2D = $InteractRay
@@ -121,7 +123,7 @@ func _set_main_tank_capacity(value: float):
 
 
 func _set_reserve_tank_capacity(value: float):
-	if value > reserve_tank_capacity:
+	if value < reserve_tank_capacity:
 		reserve_oxygen_changed.emit(value)
 		reserve_tank_capacity = value
 
@@ -203,11 +205,22 @@ func _move_walk(input_vector: Vector2) -> void:
 	else:
 		velocity.x = lerp(velocity.x, 0.0, WALK_DECELERATION / movement_speed)
 
+	# Update velocity.y
+	if input_vector.y != 0:
+		is_moving = true
+		velocity.y = lerp(
+			velocity.y, movement_speed * input_vector.y, WALK_ACCELERATION / movement_speed
+		)
+	else:
+		velocity.y = lerp(velocity.y, 0.0, WALK_DECELERATION / movement_speed)
+
 	_change_animation(is_moving)
 
 
 ## Change currently playing animation based on player moving state
 func _change_animation(is_moving: bool) -> void:
+	if is_stunned:
+		return
 	if movement_type == MovementType.SWIM:
 		if is_moving:
 			animplayer.play("swim_move")
@@ -223,6 +236,11 @@ func _change_animation(is_moving: bool) -> void:
 ## Every physics frame, process movement
 func _physics_process(_delta: float) -> void:
 	var input_vector = Vector2.ZERO
+	if knockback_timer > 0.0:
+		velocity = knockback
+		knockback_timer -= _delta
+		if knockback_timer <= 0.0:
+			knockback = Vector2.ZERO
 	if not is_stunned and not is_input_locked:  # Keep vector at ZERO when stunned
 		input_vector.x = (
 			Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -236,7 +254,6 @@ func _physics_process(_delta: float) -> void:
 		_move_swim(input_vector)
 	elif movement_type == MovementType.WALK:
 		_move_walk(input_vector)
-		velocity.y += _delta * GRAVITY
 
 	move_and_slide()
 
@@ -267,6 +284,7 @@ func _on_health_changed(new_health) -> void:
 		invincible_timer.start()
 		heal_timer.start()
 	elif new_health == HealthStatus.DEAD:
+		is_input_locked = true
 		animplayer.set_self_modulate(Color(0.25, 0, 0, 1))
 
 
@@ -310,7 +328,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_oxygen_timer_timeout() -> void:
 	if is_in_airpocket or movement_type == MovementType.WALK:
-		main_tank_capacity += OXYGEN_MAIN_GAIN_RATE
+		var fill_amount = main_tank_capacity + OXYGEN_MAIN_GAIN_RATE
+		if fill_amount < MAX_OXYGEN_MAIN:
+			main_tank_capacity = fill_amount
+		else:
+			main_tank_capacity = MAX_OXYGEN_MAIN
 		return
 	if main_tank_capacity > 0:
 		main_tank_capacity -= OXYGEN_MAIN_DECAY_RATE
@@ -336,9 +358,9 @@ func _on_stun_timer_timeout() -> void:
 
 func _on_is_stunned_changed(new_stun_value) -> void:
 	if new_stun_value:
-		animplayer.set_self_modulate(Color(1, 1, 0, 1))
+		animplayer.play("stunned")
 	else:
-		animplayer.set_self_modulate(Color(1, 1, 1, 1))
+		animplayer.play("swim_idle")
 
 
 #-- SEAWEED BUSH
@@ -350,4 +372,16 @@ func _on_is_hidden_from_enemies_changed(new_value) -> void:
 	else:
 		animplayer.set_self_modulate(Color(1, 1, 1, 1))
 
+
 #-- INPUT LOCK
+
+
+#-- KNOCKBACK
+func apply_knockback(direction: Vector2, force: float, knockback_duration: float) -> void:
+	knockback = direction * force
+	knockback_timer = knockback_duration
+
+
+#-- SET_CURRENT_PLAYER
+func _ready() -> void:
+	Globals.change_current_player(self)

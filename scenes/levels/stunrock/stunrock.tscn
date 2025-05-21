@@ -178,6 +178,9 @@ autoplay = "static"
 frame_progress = 0.618702
 
 [node name="AreaDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+monitorable = false
 
 [node name="CollisionDetection" type="CollisionShape2D" parent="AreaDetection"]
 position = Vector2(6, 5)

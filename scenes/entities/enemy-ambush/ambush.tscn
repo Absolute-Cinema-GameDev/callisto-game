@@ -370,6 +370,8 @@ animations = [{
 radius = 416.043
 
 [node name="Ambush" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_d4n3y")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -384,6 +386,9 @@ sprite_frames = SubResource("SpriteFrames_ae7va")
 animation = &"stun"
 
 [node name="AreaDetection" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 5
+monitorable = false
 
 [node name="CollisionDetection" type="CollisionShape2D" parent="AreaDetection"]
 shape = SubResource("CircleShape2D_6ab0j")
