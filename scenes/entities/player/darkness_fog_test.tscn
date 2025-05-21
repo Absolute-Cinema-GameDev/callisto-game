@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=4 uid="uid://bug47tbdjtjhi"]
+[gd_scene load_steps=7 format=4 uid="uid://deavbgsaxqtod"]
 
-[ext_resource type="PackedScene" uid="uid://blwqvvn3mh4u4" path="res://assets/entities/player/player.tscn" id="1_cnmu3"]
+[ext_resource type="PackedScene" uid="uid://b1ly5qti2o5ag" path="res://scenes/entities/player/player.tscn" id="1_cnmu3"]
 [ext_resource type="Texture2D" uid="uid://b1dyhyl5ib0t3" path="res://assets/levels/TileSea.png" id="2_2rusv"]
 [ext_resource type="PackedScene" uid="uid://d3w24fym0m4wj" path="res://scenes/entities/enemy-ambush/ambush.tscn" id="2_l8rps"]
 [ext_resource type="PackedScene" uid="uid://clsb0flmwrkei" path="res://scenes/entities/patrol/patrol.tscn" id="3_ly54m"]
