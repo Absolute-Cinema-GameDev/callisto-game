@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6u8oh25hgql5"]
+
+[ext_resource type="Script" path="res://scenes/entities/camera/camera_trigger.gd" id="1_tyhnu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dlkyi"]
+radius = 4.0
+height = 360.0
+
+[node name="CameraTrigger" type="Area2D"]
+script = ExtResource("1_tyhnu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_dlkyi")
+debug_color = Color(0.462393, 0.445195, 1, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
