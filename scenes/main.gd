@@ -136,11 +136,11 @@ func _select_chapter3(checkpoint: Checkpoint) -> String:
 		Checkpoint.DIVING:
 			return LEVEL_03
 		Checkpoint.FOUND:
-			return LEVEL_03
+			return LEVEL_04
 		Checkpoint.START:
 			return POSEIDON_HUB
 		_:
-			return LEVEL_04
+			return LEVEL_03
 
 
 func level_select(
