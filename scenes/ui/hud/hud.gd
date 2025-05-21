@@ -103,6 +103,8 @@ func _select_chapter1(
 	match checkpoint:
 		GameController.Checkpoint.FOUND:
 			return QUEST_LOG_STRINGS["complete"]
+		GameController.Checkpoint.SURFACED:
+			return QUEST_LOG_STRINGS["complete"]
 		_:
 			return QUEST_LOG_STRINGS["save001"]
 
@@ -112,6 +114,8 @@ func _select_chapter2(
 ) -> String:
 	match checkpoint:
 		GameController.Checkpoint.FOUND:
+			return QUEST_LOG_STRINGS["complete"]
+		GameController.Checkpoint.SURFACED:
 			return QUEST_LOG_STRINGS["complete"]
 		_:
 			return QUEST_LOG_STRINGS["save002"]
