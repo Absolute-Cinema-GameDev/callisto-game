@@ -7,6 +7,7 @@ const TITLE_FADE_OUT_TIME := 0.2
 const BG_SHOWN_COLOR := Color(1, 1, 1, 0.8)
 
 @onready var bg_color := $BGColor
+@onready var menu_base := $Base
 @onready var warning_message := $Base/Message
 @onready var menu_items := $Base/Items
 
@@ -25,32 +26,18 @@ func appear_animation() -> void:
 	bg_fadeout.play()
 
 	# 2. title fade in
-	var title_fadein = create_tween()
-	title_fadein.stop()
+	var base_fadein = create_tween()
+	base_fadein.stop()
 	(
-		title_fadein
-		. tween_property(warning_message, "self_modulate", Color(SHOWN_COLOR), TITLE_FADE_IN_TIME)
+		base_fadein
+		. tween_property(menu_base, "modulate", Color(SHOWN_COLOR), TITLE_FADE_IN_TIME)
 		. from(HIDDEN_COLOR)
 		. set_trans(Tween.TRANS_CUBIC)
 		. set_ease(Tween.EASE_OUT)
 	)
-	title_fadein.play()
-	await title_fadein.finished
+	base_fadein.play()
+	await base_fadein.finished
 
-	# 3. menu fade in
-	for child in menu_items.get_children():
-		child.modulate = HIDDEN_COLOR
-		var menuitem_fadein = create_tween()
-		menuitem_fadein.stop()
-		(
-			menuitem_fadein
-			. tween_property(child, "modulate", Color(SHOWN_COLOR), MENU_ITEM_FADE_IN_TIME)
-			. from(HIDDEN_COLOR)
-			. set_trans(Tween.TRANS_CUBIC)
-			. set_ease(Tween.EASE_OUT)
-		)
-		menuitem_fadein.play()
-		await get_tree().create_timer(MENU_ITEM_FADE_IN_TIME / 2).timeout
 	is_animation_done = true
 
 
@@ -61,43 +48,27 @@ func disappear_animation() -> void:
 	(
 		bg_fadein
 		. tween_property(bg_color, "self_modulate", Color(SHOWN_COLOR), TITLE_FADE_OUT_TIME)
-		. from(HIDDEN_COLOR)
 		. set_trans(Tween.TRANS_CUBIC)
 		. set_ease(Tween.EASE_OUT)
 	)
-	bg_fadein.play()
 
 	# 2. title fade in
-	var title_fadeout = create_tween()
-	title_fadeout.stop()
+	var base_fadeout = create_tween()
+	base_fadeout.stop()
 	(
-		title_fadeout
-		. tween_property(warning_message, "self_modulate", Color(HIDDEN_COLOR), TITLE_FADE_OUT_TIME)
-		. from(SHOWN_COLOR)
+		base_fadeout
+		. tween_property(menu_base, "modulate", Color(HIDDEN_COLOR), TITLE_FADE_OUT_TIME)
 		. set_trans(Tween.TRANS_CUBIC)
 		. set_ease(Tween.EASE_OUT)
 	)
-	title_fadeout.play()
 
-	# 3. menu fade in
-	var menuitems_fadeout = create_tween()
-	menuitems_fadeout.stop()
-	(
-		menuitems_fadeout
-		. tween_property(menu_items, "modulate", Color(HIDDEN_COLOR), TITLE_FADE_OUT_TIME)
-		. from(SHOWN_COLOR)
-		. set_trans(Tween.TRANS_CUBIC)
-		. set_ease(Tween.EASE_OUT)
-	)
-	menuitems_fadeout.play()
-	await get_tree().create_timer(TITLE_FADE_OUT_TIME).timeout
+	bg_fadein.play()
+	base_fadeout.play()
+	await base_fadeout.finished
 
 
 func _ready() -> void:
 	game_controller = Globals.game_controller
-	warning_message.self_modulate = HIDDEN_COLOR
-	for child in menu_items.get_children():
-		child.modulate = HIDDEN_COLOR
 
 	await appear_animation()
 	_grab_focus_first_button()
