@@ -2,11 +2,12 @@ extends CharacterBody2D
 
 enum State { IDLE, ACTIVE, ATTACKING, HIT_PAUSE, RETURNING }
 
+@export var dash_speed: float = 75.0
+@export var dash_delay: float = 0.1
+
 var state: State = State.IDLE
 var spawn_position: Vector2
 var target_position: Vector2
-@export var dash_speed: float = 75.0
-@export var dash_delay: float = 0.1
 var active_wait_time: float = 2.0
 var hit_pause_time: float = 0.5
 var stun_duration: float = 2.0
