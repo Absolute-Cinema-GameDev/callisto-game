@@ -68,6 +68,10 @@ func _process(_delta: float) -> void:
 		for i in range(get_slide_collision_count()):
 			var collision = get_slide_collision(i)
 			if collision.get_collider() is Player:
+				var knockback_direction = (
+					(collision.get_collider().global_position - global_position).normalized()
+				)
+				collision.get_collider().apply_knockback(knockback_direction, 50.0, 0.12)
 				collision.get_collider().take_damage()
 				velocity = Vector2.ZERO
 				state = State.HIT_PAUSE

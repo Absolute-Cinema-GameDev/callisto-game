@@ -9,6 +9,11 @@ extends CharacterBody2D
 @export var max_move_time: float = 5.0
 @export var idle_chance: float = 0.3
 @export var stun_duration: float = 2.0
+@export var patrol_corner_1: Vector2 = Vector2.ZERO
+@export var patrol_corner_2: Vector2 = Vector2.ZERO
+@export var patrol_corner_3: Vector2 = Vector2.ZERO
+@export var patrol_corner_4: Vector2 = Vector2.ZERO
+var patrol_zone: Rect2 = Rect2(Vector2.ZERO, Vector2(100, 100))
 
 # State variables
 var direction: Vector2 = Vector2.RIGHT
@@ -34,9 +39,31 @@ var player = null
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var attack_box: Area2D = $Sprite2D/AttackBox
 @onready var attack_box_collision: CollisionShape2D = $Sprite2D/AttackBox/CollisionShape2D
+@onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
+
+
+func _update_path_to_player():
+	if player:
+		var target = player.global_position
+		# Clamp target to patrol zone
+		target.x = clamp(
+			target.x, patrol_zone.position.x, patrol_zone.position.x + patrol_zone.size.x
+		)
+		target.y = clamp(
+			target.y, patrol_zone.position.y, patrol_zone.position.y + patrol_zone.size.y
+		)
+		nav_agent.target_position = target
 
 
 func _ready() -> void:
+	# Compute patrol_zone from 4 corners
+	var xs = [patrol_corner_1.x, patrol_corner_2.x, patrol_corner_3.x, patrol_corner_4.x]
+	var ys = [patrol_corner_1.y, patrol_corner_2.y, patrol_corner_3.y, patrol_corner_4.y]
+	var min_x = xs.min()
+	var max_x = xs.max()
+	var min_y = ys.min()
+	var max_y = ys.max()
+	patrol_zone = Rect2(Vector2(min_x, min_y), Vector2(max_x - min_x, max_y - min_y))
 	attack_box_collision_base_offset = abs(attack_box_collision.position.x)
 	_enter_move_state()
 	vision_area.body_entered.connect(_on_vision_area_body_entered)
@@ -83,8 +110,10 @@ func _physics_process(delta: float) -> void:
 			if player.is_hidden_from_enemies:
 				_enter_move_state()
 				return
-			var to_player = (player.global_position - global_position).normalized()
-			velocity = to_player * chase_speed
+			_update_path_to_player()
+			var next_point = nav_agent.get_next_path_position()
+			var path_direction = (next_point - global_position).normalized()
+			velocity = path_direction * chase_speed
 			if (
 				not anim_player.is_playing()
 				or (anim_player.current_animation != "chase" and anim_player.has_animation("chase"))
@@ -110,6 +139,9 @@ func _physics_process(delta: float) -> void:
 			anim_player.play("attack")
 			attack_timer = 0.0
 			if player and player.is_inside_tree():
+				var knockback_direction = (player.global_position - global_position).normalized()
+				await get_tree().create_timer(0.3).timeout
+				player.apply_knockback(knockback_direction, 70.0, 0.12)
 				player.take_damage()
 		else:
 			attack_timer += delta
@@ -131,6 +163,14 @@ func _physics_process(delta: float) -> void:
 
 	sprite.flip_h = facing_left
 	attack_box_collision.position.x = attack_box_collision_base_offset * (-1 if facing_left else 1)
+
+	# Clamp patrol position to patrol zone
+	global_position.x = clamp(
+		global_position.x, patrol_zone.position.x, patrol_zone.position.x + patrol_zone.size.x
+	)
+	global_position.y = clamp(
+		global_position.y, patrol_zone.position.y, patrol_zone.position.y + patrol_zone.size.y
+	)
 
 
 func stun():
@@ -176,9 +216,17 @@ func _enter_attack_state():
 
 
 func _set_random_direction():
-	direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-	if direction.length() < 0.1:
-		direction = Vector2.RIGHT
+	var tries = 0
+	while tries < 10:
+		var candidate = Vector2(
+			randf_range(patrol_zone.position.x, patrol_zone.position.x + patrol_zone.size.x),
+			randf_range(patrol_zone.position.y, patrol_zone.position.y + patrol_zone.size.y)
+		)
+		if patrol_zone.has_point(candidate):
+			direction = (candidate - global_position).normalized()
+			return
+		tries += 1
+	direction = Vector2.RIGHT
 
 
 func _on_vision_area_body_entered(body):
@@ -189,6 +237,7 @@ func _on_vision_area_body_entered(body):
 			body.is_hidden_from_enemies_changed.connect(_on_player_hidden_changed.bind(body))
 		if not body.is_hidden_from_enemies:
 			player = body
+			_update_path_to_player()
 			_enter_chase_state()
 
 
@@ -205,6 +254,7 @@ func _on_vision_area_body_exited(body):
 
 func _on_attack_box_body_entered(body):
 	if body is Player:
+		print("in")
 		can_attack = true
 		if state == "chase":
 			_enter_attack_state()
@@ -212,6 +262,8 @@ func _on_attack_box_body_entered(body):
 
 func _on_attack_box_body_exited(body):
 	if body is Player:
+		await get_tree().create_timer(0.3).timeout
+		print("out")
 		can_attack = false
 		if state == "attack":
 			_enter_chase_state()
