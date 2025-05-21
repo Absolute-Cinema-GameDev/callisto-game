@@ -104,10 +104,11 @@ func _ready() -> void:
 		first_menu_item_focus = "./Base/Items/NewGame/Layout/Button"
 		$Base/Items/Continue.visible = false
 		$Base/Items/Continue.queue_free()
-	appear_animation()
+	await appear_animation()
+	_grab_focus_first_button()
 
 
-func _on_continue_pressed() -> void:  # TODO
+func _on_continue_pressed() -> void:
 	await disappear_animation()
 	## 2D: load level that's saved
 	game_controller.change_world_2d_scene(game_controller.level_select())
@@ -116,7 +117,7 @@ func _on_continue_pressed() -> void:  # TODO
 	game_controller.change_gui_scene(GameController.HUD)
 
 
-func _on_newgame_pressed() -> void:  # TODO
+func _on_newgame_pressed() -> void:
 	await disappear_animation()
 	if game_controller.check_save_file_exists():
 		game_controller.change_gui_scene(GameController.NEW_GAME_WARNING)
