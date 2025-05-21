@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scenes/levels/boss_level/boss_level_scene.gd" id="1_7x3c1"]
 [ext_resource type="Texture2D" uid="uid://s28gqa0oexpq" path="res://assets/tileset/TileSea.png" id="1_gakyr"]
-[ext_resource type="PackedScene" uid="uid://blwqvvn3mh4u4" path="res://scenes/entities/player/player.tscn" id="1_jtodi"]
 [ext_resource type="PackedScene" uid="uid://rg3jig5eflv3" path="res://scenes/entities/deep_king/tentacle.tscn" id="4_q3huv"]
 [ext_resource type="Script" path="res://scenes/levels/boss_level/boss_tentacles.gd" id="5_a0wf0"]
+[ext_resource type="PackedScene" uid="uid://dfqps3otqm7mi" path="res://scenes/entities/player/player.tscn" id="5_i8mci"]
 [ext_resource type="PackedScene" uid="uid://b1sbtvb7gxt0k" path="res://scenes/levels/boss_level/suction_area.tscn" id="6_1dkis"]
 [ext_resource type="PackedScene" uid="uid://bchlvg8dmio1v" path="res://scenes/levels/boss_level/dead_area.tscn" id="7_fycyj"]
 [ext_resource type="PackedScene" uid="uid://ctq1yt2qkx6cb" path="res://scenes/levels/deepking-stunrock_attack/stunrock_spawner.tscn" id="8_kms83"]
@@ -891,8 +891,8 @@ position = Vector2(-10, 205)
 [node name="Tentacle3" parent="BossTentacles" instance=ExtResource("4_q3huv")]
 position = Vector2(-10, 322)
 
-[node name="Player" parent="." instance=ExtResource("1_jtodi")]
-position = Vector2(392, 241)
+[node name="Player" parent="." instance=ExtResource("5_i8mci")]
+position = Vector2(303, 182)
 
 [node name="SuctionArea" parent="." instance=ExtResource("6_1dkis")]
 visible = false

@@ -60,8 +60,8 @@ func _on_attack_timer_timeout():
 
 func telegraph_tentacle(tentacle):
 	# Hide the actual tentacle sprite
-	if tentacle.has_node("Sprite2D"):
-		tentacle.get_node("Sprite2D").visible = false
+	#if tentacle.has_node("Sprite2D"):
+		#tentacle.get_node("Sprite2D").visible = false
 	# Show warning box indicator
 	if tentacle.has_node("WarningBox"):
 		# Make warning box visible with telegraph color
@@ -88,13 +88,12 @@ func enable_tentacle(tentacle):
 	if tentacle.has_node("CollisionShape2D"):
 		tentacle.get_node("CollisionShape2D").disabled = false
 		tentacle.is_active = true
-	# Show the actual tentacle sprite
-	if tentacle.has_node("Sprite2D"):
-		tentacle.get_node("Sprite2D").visible = true
-		tentacle.get_node("Sprite2D").modulate = normal_color
+	## Show the actual tentacle sprite
+	#if tentacle.has_node("Sprite2D"):
+		#tentacle.get_node("Sprite2D").visible = true
+		#tentacle.get_node("Sprite2D").modulate = normal_color
 	# Enable any attack animations
-	if tentacle.has_method("attack"):
-		tentacle.attack()
+	tentacle.attack()
 
 
 func disable_tentacle(tentacle):
@@ -102,10 +101,10 @@ func disable_tentacle(tentacle):
 	if tentacle.has_node("CollisionShape2D"):
 		tentacle.get_node("CollisionShape2D").disabled = true
 	# Hide both the tentacle sprite and warning box
-	if tentacle.has_node("Sprite2D"):
-		tentacle.get_node("Sprite2D").visible = false
+	#if tentacle.has_node("Sprite2D"):
+		#tentacle.get_node("Sprite2D").visible = false
 	if tentacle.has_node("WarningBox"):
 		tentacle.get_node("WarningBox").visible = false
 	# Stop any attack animations
-	if tentacle.has_method("stop_attack"):
-		tentacle.stop_attack()
+	
+	tentacle.stop_attack()
