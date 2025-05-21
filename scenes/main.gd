@@ -15,9 +15,9 @@ enum Checkpoint { START, DIVING, FOUND, SURFACED }
 
 const ROOT_LEVELS_PATH = "res://scenes/levels/"
 const POSEIDON_HUB = ROOT_LEVELS_PATH + "hub/poseidon_hub.tscn"  # TODO: adjust sesuai path
-const LEVEL_01 = ROOT_LEVELS_PATH + "level01/level01.tscn"  # TODO: adjust sesuai path
-const LEVEL_02 = ROOT_LEVELS_PATH + "level02/level02.tscn"
-const LEVEL_03 = ROOT_LEVELS_PATH + "level03/level03.tscn"
+const LEVEL_01 = ROOT_LEVELS_PATH + "cave00/level1.tscn"  # TODO: adjust sesuai path
+const LEVEL_02 = ROOT_LEVELS_PATH + "cave01/level2.tscn"
+const LEVEL_03 = ROOT_LEVELS_PATH + "cave02/level3.tscn"
 const LEVEL_04 = ROOT_LEVELS_PATH + "level04/level04.tscn"
 
 const BACKGROUNDS_PATH = ROOT_LEVELS_PATH + "backgrounds/"
