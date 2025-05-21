@@ -8,13 +8,13 @@ extends Node2D
 func _ready() -> void:
 	anim.play("idle")
 
+
 func _process(_delta: float) -> void:
 	for body in area_detection.get_overlapping_bodies():
 		if body is Player:
 			body.set_is_hidden_from_enemies(true)
 
-func _on_area_detection_body_entered(body: Node2D) -> void:
-	pass
+
 # 	if body is Player:
 # 		body.set_is_hidden_from_enemies(true)
 
