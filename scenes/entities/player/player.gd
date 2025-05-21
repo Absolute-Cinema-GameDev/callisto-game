@@ -357,4 +357,10 @@ func _on_is_hidden_from_enemies_changed(new_value) -> void:
 	else:
 		animplayer.set_self_modulate(Color(1, 1, 1, 1))
 
+
 #-- INPUT LOCK
+
+
+#-- SET_CURRENT_PLAYER
+func _ready() -> void:
+	Globals.change_current_player(self)
