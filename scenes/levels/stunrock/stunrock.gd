@@ -2,6 +2,10 @@ extends Node2D
 
 var has_triggered := false
 var explode_timer := Timer.new()
+var velocity: Vector2 = Vector2.ZERO
+var move_target: Vector2 = Vector2.ZERO
+var move_speed: float = 180.0  # You can adjust this speed
+var moving: bool = false
 
 @onready var area_detection = $AreaDetection
 @onready var anim = $Animate
@@ -18,8 +22,21 @@ func _ready() -> void:
 
 
 # Called every frame.
-func _process(_delta: float) -> void:
-	pass
+func _physics_process(_delta: float) -> void:
+	if moving:
+		var to_target = move_target - global_position
+		if to_target.length() < move_speed * _delta:
+			global_position = move_target
+			velocity = Vector2.ZERO
+			moving = false
+		else:
+			velocity = to_target.normalized() * move_speed
+			global_position += velocity * _delta
+
+
+func set_move_target(target: Vector2):
+	move_target = target
+	moving = true
 
 
 func _on_area_body_entered(_body):
