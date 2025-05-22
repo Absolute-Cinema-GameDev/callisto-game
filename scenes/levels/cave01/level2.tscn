@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://v2h7u6c0nqg7" path="res://scenes/levels/stunrock/stunrock.tscn" id="6_x83iy"]
 [ext_resource type="PackedScene" uid="uid://bwsnrjah2dsow" path="res://scenes/entities/camera/camera.tscn" id="7_ur3qc"]
 [ext_resource type="PackedScene" path="res://scenes/entities/camera/camera_trigger.tscn" id="8_jmus0"]
-[ext_resource type="PackedScene" uid="uid://b1stiwwn7tmxh" path="res://scenes/levels/level_objective.tscn" id="9_1d6ip"]
+[ext_resource type="PackedScene" path="res://scenes/levels/level_objective.tscn" id="9_1d6ip"]
 [ext_resource type="PackedScene" uid="uid://go1gobjeo68c" path="res://scenes/entities/crewmate/crew_mate_2.tscn" id="9_87svh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lrhw8"]
@@ -42,7 +42,7 @@ tile_map_data = PackedByteArray("AAAAAAoAAAAAAAgAAAATAAAAAAACAAYAAAAAAAAAAAAAAAY
 tile_set = ExtResource("1_to5ht")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Tiles"]
-color = Color(0, 0, 0.27451, 1)
+color = Color(0.00249731, 0.12611, 0.60488, 1)
 
 [node name="Player" parent="." instance=ExtResource("2_qu6lk")]
 position = Vector2(84, 118)
