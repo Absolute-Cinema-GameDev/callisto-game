@@ -39,8 +39,8 @@ const SAVE_FILE_PATH = "user://savegame.save"
 
 var current_2d_scene: Node2D
 var current_gui_scene: Control
-var current_chapter: Chapter = Chapter.SAVE001
-var current_checkpoint: Checkpoint = Checkpoint.FOUND
+var current_chapter: Chapter = Chapter.INTRO
+var current_checkpoint: Checkpoint = Checkpoint.START
 var is_gameplay: bool = false
 
 
@@ -48,7 +48,7 @@ var is_gameplay: bool = false
 func _ready() -> void:
 	Globals.game_controller = self
 	change_gui_scene(SPLASH_SCREEN)
-	# load_game()
+	load_game()
 
 
 #-- SCENE MANAGER
@@ -185,14 +185,21 @@ func _on_pause_state_changed(is_paused: bool) -> void:
 #-- CHAPTERS AND CHECKPOINT
 
 
+func _start_credits():
+	await get_tree().create_timer(3).timeout
+	change_world_2d_scene(MENU_BACKGROUND)
+	change_gui_scene(TITLE_SCREEN)
+
 ## Move story forward by one checkpoint
 ## Can only go forward, not backwards
 func progress_story():
 	print("Progressing story")
-	if current_chapter == Chapter.SAVE003 and current_checkpoint == Checkpoint.FOUND:
-		print("sadly")
+	if current_chapter == Chapter.SAVE003 and current_checkpoint == Checkpoint.DIVING:
+		_start_credits()
 		return  # end of story
 
+	var previous_chapter = current_chapter
+	var previous_checkpoint = current_checkpoint
 	if current_chapter == Chapter.INTRO and current_checkpoint == Checkpoint.START:
 		current_chapter = Chapter.SAVE001
 		current_checkpoint = Checkpoint.START
@@ -209,9 +216,12 @@ func progress_story():
 			current_checkpoint = Checkpoint.FOUND
 		elif current_checkpoint == Checkpoint.FOUND:
 			current_checkpoint = Checkpoint.SURFACED
-	print(current_chapter, current_checkpoint)
+	
+	if level_select(previous_chapter, previous_checkpoint) != level_select():
+		## change scene
+		change_world_2d_scene(level_select())
 	story_progressed.emit(current_chapter, current_checkpoint)
-
+	
 
 #-- SAVE LOAD
 
