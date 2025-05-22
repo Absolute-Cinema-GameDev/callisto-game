@@ -86,6 +86,7 @@ disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_4g6fm")
+flip_h = true
 hframes = 9
 frame = 2
 
