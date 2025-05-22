@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scenes/levels/hub/poseidon_hub.gd" id="1_ltsap"]
 [ext_resource type="Texture2D" uid="uid://cjenc0ltxi7ke" path="res://assets/Wall-Props-Poseidon.png" id="2_gs3fu"]
 [ext_resource type="PackedScene" uid="uid://b1ly5qti2o5ag" path="res://scenes/entities/player/player.tscn" id="3_7f0x4"]
-[ext_resource type="PackedScene" uid="uid://b1stiwwn7tmxh" path="res://scenes/levels/level_objective.tscn" id="4_cgptr"]
+[ext_resource type="PackedScene" path="res://scenes/levels/level_objective.tscn" id="4_cgptr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gtbhx"]
 texture = ExtResource("1_01w8k")
@@ -3977,6 +3977,31 @@ tile_set = SubResource("TileSet_v3orv")
 [node name="Decors-upstairs" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAALAAAAAAAAAAUAAAALAAEAAAAAAAYAAAAMAAAAAAABAAUAAAAMAAEAAAABAAYAAAANAAAAAAACAAUAAAANAAEAAAACAAYAAAAFAAAAAAADAAIAAAAFAAEAAAADAAMAAAAGAAAAAAAEAAIAAAAGAAEAAAAEAAMAAAAHAAAAAAAFAAIAAAAHAAEAAAAFAAMAAAA=")
 tile_set = SubResource("TileSet_3bcp6")
+
+[node name="1" type="Label" parent="."]
+offset_left = 534.0
+offset_top = 39.0
+offset_right = 541.0
+offset_bottom = 56.0
+size_flags_horizontal = 4
+text = "1"
+
+[node name="2" type="Label" parent="."]
+offset_left = 370.0
+offset_top = 172.0
+offset_right = 377.0
+offset_bottom = 189.0
+size_flags_horizontal = 4
+text = "2"
+
+[node name="3" type="Label" parent="."]
+offset_left = 100.0
+offset_top = 165.0
+offset_right = 107.0
+offset_bottom = 182.0
+size_flags_horizontal = 4
+text = "3
+"
 
 [node name="Player" parent="." instance=ExtResource("3_7f0x4")]
 position = Vector2(188, 87)
