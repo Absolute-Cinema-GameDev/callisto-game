@@ -3,8 +3,8 @@ extends MenuScreen
 const HUD_ITEM_FADE_IN_TIME = 0.5
 const HUD_ITEM_FADE_OUT_TIME = 0.5
 const QUEST_LOG_UPDATE_TIME = 1
-const QUEST_LOG_UPDATE_HANG_TIME = 4
-const QUEST_LOG_HANG_TIME = 10
+const QUEST_LOG_UPDATE_HANG_TIME = 2
+const QUEST_LOG_HANG_TIME = 3
 const SAVE_STATUS_HANG_TIME = 3
 const QUEST_LOG_LABEL_UPDATE_TIME = 0.5
 
@@ -65,6 +65,7 @@ func _ready() -> void:
 
 	# 3. Hook player changed signal ASAP
 	if Globals.current_player != null:
+		Globals.player_changed.connect(_hook_player_events)
 		Globals.current_player.main_oxygen_changed.connect(update_main_tank)
 		Globals.current_player.reserve_oxygen_changed.connect(update_reserve_tank)
 		Globals.current_player.movement_type_changed.connect(_on_movement_type_changed)
@@ -143,7 +144,7 @@ func _get_current_quest_log_string(
 		GameController.Chapter.SAVE002:
 			return _select_chapter2(checkpoint)
 		GameController.Chapter.SAVE003:
-			return _select_chapter2(checkpoint)
+			return _select_chapter3(checkpoint)
 		_:
 			return QUEST_LOG_STRINGS["intro"]
 
@@ -313,7 +314,7 @@ func update_quest_log(new_quest: String, prev_complete: bool = true) -> void:
 		await show_hud_item(quest_log)
 
 	# mark previous quest as complete
-	if prev_complete:
+	if prev_complete or quest_log_label.text == new_quest:
 		quest_log_icon.texture = PRELOADED_ASSETS["checkbox_checked"]
 		await animate_quest_log_finished()
 		await get_tree().create_timer(QUEST_LOG_UPDATE_HANG_TIME).timeout
@@ -325,7 +326,7 @@ func update_quest_log(new_quest: String, prev_complete: bool = true) -> void:
 		await animate_quest_log_unfinished()
 
 	# wait for a bit so the user can read
-	await get_tree().create_timer(QUEST_LOG_HANG_TIME).timeout
+	await get_tree().create_timer(QUEST_LOG_HANG_TIME*3).timeout
 	hide_hud_item(quest_log)
 
 
