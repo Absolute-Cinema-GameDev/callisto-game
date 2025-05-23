@@ -1,15 +1,15 @@
 [gd_scene load_steps=13 format=4 uid="uid://v8ktom5ic83o"]
 
-[ext_resource type="TileSet" uid="uid://be2scx7ig27qu" path="res://assets/calisto_tileset.tres" id="1_j6jdo"]
+[ext_resource type="TileSet" uid="uid://df7qnwfom4ddq" path="res://assets/calisto_tileset.tres" id="1_j6jdo"]
 [ext_resource type="Script" path="res://scenes/levels/cave02/level_3.gd" id="1_ov53u"]
 [ext_resource type="PackedScene" uid="uid://clsb0flmwrkei" path="res://scenes/entities/patrol/patrol.tscn" id="3_1722m"]
 [ext_resource type="PackedScene" uid="uid://eum7ybrrepj" path="res://scenes/levels/seaweed_bush/seaweed_bush.tscn" id="4_makec"]
 [ext_resource type="PackedScene" uid="uid://v2h7u6c0nqg7" path="res://scenes/levels/stunrock/stunrock.tscn" id="5_cywy0"]
 [ext_resource type="PackedScene" uid="uid://b1ly5qti2o5ag" path="res://scenes/entities/player/player.tscn" id="5_ei5on"]
 [ext_resource type="PackedScene" uid="uid://d3w24fym0m4wj" path="res://scenes/entities/enemy-ambush/ambush.tscn" id="5_o43ui"]
-[ext_resource type="PackedScene" path="res://scenes/entities/camera/camera_trigger.tscn" id="7_o5qwb"]
+[ext_resource type="PackedScene" uid="uid://c6u8oh25hgql5" path="res://scenes/entities/camera/camera_trigger.tscn" id="7_o5qwb"]
 [ext_resource type="PackedScene" uid="uid://bwsnrjah2dsow" path="res://scenes/entities/camera/camera.tscn" id="7_xw3f0"]
-[ext_resource type="PackedScene" path="res://scenes/levels/level_objective.tscn" id="9_t3jll"]
+[ext_resource type="PackedScene" uid="uid://b1stiwwn7tmxh" path="res://scenes/levels/level_objective.tscn" id="9_t3jll"]
 [ext_resource type="PackedScene" uid="uid://c3ojet4klflcl" path="res://scenes/entities/crewmate/crew_mate_3.tscn" id="10_hgo6g"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lrhw8"]
@@ -51,28 +51,32 @@ position = Vector2(1800, -112)
 [node name="Patrol" type="Node2D" parent="."]
 
 [node name="Patrol" parent="Patrol" instance=ExtResource("3_1722m")]
-position = Vector2(682, 252)
-patrol_corner_1 = Vector2(640, 0)
+position = Vector2(704, 236)
+chase_speed = 40.0
+patrol_corner_1 = Vector2(670, 0)
 patrol_corner_2 = Vector2(1280, 0)
-patrol_corner_3 = Vector2(640, 360)
+patrol_corner_3 = Vector2(670, 360)
 patrol_corner_4 = Vector2(1799, 372)
 
 [node name="Patrol2" parent="Patrol" instance=ExtResource("3_1722m")]
-position = Vector2(925, 75)
-patrol_corner_1 = Vector2(640, 0)
-patrol_corner_2 = Vector2(1280, 0)
+position = Vector2(889, 106)
+chase_speed = 40.0
+patrol_corner_1 = Vector2(670, 10)
+patrol_corner_2 = Vector2(1280, 10)
 patrol_corner_3 = Vector2(1280, 360)
-patrol_corner_4 = Vector2(640, 360)
+patrol_corner_4 = Vector2(670, 360)
 
 [node name="Patrol3" parent="Patrol" instance=ExtResource("3_1722m")]
 position = Vector2(149, 909)
+chase_speed = 35.0
 patrol_corner_1 = Vector2(0, 1080)
 patrol_corner_2 = Vector2(640, 1080)
-patrol_corner_3 = Vector2(0, 720)
-patrol_corner_4 = Vector2(640, 720)
+patrol_corner_3 = Vector2(0, 730)
+patrol_corner_4 = Vector2(640, 730)
 
 [node name="Patrol4" parent="Patrol" instance=ExtResource("3_1722m")]
 position = Vector2(1176, 807)
+chase_speed = 35.0
 patrol_corner_1 = Vector2(640, 720)
 patrol_corner_2 = Vector2(1280, 1080)
 patrol_corner_3 = Vector2(640, 720)
@@ -104,6 +108,7 @@ patrol_corner_4 = Vector2(1920, 720)
 
 [node name="Patrol5" parent="Patrol" instance=ExtResource("3_1722m")]
 position = Vector2(732, 1285)
+chase_speed = 30.0
 patrol_corner_1 = Vector2(640, 1080)
 patrol_corner_2 = Vector2(1280, 1440)
 patrol_corner_3 = Vector2(640, 1080)
@@ -321,7 +326,7 @@ position = Vector2(4252, 3714)
 scale = Vector2(0.3, 0.3)
 
 [node name="Ambush52" parent="Ambush" instance=ExtResource("5_o43ui")]
-position = Vector2(4350, 3657)
+position = Vector2(4354, 3660)
 scale = Vector2(0.3, 0.3)
 
 [node name="StunRock" type="Node2D" parent="."]
@@ -565,6 +570,10 @@ rotation = -0.0213276
 position = Vector2(745, 266)
 rotation = -0.834739
 
+[node name="SeaweedBush22" parent="SeaweedBush" instance=ExtResource("4_makec")]
+position = Vector2(851, 188)
+rotation = -0.768413
+
 [node name="SeaweedBush9" parent="SeaweedBush" instance=ExtResource("4_makec")]
 position = Vector2(915, 469)
 
@@ -644,7 +653,7 @@ enter_limit_left = 640
 enter_limit_right = 1280
 
 [node name="Area2_2" parent="." instance=ExtResource("7_o5qwb")]
-position = Vector2(994, -8)
+position = Vector2(994, -12)
 rotation = -1.5708
 enter_enabled = true
 enter_limit_top = -360
@@ -670,29 +679,29 @@ position = Vector2(630, 180)
 enter_enabled = true
 
 [node name="Area4_2" parent="." instance=ExtResource("7_o5qwb")]
-position = Vector2(180, 353)
+position = Vector2(181, 348)
 rotation = -1.5708
 enter_enabled = true
 
 [node name="Area5_1" parent="." instance=ExtResource("7_o5qwb")]
-position = Vector2(180, 367)
+position = Vector2(180, 372)
 rotation = -1.5708
 enter_enabled = true
 enter_limit_top = 360
 enter_limit_bottom = 720
 
 [node name="Area5_2" parent="." instance=ExtResource("7_o5qwb")]
-position = Vector2(337, 630)
+position = Vector2(149, 668)
 rotation = -1.5708
-scale = Vector2(1, 1.16)
+scale = Vector2(1, 0.3)
 enter_enabled = true
 enter_limit_top = 360
 enter_limit_bottom = 720
 
 [node name="Area6_1" parent="." instance=ExtResource("7_o5qwb")]
-position = Vector2(324, 648)
+position = Vector2(148, 688)
 rotation = -1.5708
-scale = Vector2(1, 1.16)
+scale = Vector2(1, 0.3)
 enter_enabled = true
 enter_limit_top = 696
 enter_limit_bottom = 1056
