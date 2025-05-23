@@ -1,15 +1,15 @@
 [gd_scene load_steps=15 format=4 uid="uid://chln4pbamouie"]
 
 [ext_resource type="Script" path="res://scenes/levels/cave01/level_2.gd" id="1_ltd4j"]
-[ext_resource type="TileSet" uid="uid://df7qnwfom4ddq" path="res://assets/calisto_tileset.tres" id="1_to5ht"]
+[ext_resource type="TileSet" uid="uid://be2scx7ig27qu" path="res://assets/calisto_tileset.tres" id="1_to5ht"]
 [ext_resource type="PackedScene" uid="uid://b1ly5qti2o5ag" path="res://scenes/entities/player/player.tscn" id="2_qu6lk"]
 [ext_resource type="PackedScene" uid="uid://clsb0flmwrkei" path="res://scenes/entities/patrol/patrol.tscn" id="3_61wiq"]
 [ext_resource type="PackedScene" uid="uid://eum7ybrrepj" path="res://scenes/levels/seaweed_bush/seaweed_bush.tscn" id="4_wl2ii"]
 [ext_resource type="PackedScene" uid="uid://7g1e4nr8io8c" path="res://scenes/levels/air_pocket/air_pocket.tscn" id="5_rsr67"]
 [ext_resource type="PackedScene" uid="uid://v2h7u6c0nqg7" path="res://scenes/levels/stunrock/stunrock.tscn" id="6_x83iy"]
 [ext_resource type="PackedScene" uid="uid://bwsnrjah2dsow" path="res://scenes/entities/camera/camera.tscn" id="7_ur3qc"]
-[ext_resource type="PackedScene" uid="uid://c6u8oh25hgql5" path="res://scenes/entities/camera/camera_trigger.tscn" id="8_jmus0"]
-[ext_resource type="PackedScene" uid="uid://b1stiwwn7tmxh" path="res://scenes/levels/level_objective.tscn" id="9_1d6ip"]
+[ext_resource type="PackedScene" path="res://scenes/entities/camera/camera_trigger.tscn" id="8_jmus0"]
+[ext_resource type="PackedScene" path="res://scenes/levels/level_objective.tscn" id="9_1d6ip"]
 [ext_resource type="PackedScene" uid="uid://go1gobjeo68c" path="res://scenes/entities/crewmate/crew_mate_2.tscn" id="9_87svh"]
 [ext_resource type="PackedScene" uid="uid://c8im0xnkk274a" path="res://scenes/ui/scene_transition/Scenetransition.tscn" id="12_285ud"]
 [ext_resource type="AudioStream" uid="uid://b2dlf1s5pb0tf" path="res://assets/underwater-ambience-6201.wav" id="13_5sedu"]
@@ -22,7 +22,7 @@ agent_radius = 9.47
 
 [node name="Level2" type="Node2D"]
 script = ExtResource("1_ltd4j")
-metadata/_edit_horizontal_guides_ = [360.0, 720.0, 1056.0]
+metadata/_edit_horizontal_guides_ = [360.0, 720.0, 1056.0, 696.0]
 metadata/_edit_vertical_guides_ = [640.0, 1280.0, 1920.0]
 
 [node name="Tiles" type="Node2D" parent="."]
@@ -47,7 +47,7 @@ tile_set = ExtResource("1_to5ht")
 color = Color(0.00249731, 0.12611, 0.60488, 1)
 
 [node name="Player" parent="." instance=ExtResource("2_qu6lk")]
-position = Vector2(84, 118)
+position = Vector2(97, 118)
 
 [node name="Patrol" type="Node2D" parent="."]
 
@@ -384,36 +384,36 @@ position = Vector2(1178, 783)
 [node name="Camera" parent="." instance=ExtResource("7_ur3qc")]
 
 [node name="Area1_1" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(628, 180)
+position = Vector2(622, 180)
 enter_enabled = true
 
 [node name="Area2_1" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(653, 180)
+position = Vector2(658, 180)
 enter_enabled = true
 enter_limit_left = 640
 enter_limit_right = 1280
 
 [node name="Area2_2" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1270, 180)
+position = Vector2(1262, 180)
 enter_enabled = true
 enter_limit_left = 640
 enter_limit_right = 1280
 
+[node name="Area3_1" parent="." instance=ExtResource("8_jmus0")]
+position = Vector2(1298, 180)
+enter_enabled = true
+enter_limit_left = 1280
+enter_limit_right = 1920
+
 [node name="Area3_2" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1712, 351)
+position = Vector2(1712, 336)
 rotation = -1.57079
 enter_enabled = true
 enter_limit_left = 1280
 enter_limit_right = 1920
 
-[node name="Area3_3" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1290, 180)
-enter_enabled = true
-enter_limit_left = 1280
-enter_limit_right = 1920
-
 [node name="Area4_1" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1712, 368)
+position = Vector2(1712, 383)
 rotation = -1.57079
 enter_enabled = true
 enter_limit_top = 360
@@ -422,7 +422,7 @@ enter_limit_left = 1280
 enter_limit_right = 1920
 
 [node name="Area4_2" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1739, 710)
+position = Vector2(1739, 671)
 rotation = -1.57079
 enter_enabled = true
 enter_limit_top = 360
@@ -431,7 +431,7 @@ enter_limit_left = 1280
 enter_limit_right = 1920
 
 [node name="Area4_3" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1290, 540)
+position = Vector2(1298, 540)
 enter_enabled = true
 enter_limit_top = 360
 enter_limit_bottom = 720
@@ -439,7 +439,7 @@ enter_limit_left = 1280
 enter_limit_right = 1920
 
 [node name="Area5_1" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1270, 540)
+position = Vector2(1262, 540)
 enter_enabled = true
 enter_limit_top = 360
 enter_limit_bottom = 720
@@ -447,7 +447,7 @@ enter_limit_left = 640
 enter_limit_right = 1280
 
 [node name="Area6_1" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1739, 730)
+position = Vector2(1739, 744)
 rotation = -1.57079
 enter_enabled = true
 enter_limit_top = 696
@@ -456,7 +456,7 @@ enter_limit_left = 1280
 enter_limit_right = 1920
 
 [node name="Area6_2" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1289, 875)
+position = Vector2(1298, 875)
 enter_enabled = true
 enter_limit_top = 696
 enter_limit_bottom = 1056
@@ -464,7 +464,7 @@ enter_limit_left = 1280
 enter_limit_right = 1920
 
 [node name="Area7_1" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1270, 875)
+position = Vector2(1262, 875)
 enter_enabled = true
 enter_limit_top = 696
 enter_limit_bottom = 1056
@@ -472,7 +472,7 @@ enter_limit_left = 640
 enter_limit_right = 1280
 
 [node name="Area7_2" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(651, 875)
+position = Vector2(658, 875)
 enter_enabled = true
 enter_limit_top = 696
 enter_limit_bottom = 1056
@@ -480,7 +480,7 @@ enter_limit_left = 640
 enter_limit_right = 1280
 
 [node name="Area7_3" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(630, 875)
+position = Vector2(622, 875)
 enter_enabled = true
 enter_limit_top = 696
 enter_limit_bottom = 1056
@@ -506,7 +506,7 @@ required_chapter = 2
 required_checkpoint = 1
 
 [node name="SurfaceObjective" parent="." instance=ExtResource("9_1d6ip")]
-position = Vector2(13, 113)
+position = Vector2(-14, 113)
 scale = Vector2(3.12, 2.68)
 required_chapter = 2
 required_checkpoint = 2

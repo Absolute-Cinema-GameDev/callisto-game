@@ -217,6 +217,7 @@ func progress_story():
 			current_checkpoint = Checkpoint.FOUND
 		elif current_checkpoint == Checkpoint.FOUND:
 			current_checkpoint = Checkpoint.SURFACED
+
 	if level_select(previous_chapter, previous_checkpoint) != level_select():
 		## change scene
 		change_world_2d_scene(level_select())
