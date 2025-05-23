@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://clc1s6pxld87o"]
+[gd_scene load_steps=21 format=4 uid="uid://clc1s6pxld87o"]
 
 [ext_resource type="Texture2D" uid="uid://crifelct3eyl6" path="res://assets/TileSea.png" id="1_3o4wb"]
 [ext_resource type="Script" path="res://scenes/levels/level04/final_cutscene.gd" id="1_jnseu"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b1dyhyl5ib0t3" path="res://assets/levels/TileSea.png" id="3_ji4ev"]
 [ext_resource type="Script" path="res://scenes/levels/level04/white_transition_trigger.gd" id="5_rqnjo"]
 [ext_resource type="Script" path="res://scenes/levels/level04/text.gd" id="6_eflwn"]
+[ext_resource type="AudioStream" uid="uid://bhxhx6htpvp0f" path="res://assets/levels/underwater-ambience-6201.mp3" id="8_rdjy2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nrt3g"]
 texture = ExtResource("1_3o4wb")
@@ -2616,7 +2617,7 @@ length = 0.001
 
 [sub_resource type="Animation" id="Animation_jyp4m"]
 resource_name = "fade_to_white"
-length = 10.0
+length = 15.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -2624,7 +2625,7 @@ tracks/0/path = NodePath("WhiteOverlay:modulate")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 9.73333),
+"times": PackedFloat32Array(0, 7.06667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -2636,7 +2637,7 @@ tracks/1/path = NodePath("ColorRect:color")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 9.5),
+"times": PackedFloat32Array(0, 7.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0.27451, 0.564706), Color(0, 0, 0.27451, 0)]
@@ -2738,6 +2739,10 @@ position = Vector2(0, 38)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TextTrigger3"]
 position = Vector2(315, 182)
 shape = SubResource("RectangleShape2D_4wvpl")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_rdjy2")
+autoplay = true
 
 [connection signal="body_entered" from="WhiteTransitionTrigger" to="WhiteTransitionTrigger" method="_on_body_entered"]
 [connection signal="body_entered" from="TextTrigger" to="." method="_on_text_trigger_body_entered"]
