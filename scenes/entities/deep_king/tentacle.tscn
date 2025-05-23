@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ckkviutdxrw5h" path="res://assets/enemies/deep-king/Deep-King_tentacles_spritesheet.png" id="2_nrgps"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ueyjc"]
-size = Vector2(657, 81)
+size = Vector2(657, 95)
 
 [sub_resource type="Animation" id="Animation_p0nvp"]
 length = 0.001
@@ -117,7 +117,7 @@ frame = 1
 [node name="WarningBox" type="ColorRect" parent="."]
 offset_top = -73.0
 offset_right = 40.0
-offset_bottom = -33.0
+offset_bottom = -31.0
 scale = Vector2(16.4, 2.24)
 color = Color(1, 0, 0, 0.219608)
 

@@ -124,3 +124,81 @@ extends Node2D
 #
 #func stop_attacks() -> void:
 #active = false
+
+@onready var stunrock_spawner = $StunrockSpawner
+@onready var boss_tentacles = $BossTentacles
+
+const ROOT_LEVELS_PATH = "res://scenes/levels/"
+const POSEIDON_HUB = ROOT_LEVELS_PATH + "hub/poseidon_hub.tscn"  # TODO: adjust sesuai path
+const LEVEL_01 = ROOT_LEVELS_PATH + "cave00/level1.tscn"  # TODO: adjust sesuai path
+const LEVEL_02 = ROOT_LEVELS_PATH + "cave01/level2.tscn"
+const LEVEL_03 = ROOT_LEVELS_PATH + "cave02/level3.tscn"
+const LEVEL_04 = ROOT_LEVELS_PATH + "level04/level04.tscn"
+
+const BACKGROUNDS_PATH = ROOT_LEVELS_PATH + "backgrounds/"
+const MENU_BACKGROUND = BACKGROUNDS_PATH + "menu_bg.tscn"
+const CREDITS_BACKGROUND = BACKGROUNDS_PATH + "credits_bg.tscn"
+
+const ROOT_UI_PATH = "res://scenes/ui/"
+const SPLASH_SCREEN = ROOT_UI_PATH + "splash_screen/splash_screen.tscn"  # TODO: adjust sesuai path
+const TITLE_SCREEN = ROOT_UI_PATH + "title_screen/title_screen.tscn"
+const PAUSE_MENU = ROOT_UI_PATH + "pause_menu/pause_menu.tscn"
+const HUD = ROOT_UI_PATH + "hud/hud.tscn"
+const NEW_GAME_WARNING = ROOT_UI_PATH + "new_game_warning_screen/new_game_warning_screen.tscn"
+const CREDITS_SCREEN = ROOT_UI_PATH + "credits_screen/scredits_screen.tscn"
+
+const CUT_SCENE = 
+
+var _survival_timer = null
+var _intense_timer = null
+
+var survival_time = 120.0
+var intense_time = 5.0
+
+var _phase := "survival"
+var cutscene: String = "res://scenes/levels/" # Placeholder for next scene path
+
+func _ready():
+	# Start with normal phase
+	_phase = "survival"
+	_survival_timer = get_tree().create_timer(survival_time)
+	_survival_timer.timeout.connect(_on_survival_phase_end)
+
+func _on_survival_phase_end():
+	_phase = "intense"
+	# Set stunrock spawner to spawn every 1s
+	if is_instance_valid(stunrock_spawner):
+		stunrock_spawner.min_spawn_interval = 1.0
+		stunrock_spawner.max_spawn_interval = 1.0
+	# Set tentacles to attack all 3 at once, continuously
+	if is_instance_valid(boss_tentacles):
+		boss_tentacles.min_attack_interval = 0.0
+		boss_tentacles.max_attack_interval = 0.0
+		boss_tentacles.attack_pattern_chance = 1.0 # Always pick 2, but force all 3 below
+		if boss_tentacles.has_method("force_all_tentacles_next_attack"):
+			boss_tentacles.force_all_tentacles_next_attack()
+	_intense_timer = get_tree().create_timer(intense_time)
+	_intense_timer.timeout.connect(_on_intense_phase_end)
+
+func _on_intense_phase_end():
+	_phase = "done"
+	# Stop stunrock spawner and tentacle attacks
+	if is_instance_valid(stunrock_spawner):
+		stunrock_spawner.min_spawn_interval = 9999
+		stunrock_spawner.max_spawn_interval = 9999
+	if is_instance_valid(boss_tentacles):
+		boss_tentacles.min_attack_interval = 9999
+		boss_tentacles.max_attack_interval = 9999
+	# Play fade out animation from Scenetransition
+	var transition_scene = preload("res://scenes/ui/scene_transition/Scenetransition.tscn").instantiate()
+	get_tree().current_scene.add_child(transition_scene)
+	var anim_player = transition_scene.get_node_or_null("AnimationPlayer")
+	if anim_player:
+		anim_player.play("fade_in")
+		anim_player.animation_finished.connect(_on_fade_out_finished)
+
+func _on_fade_out_finished(_anim_name):
+	# Placeholder: change to cutscene or pause
+	# get_tree().paused = true
+	# To change scene later: 
+	get_tree().change_scene_to_file(LEVEL_02)

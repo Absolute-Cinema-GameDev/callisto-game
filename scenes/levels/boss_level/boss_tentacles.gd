@@ -10,6 +10,7 @@ extends Node2D
 # Class member variables
 var _timer: Timer
 var _current_attack_indices = []
+var _force_all_next_attack = false
 # Onready variables
 @onready var tentacles = [$Tentacle, $Tentacle2, $Tentacle3]
 
@@ -17,7 +18,14 @@ var _current_attack_indices = []
 func _ready():
 	# Setup all tentacles as inactive initially
 	for tentacle in tentacles:
-		disable_tentacle(tentacle)
+		# disable_tentacle(tentacle)
+		if tentacle.has_node("WarningBox"):
+			tentacle.get_node("WarningBox").visible = false
+			# Cancel telegraph animation if it exists
+			if tentacle.has_meta("telegraph_tween"):
+				var tween = tentacle.get_meta("telegraph_tween")
+				if tween and tween.is_valid():
+					tween.kill()
 	# Create timer for attack pattern
 	_timer = Timer.new()
 	_timer.one_shot = true
@@ -33,8 +41,11 @@ func _schedule_next_attack():
 
 
 func _on_attack_timer_timeout():
-	# Decide on attack pattern (1 or 2 tentacles)
+	# Intense mode: force all tentacles to attack
 	var num_tentacles_to_attack = 2 if randf() < attack_pattern_chance else 1
+	if _force_all_next_attack:
+		num_tentacles_to_attack = tentacles.size()
+		_force_all_next_attack = false
 	# Select which tentacles to use
 	_current_attack_indices = []
 	var available_indices = range(tentacles.size())
@@ -106,5 +117,11 @@ func disable_tentacle(tentacle):
 	if tentacle.has_node("WarningBox"):
 		tentacle.get_node("WarningBox").visible = false
 	# Stop any attack animations
-	
 	tentacle.stop_attack()
+	# Visually retract the tentacle at scene start or when disabled
+	if tentacle.has_method("retract"):
+		tentacle.retract()
+
+
+func force_all_tentacles_next_attack():
+	_force_all_next_attack = true
