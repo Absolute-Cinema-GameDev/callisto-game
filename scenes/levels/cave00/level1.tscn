@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://bamsom22grcgb"]
+[gd_scene load_steps=13 format=4 uid="uid://bamsom22grcgb"]
 
 [ext_resource type="TileSet" uid="uid://df7qnwfom4ddq" path="res://assets/calisto_tileset.tres" id="1_tj5bl"]
 [ext_resource type="Script" path="res://scenes/levels/cave00/level_1.gd" id="1_unst8"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c6u8oh25hgql5" path="res://scenes/entities/camera/camera_trigger.tscn" id="6_gcr6i"]
 [ext_resource type="PackedScene" uid="uid://b1stiwwn7tmxh" path="res://scenes/levels/level_objective.tscn" id="8_g8dfk"]
 [ext_resource type="PackedScene" uid="uid://cng851s6pw0mw" path="res://scenes/entities/crewmate/crew_mate_1.tscn" id="9_qn2i6"]
+[ext_resource type="PackedScene" uid="uid://c8im0xnkk274a" path="res://scenes/ui/scene_transition/Scenetransition.tscn" id="11_csjbr"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lrhw8"]
 outlines = Array[PackedVector2Array]([PackedVector2Array(4, 0, 1277, 3, 1281, 350, 1918, 353, 1923, 1053, 641, 1058, 643, 706, -3, 701)])
@@ -261,3 +262,5 @@ position = Vector2(70, 73)
 
 [node name="ObjectiveFound" type="Node2D" parent="."]
 position = Vector2(1743, 954)
+
+[node name="Scenetransition" parent="." instance=ExtResource("11_csjbr")]

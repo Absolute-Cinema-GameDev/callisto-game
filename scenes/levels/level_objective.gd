@@ -6,11 +6,13 @@ extends Node2D
 @export var required_chapter: GameController.Chapter
 @export var required_checkpoint: GameController.Checkpoint
 
+@onready var scene_transition_animation: AnimationPlayer = get_parent().get_node("Scenetransition/AnimationPlayer")
 var game_controller: GameController
 
 
 func _ready() -> void:
 	game_controller = Globals.game_controller
+	scene_transition_animation.play("fade_out")
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -20,4 +22,5 @@ func _on_body_entered(body: Node2D) -> void:
 		game_controller.current_chapter == required_chapter
 		and game_controller.current_checkpoint == required_checkpoint
 	):
+			
 		game_controller.progress_story()
