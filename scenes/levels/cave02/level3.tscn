@@ -1,15 +1,15 @@
 [gd_scene load_steps=13 format=4 uid="uid://v8ktom5ic83o"]
 
-[ext_resource type="TileSet" uid="uid://be2scx7ig27qu" path="res://assets/calisto_tileset.tres" id="1_j6jdo"]
+[ext_resource type="TileSet" uid="uid://df7qnwfom4ddq" path="res://assets/calisto_tileset.tres" id="1_j6jdo"]
 [ext_resource type="Script" path="res://scenes/levels/cave02/level_3.gd" id="1_ov53u"]
 [ext_resource type="PackedScene" uid="uid://clsb0flmwrkei" path="res://scenes/entities/patrol/patrol.tscn" id="3_1722m"]
 [ext_resource type="PackedScene" uid="uid://eum7ybrrepj" path="res://scenes/levels/seaweed_bush/seaweed_bush.tscn" id="4_makec"]
 [ext_resource type="PackedScene" uid="uid://v2h7u6c0nqg7" path="res://scenes/levels/stunrock/stunrock.tscn" id="5_cywy0"]
 [ext_resource type="PackedScene" uid="uid://b1ly5qti2o5ag" path="res://scenes/entities/player/player.tscn" id="5_ei5on"]
 [ext_resource type="PackedScene" uid="uid://d3w24fym0m4wj" path="res://scenes/entities/enemy-ambush/ambush.tscn" id="5_o43ui"]
-[ext_resource type="PackedScene" path="res://scenes/entities/camera/camera_trigger.tscn" id="7_o5qwb"]
+[ext_resource type="PackedScene" uid="uid://c6u8oh25hgql5" path="res://scenes/entities/camera/camera_trigger.tscn" id="7_o5qwb"]
 [ext_resource type="PackedScene" uid="uid://bwsnrjah2dsow" path="res://scenes/entities/camera/camera.tscn" id="7_xw3f0"]
-[ext_resource type="PackedScene" path="res://scenes/levels/level_objective.tscn" id="9_t3jll"]
+[ext_resource type="PackedScene" uid="uid://b1stiwwn7tmxh" path="res://scenes/levels/level_objective.tscn" id="9_t3jll"]
 [ext_resource type="PackedScene" uid="uid://c3ojet4klflcl" path="res://scenes/entities/crewmate/crew_mate_3.tscn" id="10_hgo6g"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lrhw8"]
