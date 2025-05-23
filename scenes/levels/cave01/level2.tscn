@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://chln4pbamouie"]
 
-[ext_resource type="TileSet" uid="uid://be2scx7ig27qu" path="res://assets/calisto_tileset.tres" id="1_to5ht"]
+[ext_resource type="TileSet" uid="uid://df7qnwfom4ddq" path="res://assets/calisto_tileset.tres" id="1_to5ht"]
 [ext_resource type="PackedScene" uid="uid://b1ly5qti2o5ag" path="res://scenes/entities/player/player.tscn" id="2_qu6lk"]
 [ext_resource type="PackedScene" uid="uid://clsb0flmwrkei" path="res://scenes/entities/patrol/patrol.tscn" id="3_61wiq"]
 [ext_resource type="PackedScene" uid="uid://eum7ybrrepj" path="res://scenes/levels/seaweed_bush/seaweed_bush.tscn" id="4_wl2ii"]

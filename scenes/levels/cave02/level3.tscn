@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://clsb0flmwrkei" path="res://scenes/entities/patrol/patrol.tscn" id="3_1722m"]
 [ext_resource type="PackedScene" uid="uid://eum7ybrrepj" path="res://scenes/levels/seaweed_bush/seaweed_bush.tscn" id="4_makec"]
 [ext_resource type="PackedScene" uid="uid://v2h7u6c0nqg7" path="res://scenes/levels/stunrock/stunrock.tscn" id="5_cywy0"]
-[ext_resource type="PackedScene" uid="uid://blwqvvn3mh4u4" path="res://scenes/entities/player/player.tscn" id="5_ei5on"]
+[ext_resource type="PackedScene" uid="uid://b1ly5qti2o5ag" path="res://scenes/entities/player/player.tscn" id="5_ei5on"]
 [ext_resource type="PackedScene" uid="uid://d3w24fym0m4wj" path="res://scenes/entities/enemy-ambush/ambush.tscn" id="5_o43ui"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lrhw8"]
