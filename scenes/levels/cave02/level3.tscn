@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" path="res://scenes/entities/camera/camera_trigger.tscn" id="7_o5qwb"]
 [ext_resource type="PackedScene" uid="uid://bwsnrjah2dsow" path="res://scenes/entities/camera/camera.tscn" id="7_xw3f0"]
 [ext_resource type="PackedScene" uid="uid://7g1e4nr8io8c" path="res://scenes/levels/air_pocket/air_pocket.tscn" id="8_cctux"]
-[ext_resource type="PackedScene" uid="uid://b1stiwwn7tmxh" path="res://scenes/levels/level_objective.tscn" id="9_t3jll"]
+[ext_resource type="PackedScene" path="res://scenes/levels/level_objective.tscn" id="9_t3jll"]
 [ext_resource type="PackedScene" uid="uid://c3ojet4klflcl" path="res://scenes/entities/crewmate/crew_mate_3.tscn" id="10_hgo6g"]
 [ext_resource type="PackedScene" uid="uid://c8im0xnkk274a" path="res://scenes/ui/scene_transition/Scenetransition.tscn" id="12_hlvta"]
 [ext_resource type="AudioStream" uid="uid://c46a6f8dadjvi" path="res://assets/underwater-ambiencewav-14428.wav" id="14_vosae"]
