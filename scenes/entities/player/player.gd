@@ -23,8 +23,8 @@ const GRAVITY: float = 1200.0
 const MAX_OXYGEN_MAIN: float = 100.0
 const MAX_OXYGEN_RESERVE: float = 50.0
 const OXYGEN_MAIN_GAIN_RATE: float = 10
-const OXYGEN_MAIN_DECAY_RATE: float = 1
-const OXYGEN_RESERVE_DECAY_RATE: float = 1
+const OXYGEN_MAIN_DECAY_RATE: float = 2
+const OXYGEN_RESERVE_DECAY_RATE: float = 2
 
 @export var movement_speed: float = 120.0
 @export var movement_type: MovementType = MovementType.SWIM:
@@ -284,6 +284,7 @@ func _on_health_changed(new_health) -> void:
 		invincible_timer.start()
 		heal_timer.start()
 	elif new_health == HealthStatus.DEAD:
+		Globals.game_controller.change_world_2d_scene(Globals.game_controller.level_select())
 		is_input_locked = true
 		animplayer.set_self_modulate(Color(0.25, 0, 0, 1))
 
@@ -305,22 +306,10 @@ func _on_test_timer_timeout() -> void:
 #-- INTERACTION
 
 
-## Interact with world objects
-func _interact():
-	# TODO: interaction yang perlu input dari player
-	print("interact...")
-	var collider = interact_ray.get_collider()
-
-	if interact_ray.is_colliding():
-		collider.interact()
-
-
 ## Handle gameplay input
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if is_input_locked:
 		return
-	if event.is_action_pressed("interact"):
-		_interact()
 
 
 #-- OXYGEN

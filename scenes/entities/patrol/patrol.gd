@@ -2,17 +2,18 @@ extends CharacterBody2D
 
 # Exported variables
 @export var speed: float = 10.0
-@export var chase_speed: float = 25.0
+@export var chase_speed: float = 35.0
 @export var min_idle_time: float = 1.0
 @export var max_idle_time: float = 3.0
 @export var min_move_time: float = 3.5
 @export var max_move_time: float = 5.0
 @export var idle_chance: float = 0.3
-@export var stun_duration: float = 2.0
+@export var stun_duration: float = 3.0
 @export var patrol_corner_1: Vector2 = Vector2.ZERO
 @export var patrol_corner_2: Vector2 = Vector2.ZERO
 @export var patrol_corner_3: Vector2 = Vector2.ZERO
 @export var patrol_corner_4: Vector2 = Vector2.ZERO
+
 var patrol_zone: Rect2 = Rect2(Vector2.ZERO, Vector2(100, 100))
 
 # State variables
@@ -40,6 +41,7 @@ var player = null
 @onready var attack_box: Area2D = $Sprite2D/AttackBox
 @onready var attack_box_collision: CollisionShape2D = $Sprite2D/AttackBox/CollisionShape2D
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var alert_label: Label = $AlertLabel
 
 
 func _update_path_to_player():
@@ -240,6 +242,9 @@ func _on_vision_area_body_entered(body):
 		if not body.is_hidden_from_enemies_changed.is_connected(_on_player_hidden_changed):
 			body.is_hidden_from_enemies_changed.connect(_on_player_hidden_changed.bind(body))
 		if not body.is_hidden_from_enemies:
+			alert_label.visible = true
+			await get_tree().create_timer(0.5).timeout
+			alert_label.visible = false
 			player = body
 			_update_path_to_player()
 			_enter_chase_state()
