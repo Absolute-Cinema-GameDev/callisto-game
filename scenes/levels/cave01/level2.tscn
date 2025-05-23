@@ -505,7 +505,7 @@ required_chapter = 2
 required_checkpoint = 1
 
 [node name="SurfaceObjective" parent="." instance=ExtResource("9_1d6ip")]
-position = Vector2(13, 113)
+position = Vector2(-14, 113)
 scale = Vector2(3.12, 2.68)
 required_chapter = 2
 required_checkpoint = 2
