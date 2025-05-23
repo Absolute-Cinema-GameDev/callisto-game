@@ -26,3 +26,8 @@ func _on_body_entered(body: Node2D) -> void:
 		and game_controller.current_checkpoint == required_checkpoint
 	):
 		game_controller.progress_story()
+	body.set_is_input_locked(true)
+	await get_tree().create_timer(3).timeout
+	scene_transition_animation.play("fade_in")
+	await get_tree().create_timer(1).timeout
+	get_tree().change_scene_to_file("res://scenes/levels/boss_level/boss_level_scene.tscn")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwsnrjah2dsow"]
+[gd_scene load_steps=3 format=3 uid="uid://bmvays1aut270"]
 
 [ext_resource type="Texture2D" uid="uid://tg5hcmrx3vnw" path="res://assets/ui/hud/cutscene_letterbox.png" id="1_av4ua"]
 [ext_resource type="Script" path="res://scenes/entities/camera/camera.gd" id="1_llx34"]
