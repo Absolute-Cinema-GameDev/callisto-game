@@ -13,6 +13,7 @@ var moving: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("Stunrock instance ready!")
 	area_detection.body_entered.connect(_on_area_body_entered)
 	explode_timer.wait_time = 0.1
 	explode_timer.one_shot = true

@@ -1,3 +1,25 @@
+<<<<<<< HEAD
+[gd_scene load_steps=6 format=3 uid="uid://bpeiputo77fh1"]
+
+[ext_resource type="PackedScene" path="res://assets/entities/player/player.tscn" id="1_uknod"]
+[ext_resource type="PackedScene" uid="uid://d3w24fym0m4wj" path="res://scenes/entities/enemy-ambush/ambush.tscn" id="2_mpr4x"]
+[ext_resource type="PackedScene" uid="uid://clsb0flmwrkei" path="res://scenes/entities/patrol/patrol.tscn" id="2_ssld4"]
+[ext_resource type="PackedScene" uid="uid://v2h7u6c0nqg7" path="res://scenes/levels/stunrock/stunrock.tscn" id="3_6cob6"]
+[ext_resource type="PackedScene" uid="uid://eum7ybrrepj" path="res://scenes/levels/seaweed_bush/seaweed_bush.tscn" id="4_opman"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_uknod")]
+position = Vector2(250, 81)
+
+[node name="Ambush" parent="." instance=ExtResource("2_mpr4x")]
+position = Vector2(412, 182)
+scale = Vector2(0.3, 0.3)
+collision_layer = 4
+
+[node name="Stunrock" parent="." instance=ExtResource("3_6cob6")]
+position = Vector2(318, 216)
+=======
 [gd_scene load_steps=2 format=3 uid="uid://bpeiputo77fh1"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vy3m2"]
@@ -12,6 +34,7 @@ gui = NodePath("GUILayer/GUI")
 process_mode = 1
 
 [node name="GUILayer" type="CanvasLayer" parent="."]
+>>>>>>> cd4d7fe02e1c85c94853135f43791d0c5eab1f8c
 
 [node name="GUI" type="Control" parent="GUILayer"]
 process_mode = 3
@@ -22,5 +45,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+<<<<<<< HEAD
+[node name="SeaweedBush2" parent="." instance=ExtResource("4_opman")]
+position = Vector2(369, 94)
+
+[node name="Patrol" parent="." instance=ExtResource("2_ssld4")]
+chase_speed = 25.0
+stun_duration = 2.0
+=======
 [connection signal="pause_state_changed" from="." to="." method="_on_pause_state_changed"]
 [connection signal="story_progressed" from="." to="." method="_on_story_progressed"]
+>>>>>>> cd4d7fe02e1c85c94853135f43791d0c5eab1f8c
