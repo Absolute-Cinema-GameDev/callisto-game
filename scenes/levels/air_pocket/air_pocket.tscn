@@ -33,10 +33,11 @@ emitting = false
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_jcvka")
 texture = ExtResource("3_m5tug")
-lifetime = 1.5
+lifetime = 1.4
 one_shot = true
-speed_scale = 0.3
+speed_scale = 0.5
 randomness = 1.0
+trail_lifetime = 0.4
 
 [node name="Timer" type="Timer" parent="GPUParticles2D"]
 
