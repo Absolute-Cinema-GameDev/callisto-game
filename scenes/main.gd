@@ -223,7 +223,6 @@ func progress_story():
 		change_world_2d_scene(level_select())
 	story_progressed.emit(current_chapter, current_checkpoint)
 
-
 #-- SAVE LOAD
 
 
