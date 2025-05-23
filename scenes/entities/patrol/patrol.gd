@@ -24,7 +24,7 @@ var state_duration: float = 0.0
 
 var can_attack: bool = false
 var is_attacking: bool = false
-var attack_cooldown: float = 0.5
+var attack_cooldown: float = 1
 var attack_timer: float = 0.0
 var attack_box_collision_base_offset: float = 13.0
 
@@ -144,7 +144,7 @@ func _physics_process(delta: float) -> void:
 			is_attacking = true
 			anim_player.play("attack")
 			attack_timer = 0.0
-			if player and player.is_inside_tree():
+			if player and player.is_inside_tree() and player is Player:
 				var knockback_direction = (player.global_position - global_position).normalized()
 				await get_tree().create_timer(0.3).timeout
 				player.apply_knockback(knockback_direction, 70.0, 0.12)

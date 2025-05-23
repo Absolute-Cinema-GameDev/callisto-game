@@ -64,6 +64,8 @@ const OXYGEN_RESERVE_DECAY_RATE: float = 2
 @onready var stun_timer: Timer = $StunTimer
 @onready var hurtbox: CollisionShape2D = $Hurtbox  ## Use this for damage calculation
 @onready var collision_box: CollisionShape2D = $CollisionBox
+@onready var audio_get_hit: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var bubble_particles: GPUParticles2D = $Animate/GPUParticles2D  # Bubble effect
 
 #-- GETTERS
 
@@ -115,6 +117,9 @@ func _set_health_status(value: HealthStatus):
 func set_movement_type(value: MovementType):  ## Use for switching between swimming and walking
 	movement_type_changed.emit(value)
 	movement_type = value
+	# Toggle bubble particles
+	if bubble_particles:
+		bubble_particles.emitting = (value == MovementType.SWIM)
 
 
 func _set_main_tank_capacity(value: float):
@@ -268,8 +273,12 @@ func take_damage():
 	if is_invincible:
 		return
 	if health_status == HealthStatus.HEALTHY:  # Reduce to critical state
+		audio_get_hit.pitch_scale = randf_range(0.9, 1.1)
+		audio_get_hit.play()
 		health_status = HealthStatus.CRITICAL
 	else:  # Player is dead, restart level
+		audio_get_hit.pitch_scale = randf_range(0.9, 1.1)
+		audio_get_hit.play()
 		health_status = HealthStatus.DEAD
 
 
@@ -374,3 +383,6 @@ func apply_knockback(direction: Vector2, force: float, knockback_duration: float
 #-- SET_CURRENT_PLAYER
 func _ready() -> void:
 	Globals.change_current_player(self)
+	# Ensure bubble emission matches initial movement type
+	if bubble_particles:
+		bubble_particles.emitting = (movement_type == MovementType.SWIM)

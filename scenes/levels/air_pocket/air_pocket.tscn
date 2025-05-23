@@ -1,9 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://7g1e4nr8io8c"]
+[gd_scene load_steps=6 format=3 uid="uid://7g1e4nr8io8c"]
 
 [ext_resource type="Script" path="res://scenes/levels/air_pocket/air_pocket.gd" id="1_0u1jo"]
 [ext_resource type="Texture2D" uid="uid://dohiab0ttijq0" path="res://assets/levels/air-pocket/bubble_sheet.png" id="2_x2lf7"]
+[ext_resource type="Texture2D" uid="uid://dibh0laaae687" path="res://assets/levels/air-pocket/bubble.png" id="3_m5tug"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ru7v"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jcvka"]
+lifetime_randomness = 0.4
+particle_flag_disable_z = true
+gravity = Vector3(0, -90, 0)
+scale_min = 0.5
+scale_max = 0.6
+collision_mode = 2
+collision_use_scale = true
 
 [node name="AirPocket" type="Area2D"]
 script = ExtResource("1_0u1jo")
@@ -16,6 +26,20 @@ position = Vector2(0, 3)
 texture = ExtResource("2_x2lf7")
 hframes = 20
 frame = 13
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, -18)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_jcvka")
+texture = ExtResource("3_m5tug")
+lifetime = 1.4
+one_shot = true
+speed_scale = 0.5
+randomness = 1.0
+trail_lifetime = 0.4
+
+[node name="Timer" type="Timer" parent="GPUParticles2D"]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
