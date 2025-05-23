@@ -7,6 +7,7 @@ var game_controller: GameController
 @onready var level1_done: Node2D = $Level1Done
 @onready var level2_done: Node2D = $Level2Done
 
+
 func _ready() -> void:
 	game_controller = Globals.game_controller
 	if game_controller.current_chapter == GameController.Chapter.SAVE001:

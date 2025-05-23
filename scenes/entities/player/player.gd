@@ -306,7 +306,6 @@ func _on_test_timer_timeout() -> void:
 #-- INTERACTION
 
 
-
 ## Handle gameplay input
 func _unhandled_input(_event: InputEvent) -> void:
 	if is_input_locked:

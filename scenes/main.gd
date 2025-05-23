@@ -190,6 +190,7 @@ func _start_credits():
 	change_world_2d_scene(MENU_BACKGROUND)
 	change_gui_scene(TITLE_SCREEN)
 
+
 ## Move story forward by one checkpoint
 ## Can only go forward, not backwards
 func progress_story():
@@ -216,12 +217,12 @@ func progress_story():
 			current_checkpoint = Checkpoint.FOUND
 		elif current_checkpoint == Checkpoint.FOUND:
 			current_checkpoint = Checkpoint.SURFACED
-	
+
 	if level_select(previous_chapter, previous_checkpoint) != level_select():
 		## change scene
 		change_world_2d_scene(level_select())
 	story_progressed.emit(current_chapter, current_checkpoint)
-	
+
 
 #-- SAVE LOAD
 
