@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1stiwwn7tmxh"]
+
+[ext_resource type="Script" path="res://scenes/levels/level_objective.gd" id="1_r5uc2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7im3n"]
+radius = 15.0
+height = 36.0
+
+[node name="LevelObjective" type="Area2D"]
+script = ExtResource("1_r5uc2")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_7im3n")
+debug_color = Color(4.74088e-06, 0.650198, 0.106951, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

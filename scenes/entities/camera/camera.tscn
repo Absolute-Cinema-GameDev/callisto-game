@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scenes/entities/camera/camera.gd" id="1_llx34"]
 
 [node name="Camera" type="Camera2D"]
+position = Vector2(320, 180)
 limit_left = 0
 limit_top = 0
 limit_right = 640

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnrh701jjo30q"
-path="res://.godot/imported/TileSea.png-87fb8f190d272b065b405014c5d1808c.ctex"
+uid="uid://0eef76r8opfu"
+path="res://.godot/imported/Patrolenemy.png-772c022323b7f5c4d08772865e39fe40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TileSea.png"
-dest_files=["res://.godot/imported/TileSea.png-87fb8f190d272b065b405014c5d1808c.ctex"]
+source_file="res://assets/entities/patrol-enemy/Patrolenemy.png"
+dest_files=["res://.godot/imported/Patrolenemy.png-772c022323b7f5c4d08772865e39fe40.ctex"]
 
 [params]
 
