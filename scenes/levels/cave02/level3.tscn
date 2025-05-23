@@ -689,7 +689,7 @@ enter_limit_top = 360
 enter_limit_bottom = 720
 
 [node name="Area5_2" parent="AreaTransition" instance=ExtResource("7_o5qwb")]
-position = Vector2(256, 673)
+position = Vector2(144, 673)
 rotation = -1.5708
 scale = Vector2(1, 0.3)
 enter_enabled = true
@@ -697,7 +697,7 @@ enter_limit_top = 360
 enter_limit_bottom = 720
 
 [node name="Area6_1" parent="AreaTransition" instance=ExtResource("7_o5qwb")]
-position = Vector2(118, 744)
+position = Vector2(145, 744)
 rotation = -1.5708
 scale = Vector2(1, 0.3)
 enter_enabled = true
