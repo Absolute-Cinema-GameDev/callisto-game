@@ -42,6 +42,7 @@ var player = null
 @onready var attack_box_collision: CollisionShape2D = $Sprite2D/AttackBox/CollisionShape2D
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var alert_label: Label = $AlertLabel
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 func _update_path_to_player():
@@ -148,6 +149,8 @@ func _physics_process(delta: float) -> void:
 				var knockback_direction = (player.global_position - global_position).normalized()
 				await get_tree().create_timer(0.3).timeout
 				player.apply_knockback(knockback_direction, 70.0, 0.12)
+				audio.pitch_scale = randf_range(0.9, 1.1)
+				audio.play()
 				player.take_damage()
 		else:
 			attack_timer += delta
