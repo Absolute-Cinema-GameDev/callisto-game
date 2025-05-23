@@ -7,7 +7,7 @@ var spawn_position: Vector2
 var target_position: Vector2
 var dash_speed: float = 60.0
 var dash_delay: float = 0.1
-var active_wait_time: float = 2.0
+var active_wait_time: float = 1
 var hit_pause_time: float = 0.5
 var stun_duration: float = 2.0
 var is_stun: bool = false  # For future stun rock mechanic
