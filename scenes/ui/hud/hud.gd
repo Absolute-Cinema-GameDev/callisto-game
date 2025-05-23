@@ -326,7 +326,7 @@ func update_quest_log(new_quest: String, prev_complete: bool = true) -> void:
 		await animate_quest_log_unfinished()
 
 	# wait for a bit so the user can read
-	await get_tree().create_timer(QUEST_LOG_HANG_TIME*3).timeout
+	await get_tree().create_timer(QUEST_LOG_HANG_TIME * 3).timeout
 	hide_hud_item(quest_log)
 
 

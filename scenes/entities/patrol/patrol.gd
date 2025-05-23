@@ -43,6 +43,7 @@ var player = null
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var alert_label: Label = $AlertLabel
 
+
 func _update_path_to_player():
 	if player:
 		var target = player.global_position
