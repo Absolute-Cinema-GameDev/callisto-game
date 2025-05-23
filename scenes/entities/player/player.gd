@@ -64,6 +64,7 @@ const OXYGEN_RESERVE_DECAY_RATE: float = 2
 @onready var stun_timer: Timer = $StunTimer
 @onready var hurtbox: CollisionShape2D = $Hurtbox  ## Use this for damage calculation
 @onready var collision_box: CollisionShape2D = $CollisionBox
+@onready var audio_get_hit: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 #-- GETTERS
 
@@ -268,8 +269,12 @@ func take_damage():
 	if is_invincible:
 		return
 	if health_status == HealthStatus.HEALTHY:  # Reduce to critical state
+		audio_get_hit.pitch_scale = randf_range(0.9, 1.1)
+		audio_get_hit.play()
 		health_status = HealthStatus.CRITICAL
 	else:  # Player is dead, restart level
+		audio_get_hit.pitch_scale = randf_range(0.9, 1.1)
+		audio_get_hit.play()
 		health_status = HealthStatus.DEAD
 
 

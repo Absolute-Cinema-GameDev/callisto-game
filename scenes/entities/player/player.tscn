@@ -1,9 +1,10 @@
-[gd_scene load_steps=39 format=3 uid="uid://b1ly5qti2o5ag"]
+[gd_scene load_steps=40 format=3 uid="uid://b1ly5qti2o5ag"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_liiov"]
 [ext_resource type="Texture2D" uid="uid://ythm0pc7jfiv" path="res://assets/entities/player/player_spritesheet.png" id="2_pi7ps"]
 [ext_resource type="Script" path="res://scenes/entities/player/player_debug_hud.gd" id="3_74f0n"]
 [ext_resource type="Texture2D" uid="uid://dibh0laaae687" path="res://assets/levels/air-pocket/bubble.png" id="3_h3v8u"]
+[ext_resource type="AudioStream" uid="uid://cjqw2ee6oe11o" path="res://assets/enemies/patrol/mixkit-body-punch-quick-hit-2153.wav" id="5_cqxgr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i0crb"]
 radius = 6.0
@@ -389,6 +390,10 @@ text = "air_pocket?"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 texture = SubResource("GradientTexture2D_7m7wd")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_cqxgr")
+volume_db = -20.0
 
 [connection signal="health_changed" from="." to="." method="_on_health_changed"]
 [connection signal="health_changed" from="." to="DebugHUD/HUDBase" method="_on_player_health_changed"]
