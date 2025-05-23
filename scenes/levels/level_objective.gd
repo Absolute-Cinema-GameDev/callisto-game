@@ -1,16 +1,16 @@
-extends Node2D
-
 class_name LevelObjective
+
+extends Node2D
 
 @export_group("Requirement", "required_")
 @export var required_chapter: GameController.Chapter
 @export var required_checkpoint: GameController.Checkpoint
 
+var game_controller: GameController
+
 @onready var scene_transition_animation: AnimationPlayer = get_parent().get_node(
 	"Scenetransition/AnimationPlayer"
 )
-
-var game_controller: GameController
 
 
 func _ready() -> void:
