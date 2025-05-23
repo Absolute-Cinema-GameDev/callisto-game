@@ -45,6 +45,9 @@ tile_set = ExtResource("1_to5ht")
 [node name="CanvasModulate" type="CanvasModulate" parent="Tiles"]
 color = Color(0.00249731, 0.12611, 0.60488, 1)
 
+[node name="Player" parent="." instance=ExtResource("2_qu6lk")]
+position = Vector2(97, 118)
+
 [node name="Patrol" type="Node2D" parent="."]
 
 [node name="Patrol1" parent="Patrol" instance=ExtResource("3_61wiq")]
@@ -198,9 +201,6 @@ rotation = 0.717309
 
 [node name="SeaweedBush5" parent="SeaweedBush" instance=ExtResource("4_wl2ii")]
 position = Vector2(814, 309)
-
-[node name="Player" parent="." instance=ExtResource("2_qu6lk")]
-position = Vector2(97, 118)
 
 [node name="AirPocket" type="Node2D" parent="."]
 
