@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scenes/levels/hub/poseidon_hub.gd" id="1_ltsap"]
 [ext_resource type="Texture2D" uid="uid://cjenc0ltxi7ke" path="res://assets/Wall-Props-Poseidon.png" id="2_gs3fu"]
 [ext_resource type="PackedScene" uid="uid://b1ly5qti2o5ag" path="res://scenes/entities/player/player.tscn" id="3_7f0x4"]
-[ext_resource type="PackedScene" path="res://scenes/levels/level_objective.tscn" id="4_cgptr"]
+[ext_resource type="PackedScene" uid="uid://b1stiwwn7tmxh" path="res://scenes/levels/level_objective.tscn" id="4_cgptr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gtbhx"]
 texture = ExtResource("1_01w8k")
@@ -4002,6 +4002,17 @@ offset_bottom = 182.0
 size_flags_horizontal = 4
 text = "3
 "
+
+[node name="ObjectiveLabel" type="Label" parent="."]
+offset_left = 190.0
+offset_top = 7.0
+offset_right = 229.0
+offset_bottom = 44.0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.935821, 0.242884, 0.328781, 1)
+text = "Go To
+Door 1"
 
 [node name="Player" parent="." instance=ExtResource("3_7f0x4")]
 position = Vector2(188, 87)

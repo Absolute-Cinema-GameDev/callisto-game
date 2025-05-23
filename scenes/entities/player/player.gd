@@ -23,8 +23,8 @@ const GRAVITY: float = 1200.0
 const MAX_OXYGEN_MAIN: float = 100.0
 const MAX_OXYGEN_RESERVE: float = 50.0
 const OXYGEN_MAIN_GAIN_RATE: float = 10
-const OXYGEN_MAIN_DECAY_RATE: float = 1
-const OXYGEN_RESERVE_DECAY_RATE: float = 1
+const OXYGEN_MAIN_DECAY_RATE: float = 2
+const OXYGEN_RESERVE_DECAY_RATE: float = 2
 
 @export var movement_speed: float = 120.0
 @export var movement_type: MovementType = MovementType.SWIM:
