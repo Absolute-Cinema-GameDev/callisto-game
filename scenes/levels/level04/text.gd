@@ -8,6 +8,7 @@ var typing_timer = 0.0
 var deleting = false
 var has_finished_typing = false
 
+
 func start_typing(text_to_type: String) -> void:
 	full_text = text_to_type
 	char_index = 0
@@ -17,10 +18,12 @@ func start_typing(text_to_type: String) -> void:
 	has_finished_typing = false
 	set_process(true)
 
+
 func start_deleting() -> void:
 	deleting = true
 	typing_timer = 0.0
 	set_process(true)
+
 
 func _process(delta):
 	typing_timer += delta
