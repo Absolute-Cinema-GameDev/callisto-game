@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scenes/levels/hub/poseidon_hub.gd" id="1_ltsap"]
 [ext_resource type="Texture2D" uid="uid://cjenc0ltxi7ke" path="res://assets/Wall-Props-Poseidon.png" id="2_gs3fu"]
 [ext_resource type="PackedScene" uid="uid://b1ly5qti2o5ag" path="res://scenes/entities/player/player.tscn" id="3_7f0x4"]
-[ext_resource type="PackedScene" uid="uid://b1stiwwn7tmxh" path="res://scenes/levels/level_objective.tscn" id="4_cgptr"]
+[ext_resource type="PackedScene" path="res://scenes/levels/level_objective.tscn" id="4_cgptr"]
 [ext_resource type="PackedScene" uid="uid://c8im0xnkk274a" path="res://scenes/ui/scene_transition/Scenetransition.tscn" id="6_jn14a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gtbhx"]

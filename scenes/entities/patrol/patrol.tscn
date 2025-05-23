@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://clsb0flmwrkei"]
+[gd_scene load_steps=14 format=3 uid="uid://clsb0flmwrkei"]
 
 [ext_resource type="Script" path="res://scenes/entities/patrol/patrol.gd" id="1_gaa75"]
 [ext_resource type="Texture2D" uid="uid://0eef76r8opfu" path="res://assets/entities/patrol-enemy/Patrolenemy.png" id="2_yq65a"]
+[ext_resource type="AudioStream" uid="uid://cjqw2ee6oe11o" path="res://assets/enemies/patrol/mixkit-body-punch-quick-hit-2153.wav" id="3_687c4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3kbfr"]
 radius = 7.08624
@@ -178,6 +179,11 @@ offset_top = -13.249
 offset_right = 25.0
 offset_bottom = 3.75096
 text = "!"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_687c4")
+volume_db = -25.0
+max_polyphony = 4
 
 [connection signal="body_entered" from="Sprite2D/AttackBox" to="." method="_on_attack_box_body_entered"]
 [connection signal="body_exited" from="Sprite2D/AttackBox" to="." method="_on_attack_box_body_exited"]
