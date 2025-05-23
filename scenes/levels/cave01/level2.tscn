@@ -383,46 +383,39 @@ position = Vector2(1178, 783)
 
 [node name="Camera" parent="." instance=ExtResource("7_ur3qc")]
 
-[node name="Area1_1" parent="." instance=ExtResource("8_jmus0")]
+[node name="AreaTransition" type="Node2D" parent="."]
 position = Vector2(622, 180)
+
+[node name="Area1_1" parent="AreaTransition" instance=ExtResource("8_jmus0")]
 enter_enabled = true
 
-[node name="Area2_1" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(658, 180)
-enter_enabled = true
-enter_limit_left = 640
-enter_limit_right = 1280
-
-[node name="Area2_2" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1262, 180)
+[node name="Area2_1" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(36, 0)
 enter_enabled = true
 enter_limit_left = 640
 enter_limit_right = 1280
 
-[node name="Area3_1" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1298, 180)
+[node name="Area2_2" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(640, 0)
+enter_enabled = true
+enter_limit_left = 640
+enter_limit_right = 1280
+
+[node name="Area3_1" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(676, 0)
 enter_enabled = true
 enter_limit_left = 1280
 enter_limit_right = 1920
 
-[node name="Area3_2" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1712, 336)
+[node name="Area3_2" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(1090, 156)
 rotation = -1.57079
 enter_enabled = true
 enter_limit_left = 1280
 enter_limit_right = 1920
 
-[node name="Area4_1" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1712, 383)
-rotation = -1.57079
-enter_enabled = true
-enter_limit_top = 360
-enter_limit_bottom = 720
-enter_limit_left = 1280
-enter_limit_right = 1920
-
-[node name="Area4_2" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1739, 671)
+[node name="Area4_1" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(1090, 203)
 rotation = -1.57079
 enter_enabled = true
 enter_limit_top = 360
@@ -430,24 +423,33 @@ enter_limit_bottom = 720
 enter_limit_left = 1280
 enter_limit_right = 1920
 
-[node name="Area4_3" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1298, 540)
+[node name="Area4_2" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(1117, 491)
+rotation = -1.57079
 enter_enabled = true
 enter_limit_top = 360
 enter_limit_bottom = 720
 enter_limit_left = 1280
 enter_limit_right = 1920
 
-[node name="Area5_1" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1262, 540)
+[node name="Area4_3" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(676, 360)
+enter_enabled = true
+enter_limit_top = 360
+enter_limit_bottom = 720
+enter_limit_left = 1280
+enter_limit_right = 1920
+
+[node name="Area5_1" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(640, 360)
 enter_enabled = true
 enter_limit_top = 360
 enter_limit_bottom = 720
 enter_limit_left = 640
 enter_limit_right = 1280
 
-[node name="Area6_1" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1739, 744)
+[node name="Area6_1" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(1117, 564)
 rotation = -1.57079
 enter_enabled = true
 enter_limit_top = 696
@@ -455,32 +457,32 @@ enter_limit_bottom = 1056
 enter_limit_left = 1280
 enter_limit_right = 1920
 
-[node name="Area6_2" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1298, 875)
+[node name="Area6_2" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(676, 695)
 enter_enabled = true
 enter_limit_top = 696
 enter_limit_bottom = 1056
 enter_limit_left = 1280
 enter_limit_right = 1920
 
-[node name="Area7_1" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(1262, 875)
+[node name="Area7_1" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(640, 695)
 enter_enabled = true
 enter_limit_top = 696
 enter_limit_bottom = 1056
 enter_limit_left = 640
 enter_limit_right = 1280
 
-[node name="Area7_2" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(658, 875)
+[node name="Area7_2" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(36, 695)
 enter_enabled = true
 enter_limit_top = 696
 enter_limit_bottom = 1056
 enter_limit_left = 640
 enter_limit_right = 1280
 
-[node name="Area7_3" parent="." instance=ExtResource("8_jmus0")]
-position = Vector2(622, 875)
+[node name="Area7_3" parent="AreaTransition" instance=ExtResource("8_jmus0")]
+position = Vector2(0, 695)
 enter_enabled = true
 enter_limit_top = 696
 enter_limit_bottom = 1056

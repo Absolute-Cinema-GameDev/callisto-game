@@ -52,7 +52,6 @@ color = Color(0.00392157, 0.12549, 0.603922, 1)
 position = Vector2(1799, -111)
 
 [node name="Patrol" type="Node2D" parent="."]
-visible = false
 
 [node name="Patrol" parent="Patrol" instance=ExtResource("3_1722m")]
 position = Vector2(704, 236)
@@ -69,14 +68,6 @@ patrol_corner_1 = Vector2(1300, 0)
 patrol_corner_2 = Vector2(1920, -360)
 patrol_corner_3 = Vector2(1300, 0)
 patrol_corner_4 = Vector2(1920, -360)
-
-[node name="Patrol3" parent="Patrol" instance=ExtResource("3_1722m")]
-position = Vector2(149, 909)
-chase_speed = 35.0
-patrol_corner_1 = Vector2(0, 1080)
-patrol_corner_2 = Vector2(640, 1080)
-patrol_corner_3 = Vector2(0, 730)
-patrol_corner_4 = Vector2(640, 730)
 
 [node name="Patrol4" parent="Patrol" instance=ExtResource("3_1722m")]
 position = Vector2(1176, 807)
@@ -119,7 +110,6 @@ patrol_corner_3 = Vector2(640, 1080)
 patrol_corner_4 = Vector2(1280, 1440)
 
 [node name="Ambush" type="Node2D" parent="."]
-visible = false
 position = Vector2(-3181, -2898)
 
 [node name="Ambush1" parent="Ambush" instance=ExtResource("5_o43ui")]
@@ -549,7 +539,6 @@ position = Vector2(2028, 1256)
 scale = Vector2(0.25, 0.25)
 
 [node name="SeaweedBush" type="Node2D" parent="."]
-visible = false
 
 [node name="SeaweedBush" parent="SeaweedBush" instance=ExtResource("4_makec")]
 position = Vector2(996, 76)
@@ -874,7 +863,7 @@ enter_limit_bottom = 720
 enter_limit_left = 640
 enter_limit_right = 1280
 
-[node name="Area15_1" parent="." instance=ExtResource("7_o5qwb")]
+[node name="Area15_1" parent="AreaTransition" instance=ExtResource("7_o5qwb")]
 position = Vector2(1596, 1432)
 rotation = -1.5708
 enter_enabled = true
@@ -883,7 +872,7 @@ enter_limit_bottom = 1768
 enter_limit_left = 1280
 enter_limit_right = 1920
 
-[node name="Area15_2" parent="." instance=ExtResource("7_o5qwb")]
+[node name="Area15_2" parent="AreaTransition" instance=ExtResource("7_o5qwb")]
 position = Vector2(1495, 1728)
 rotation = -1.5708
 enter_enabled = true
@@ -892,7 +881,7 @@ enter_limit_bottom = 1768
 enter_limit_left = 1280
 enter_limit_right = 1920
 
-[node name="Area16_1" parent="." instance=ExtResource("7_o5qwb")]
+[node name="Area16_1" parent="AreaTransition" instance=ExtResource("7_o5qwb")]
 position = Vector2(1495, 1792)
 rotation = -1.5708
 enter_enabled = true
@@ -901,7 +890,7 @@ enter_limit_bottom = 2112
 enter_limit_left = 1280
 enter_limit_right = 1920
 
-[node name="Area16_2" parent="." instance=ExtResource("7_o5qwb")]
+[node name="Area16_2" parent="AreaTransition" instance=ExtResource("7_o5qwb")]
 position = Vector2(1901, 1941)
 enter_enabled = true
 enter_limit_top = 1752
@@ -909,7 +898,7 @@ enter_limit_bottom = 2112
 enter_limit_left = 1280
 enter_limit_right = 1920
 
-[node name="Area17_1" parent="." instance=ExtResource("7_o5qwb")]
+[node name="Area17_1" parent="AreaTransition" instance=ExtResource("7_o5qwb")]
 position = Vector2(1937, 1941)
 enter_enabled = true
 enter_limit_top = 1752
