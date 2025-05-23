@@ -2,12 +2,13 @@ extends Node2D
 
 var has_triggered := false
 var explode_timer := Timer.new()
-@onready var area_detection = $AreaDetection
-
 var velocity: Vector2 = Vector2.ZERO
 var move_target: Vector2 = Vector2.ZERO
-var move_speed: float = 180.0 # You can adjust this speed
+var move_speed: float = 180.0  # You can adjust this speed
 var moving: bool = false
+
+@onready var area_detection = $AreaDetection
+@onready var anim = $Animate
 
 
 # Called when the node enters the scene tree for the first time.
@@ -18,6 +19,7 @@ func _ready() -> void:
 	explode_timer.one_shot = true
 	explode_timer.timeout.connect(_on_explode_timer_timeout)
 	add_child(explode_timer)
+	anim.play("static")
 
 
 # Called every frame.
@@ -49,4 +51,10 @@ func _on_explode_timer_timeout():
 	for body in area_detection.get_overlapping_bodies():
 		if body.has_method("stun"):
 			body.stun()
-	queue_free() # TEMP: comment out for debug
+	anim.play("explode")
+	anim.animation_finished.connect(_on_explode_anim_finished)
+
+
+func _on_explode_anim_finished():
+	if anim.animation == "explode":
+		queue_free()

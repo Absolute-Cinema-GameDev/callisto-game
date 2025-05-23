@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [gd_scene load_steps=6 format=3 uid="uid://bpeiputo77fh1"]
 
 [ext_resource type="PackedScene" path="res://assets/entities/player/player.tscn" id="1_uknod"]
@@ -18,13 +19,40 @@ collision_layer = 4
 
 [node name="Stunrock" parent="." instance=ExtResource("3_6cob6")]
 position = Vector2(318, 216)
+=======
+[gd_scene load_steps=2 format=3 uid="uid://bpeiputo77fh1"]
 
-[node name="SeaweedBush" parent="." instance=ExtResource("4_opman")]
-position = Vector2(214, 123)
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_vy3m2"]
 
+[node name="GameController" type="Node" node_paths=PackedStringArray("world_2d", "gui")]
+process_mode = 3
+script = ExtResource("1_vy3m2")
+world_2d = NodePath("World2D")
+gui = NodePath("GUILayer/GUI")
+
+[node name="World2D" type="Node2D" parent="."]
+process_mode = 1
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
+>>>>>>> cd4d7fe02e1c85c94853135f43791d0c5eab1f8c
+
+[node name="GUI" type="Control" parent="GUILayer"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+<<<<<<< HEAD
 [node name="SeaweedBush2" parent="." instance=ExtResource("4_opman")]
 position = Vector2(369, 94)
 
 [node name="Patrol" parent="." instance=ExtResource("2_ssld4")]
 chase_speed = 25.0
 stun_duration = 2.0
+=======
+[connection signal="pause_state_changed" from="." to="." method="_on_pause_state_changed"]
+[connection signal="story_progressed" from="." to="." method="_on_story_progressed"]
+>>>>>>> cd4d7fe02e1c85c94853135f43791d0c5eab1f8c
