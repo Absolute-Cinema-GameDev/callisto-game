@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=4 uid="uid://bamsom22grcgb"]
 
-[ext_resource type="TileSet" uid="uid://df7qnwfom4ddq" path="res://assets/calisto_tileset.tres" id="1_tj5bl"]
+[ext_resource type="TileSet" uid="uid://be2scx7ig27qu" path="res://assets/calisto_tileset.tres" id="1_tj5bl"]
 [ext_resource type="Script" path="res://scenes/levels/cave00/level_1.gd" id="1_unst8"]
 [ext_resource type="PackedScene" uid="uid://b1ly5qti2o5ag" path="res://scenes/entities/player/player.tscn" id="2_lsyik"]
 [ext_resource type="PackedScene" uid="uid://clsb0flmwrkei" path="res://scenes/entities/patrol/patrol.tscn" id="3_s3gah"]
 [ext_resource type="PackedScene" uid="uid://eum7ybrrepj" path="res://scenes/levels/seaweed_bush/seaweed_bush.tscn" id="4_d140t"]
 [ext_resource type="PackedScene" uid="uid://7g1e4nr8io8c" path="res://scenes/levels/air_pocket/air_pocket.tscn" id="5_g8txn"]
 [ext_resource type="PackedScene" uid="uid://bwsnrjah2dsow" path="res://scenes/entities/camera/camera.tscn" id="6_6sqaa"]
-[ext_resource type="PackedScene" uid="uid://c6u8oh25hgql5" path="res://scenes/entities/camera/camera_trigger.tscn" id="6_gcr6i"]
-[ext_resource type="PackedScene" uid="uid://b1stiwwn7tmxh" path="res://scenes/levels/level_objective.tscn" id="8_g8dfk"]
+[ext_resource type="PackedScene" path="res://scenes/entities/camera/camera_trigger.tscn" id="6_gcr6i"]
+[ext_resource type="PackedScene" path="res://scenes/levels/level_objective.tscn" id="8_g8dfk"]
 [ext_resource type="PackedScene" uid="uid://cng851s6pw0mw" path="res://scenes/entities/crewmate/crew_mate_1.tscn" id="9_qn2i6"]
 [ext_resource type="PackedScene" uid="uid://c8im0xnkk274a" path="res://scenes/ui/scene_transition/Scenetransition.tscn" id="11_csjbr"]
 
@@ -20,7 +20,7 @@ agent_radius = 20.0
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_unst8")
-metadata/_edit_horizontal_guides_ = [360.0, 704.0, 1057.0]
+metadata/_edit_horizontal_guides_ = [360.0, 704.0, 1055.0, 697.0]
 metadata/_edit_vertical_guides_ = [640.0, 1280.0, 1920.0]
 
 [node name="Tiles" type="Node2D" parent="."]
@@ -43,9 +43,6 @@ tile_set = ExtResource("1_tj5bl")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Tiles"]
 color = Color(0.00392157, 0.12549, 0.603922, 1)
-
-[node name="Player" parent="." instance=ExtResource("2_lsyik")]
-position = Vector2(70, 72)
 
 [node name="Patrol" type="Node2D" parent="."]
 
@@ -100,6 +97,9 @@ position = Vector2(487, 597)
 [node name="SeaweedBush5" parent="SeaweedBush" instance=ExtResource("4_d140t")]
 position = Vector2(1215, 246)
 
+[node name="Player" parent="." instance=ExtResource("2_lsyik")]
+position = Vector2(70, 73)
+
 [node name="AirPocket" type="Node2D" parent="."]
 
 [node name="AirPocket1" parent="AirPocket" instance=ExtResource("5_g8txn")]
@@ -117,24 +117,24 @@ position = Vector2(973, 799)
 [node name="Camera" parent="." instance=ExtResource("6_6sqaa")]
 
 [node name="Area1_1" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(632, 180)
+position = Vector2(622, 180)
 enter_enabled = true
 
 [node name="Area2_1" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(648, 180)
+position = Vector2(658, 180)
 enter_enabled = true
 enter_limit_left = 640
 enter_limit_right = 1280
 
 [node name="Area2_2" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(957, 351)
+position = Vector2(957, 336)
 rotation = 1.57079
 enter_enabled = true
 enter_limit_left = 640
 enter_limit_right = 1280
 
 [node name="Area3_1" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(957, 370)
+position = Vector2(957, 384)
 rotation = 1.57079
 enter_enabled = true
 enter_limit_top = 360
@@ -143,7 +143,7 @@ enter_limit_left = 640
 enter_limit_right = 1280
 
 [node name="Area3_2" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(826, 696)
+position = Vector2(826, 673)
 rotation = 1.57079
 enter_enabled = true
 enter_limit_top = 360
@@ -152,7 +152,7 @@ enter_limit_left = 640
 enter_limit_right = 1280
 
 [node name="Area3_3" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(1270, 535)
+position = Vector2(1262, 535)
 enter_enabled = true
 enter_limit_top = 360
 enter_limit_bottom = 720
@@ -160,7 +160,7 @@ enter_limit_left = 640
 enter_limit_right = 1280
 
 [node name="Area3_4" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(650, 506)
+position = Vector2(658, 506)
 enter_enabled = true
 enter_limit_top = 360
 enter_limit_bottom = 720
@@ -168,13 +168,13 @@ enter_limit_left = 640
 enter_limit_right = 1280
 
 [node name="Area4_1" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(630, 506)
+position = Vector2(622, 506)
 enter_enabled = true
 enter_limit_top = 344
 enter_limit_bottom = 704
 
 [node name="Area5_1" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(1290, 537)
+position = Vector2(1298, 537)
 enter_enabled = true
 enter_limit_top = 360
 enter_limit_bottom = 720
@@ -182,7 +182,7 @@ enter_limit_left = 1280
 enter_limit_right = 1920
 
 [node name="Area5_2" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(1736, 693)
+position = Vector2(1736, 673)
 rotation = 1.57079
 enter_enabled = true
 enter_limit_top = 360
@@ -191,7 +191,7 @@ enter_limit_left = 1280
 enter_limit_right = 1920
 
 [node name="Area6_1" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(1737, 714)
+position = Vector2(1737, 728)
 rotation = 1.57079
 enter_enabled = true
 enter_limit_top = 697
@@ -200,7 +200,7 @@ enter_limit_left = 1280
 enter_limit_right = 1920
 
 [node name="Area6_2" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(1292, 878)
+position = Vector2(1298, 878)
 rotation = 3.14159
 enter_enabled = true
 enter_limit_top = 697
@@ -209,7 +209,7 @@ enter_limit_left = 1280
 enter_limit_right = 1920
 
 [node name="Area7_1" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(826, 714)
+position = Vector2(826, 728)
 rotation = 4.71238
 enter_enabled = true
 enter_limit_top = 697
@@ -218,7 +218,7 @@ enter_limit_left = 640
 enter_limit_right = 1280
 
 [node name="Area7_2" parent="." instance=ExtResource("6_gcr6i")]
-position = Vector2(1267, 886)
+position = Vector2(1262, 886)
 enter_enabled = true
 enter_limit_top = 697
 enter_limit_bottom = 1057
