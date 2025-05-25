@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1sbtvb7gxt0k"]
+
+[ext_resource type="Script" path="res://scenes/levels/boss_level/suction_area.gd" id="1_m0gmo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ms40"]
+size = Vector2(645, 360)
+
+[node name="SuctionArea" type="Area2D"]
+script = ExtResource("1_m0gmo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(320.5, 180)
+shape = SubResource("RectangleShape2D_7ms40")

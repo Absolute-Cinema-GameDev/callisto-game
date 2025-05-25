@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://eum7ybrrepj"]
 
 [ext_resource type="Script" path="res://scenes/levels/seaweed_bush/seaweed_bush.gd" id="1_kc8n4"]
-[ext_resource type="Texture2D" uid="uid://ca7wj7enb75xb" path="res://TileSea.png" id="2_ttfsv"]
+[ext_resource type="Texture2D" uid="uid://bnysek51j2i1u" path="res://TileSea.png" id="2_ttfsv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_23ysy"]
 atlas = ExtResource("2_ttfsv")

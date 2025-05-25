@@ -4,7 +4,7 @@ var has_triggered := false
 var explode_timer := Timer.new()
 var velocity: Vector2 = Vector2.ZERO
 var move_target: Vector2 = Vector2.ZERO
-var move_speed: float = 180.0  # You can adjust this speed
+@export var move_speed: float = 120.0  # You can adjust this speed
 var moving: bool = false
 
 @onready var area_detection = $AreaDetection
@@ -13,6 +13,7 @@ var moving: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("Stunrock instance ready!")
 	area_detection.body_entered.connect(_on_area_body_entered)
 	explode_timer.wait_time = 0.1
 	explode_timer.one_shot = true
@@ -39,19 +40,26 @@ func set_move_target(target: Vector2):
 	moving = true
 
 
-func _on_area_body_entered(_body):
-	if not has_triggered:
-		has_triggered = true
-		explode_timer.start()
-
-
-func _on_explode_timer_timeout():
-	print("explode")
+func explode():
+	if has_triggered:
+		return
+	has_triggered = true
+	# Stun overlapping bodies
 	for body in area_detection.get_overlapping_bodies():
 		if body.has_method("stun"):
 			body.stun()
 	anim.play("explode")
-	anim.animation_finished.connect(_on_explode_anim_finished)
+	# Only connect once
+	if not anim.animation_finished.is_connected(_on_explode_anim_finished):
+		anim.animation_finished.connect(_on_explode_anim_finished)
+
+
+func _on_area_body_entered(_body):
+	explode()
+
+
+func _on_explode_timer_timeout():
+	explode()
 
 
 func _on_explode_anim_finished():

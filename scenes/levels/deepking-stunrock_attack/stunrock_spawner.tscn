@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctq1yt2qkx6cb"]
+
+[ext_resource type="Script" path="res://scenes/levels/deepking-stunrock_attack/stunrock_spawner.gd" id="1_ittwg"]
+[ext_resource type="PackedScene" uid="uid://v2h7u6c0nqg7" path="res://scenes/levels/stunrock/stunrock.tscn" id="2_cadlo"]
+
+[node name="StunrockSpawner" type="Node2D"]
+script = ExtResource("1_ittwg")
+stunrock_scene = ExtResource("2_cadlo")

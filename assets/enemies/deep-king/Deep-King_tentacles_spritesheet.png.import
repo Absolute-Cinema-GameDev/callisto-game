@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnysek51j2i1u"
-path="res://.godot/imported/TileSea.png-87fb8f190d272b065b405014c5d1808c.ctex"
+uid="uid://ckkviutdxrw5h"
+path="res://.godot/imported/Deep-King_tentacles_spritesheet.png-956db564007f921a0f9dc6a96be9fe03.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TileSea.png"
-dest_files=["res://.godot/imported/TileSea.png-87fb8f190d272b065b405014c5d1808c.ctex"]
+source_file="res://assets/enemies/deep-king/Deep-King_tentacles_spritesheet.png"
+dest_files=["res://.godot/imported/Deep-King_tentacles_spritesheet.png-956db564007f921a0f9dc6a96be9fe03.ctex"]
 
 [params]
 

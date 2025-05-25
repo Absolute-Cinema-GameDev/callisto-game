@@ -293,7 +293,7 @@ func _on_health_changed(new_health) -> void:
 		invincible_timer.start()
 		heal_timer.start()
 	elif new_health == HealthStatus.DEAD:
-		Globals.game_controller.change_world_2d_scene(Globals.game_controller.level_select())
+		#Globals.game_controller.change_world_2d_scene(Globals.game_controller.level_select())
 		is_input_locked = true
 		animplayer.set_self_modulate(Color(0.25, 0, 0, 1))
 
