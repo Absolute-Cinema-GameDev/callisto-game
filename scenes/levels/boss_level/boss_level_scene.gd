@@ -154,7 +154,7 @@ var _survival_timer = null
 var _intense_timer = null
 
 var survival_time = 10.0
-var intense_time = 5.0
+var intense_time = 10.0
 
 var _phase := "survival"
 var cutscene: String = "res://scenes/levels/" # Placeholder for next scene path
